@@ -16,14 +16,17 @@ $ npm install
 ## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
 ## Uso
-#### Start new whatsapp session
+#### Iniciar sessão whatsapp
 http://localhost:8081/sistem/start/nome_da_sessão
 
 ####  Exibir QRCode no navegador
 http://localhost:8081/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna joson com (base64) do QRCode 
-http://localhost:8081/QRCode/nome_da_sessão/true
+http://localhost:8081/sistem/QRCode/nome_da_sessão/true
+
+#### Fecha sessão whatsapp
+http://localhost:8081/sistem/crose/nome_da_sessão
 
 ## Em desenvolvimento
 
