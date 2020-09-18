@@ -1,5 +1,5 @@
 # WaBot
- Este projeto usa como base o Venom-bot, um navegador virtual sem interface gráfica que abre o whatsapp web e executa todos os comandos via código possibilitando assim a automação de todas as funções.
+ Este projeto usa como base o [Venom-bot](https://github.com/orkestral/venom "Venom-bot"), um navegador virtual sem interface gráfica que abre o whatsapp web e executa todos os comandos via código possibilitando assim a automação de todas as funções, e um fork do projeto [myzap](https://github.com/billbarsch/myzap "myzap") do @billbarsch.
 
 ## Rodando a aplicação
 
@@ -8,13 +8,23 @@
 $ git clone git@github.com:AlanMartines/myzap.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd wabot
+$ cd myzap
 
 # Instale as dependências
 $ npm install
 
 ## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
+## Uso
+#### Start new whatsapp session
+http://localhost:8081/sistem/start/nome_da_sessão
+
+####  Exibir QRCode no navegador
+http://localhost:8081/sistem/QRCode/nome_da_sessão/true
+
+####  Retorna joson com (base64) do QRCode 
+http://localhost:8081/QRCode/nome_da_sessão/true
+
 ## Em desenvolvimento
 
 Este projeto se encontra em desevolvimento.
