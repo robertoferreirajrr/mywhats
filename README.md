@@ -1,6 +1,12 @@
 # WaBot
  Este projeto usa como base o Venom-bot, um navegador virtual sem interface gráfica que abre o whatsapp web e executa todos os comandos via código possibilitando assim a automação de todas as funções.
 
+![](https://img.shields.io/github/stars/pandao/editor.md.svg) 
+![](https://img.shields.io/github/forks/pandao/editor.md.svg) 
+![](https://img.shields.io/github/tag/pandao/editor.md.svg) 
+![](https://img.shields.io/github/release/pandao/editor.md.svg) 
+![](https://img.shields.io/github/issues/pandao/editor.md.svg) 
+![](https://img.shields.io/bower/v/editor.md.svg)
 
 ## Rodando a aplicação
 
