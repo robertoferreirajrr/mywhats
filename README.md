@@ -13,7 +13,19 @@ $ cd myzap
 # Instale as dependências
 $ npm install
 
-## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
+# Execute a aplicação 
+$ node index.js
+
+# Manter os processos ativos a cada reinicialização do servidor
+npm install pm2 -g
+
+pm2 start index.js
+
+pm2 startup
+
+# O servidor inciará na porta:8081 - acesse <http://localhost:3333> 
+
+# Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
 ## Uso
 #### Iniciar sessão whatsapp
