@@ -23,7 +23,7 @@ pm2 start index.js
 
 pm2 startup
 
-# O servidor inciará na porta:8081 - acesse <http://localhost:3333> 
+# O servidor inciará na porta:8081
 
 # Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
