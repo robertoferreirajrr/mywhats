@@ -25,7 +25,6 @@ module.exports = class Sessions {
 
         if (session == false) {
             //create new session
-            console.log("- Session: false");
             session = await Sessions.addSesssion(sessionName);
         } else if (["CLOSED"].includes(session.state)) {
             //restart session
@@ -114,6 +113,7 @@ module.exports = class Sessions {
                 session.CodeasciiQR = asciiQR;
                 // Para escrevê-lo em outro lugar em um arquivo
                 //exportQR(base64Qr, './public/images/marketing-qr.png');
+                /*
                 var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
                     response = {};
 
@@ -122,7 +122,8 @@ module.exports = class Sessions {
                 }
                 response.type = matches[1];
                 response.data = new Buffer.from(matches[2], 'base64');
-
+                
+                // Gerar o arquivo png
                 var imageBuffer = response;
                 require('fs').writeFile('./public/images/marketing-qr.png',
                     imageBuffer['data'],
@@ -133,6 +134,7 @@ module.exports = class Sessions {
                         }
                     }
                 );
+                */
             }, (statusSession) => {
                 console.log('- Status da sessão:', statusSession);
                 //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
@@ -264,6 +266,5 @@ module.exports = class Sessions {
     } //closeSession
     //
     // ------------------------------------------------------------------------------------------------//
-    //
     //
 }
