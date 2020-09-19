@@ -18,7 +18,7 @@ const {
 module.exports = class Sessions {
     //
     static async start(sessionName) {
-        console.log("- Criando sessão");
+        console.log("- Criando sessão "+ sessionName);
         Sessions.sessions = Sessions.sessions || []; //start array
 
         var session = Sessions.getSession(sessionName);
@@ -71,7 +71,7 @@ module.exports = class Sessions {
     //
     //
     static getSession(sessionName) {
-        console.log("- Obtendo sessão");
+        //console.log("- Obtendo sessão");
         var foundSession = false;
         if (Sessions.sessions)
             Sessions.sessions.forEach(session => {
@@ -264,7 +264,303 @@ module.exports = class Sessions {
             };
         }
     } //closeSession
-    //
-    // ------------------------------------------------------------------------------------------------//
-    //
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+static async sendText(sessionName, number, text) {
+    console.log("Enviando texto!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultSendText = await session.client.then(async client => {
+                // Send basic text
+                await client.sendMessageToId(number + '@c.us', text).then((result)=>{
+                    //console.log("Result: ", result); //return object success
+                    return { result: "success",state: session.state, message: "Sucesso ao enviar menssagem" };
+                }).catch((erro)=>{
+                    //console.error("Error when sending: ", erro); //return object error
+                    return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                });
+            });
+            return resultSendText;
+        } else {
+            return { result: 'info', state: session.state, message: "Sistema iniciando" };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//sendText
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+static async sendFile(sessionName, number, base64Data, fileName, caption) {
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultSendFile = await session.client.then(async (client) => {
+                var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                var filePath = path.join(folderName, fileName);
+                fs.writeFileSync(filePath, base64Data, 'base64');
+                console.log(filePath);
+                return await client.sendFile(number + '@c.us', filePath, fileName, caption);
+            });//client.then(
+            return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: "error", message: "NOTFOUND" };
+    }
+}//sendImage
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+static async sendFile(sessionName, number, base64Data, fileName, caption) {
+    console.log("Enviando arquivo!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultSendFile = await session.client.then(async (client) => {
+                var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                var filePath = path.join(folderName, fileName);
+                fs.writeFileSync(filePath, base64Data, 'base64');
+                console.log(filePath);
+                return await client.sendFile(number + '@c.us', filePath, fileName, caption);
+            });//client.then(
+            return { resultSendFile };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//sendFile
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Chama sua lista de contatos bloqueados (retorna uma matriz)
+static async getBlockList(sessionName) {
+    console.log("Obtendo lista de bloqueados!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetBlockList = await session.client.then(async client => {
+                return await client.getBlockList();
+            });
+            return { resultgetBlockList };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getBlockList
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Retrieve contacts
+static async getAllContacts(sessionName) {
+    console.log("Obtendo todos os contatos!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetAllContacts = await session.client.then(async client => {
+                return await client.getAllContacts();
+            });
+            return { resultgetAllContacts };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getAllContacts
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recupere todas as mensagens no chat
+static async loadAndGetAllMessagesInChat(sessionName) {
+    console.log("Carregando e obtendo todas as mensagens no chat!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultloadAndGetAllMessagesInChat = await session.client.then(async client => {
+                return await client.loadAndGetAllMessagesInChat(chatId + '@g.us');
+            });
+            return { resultloadAndGetAllMessagesInChat };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//loadAndGetAllMessagesInChat
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar status de contato
+static async getStatus(sessionName) {
+    console.log("Obtendo status!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetStatus = await session.client.then(async client => {
+                return await client.getStatus(contactId + '@c.us');
+            });
+            return { resultgetStatus };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getStatus
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar perfil de usuário
+static async getNumberProfile(sessionName) {
+    console.log("Obtendo o perfil do número!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetNumberProfile = await session.client.then(async client => {
+                return await client.getNumberProfile(contactId + '@c.us');
+            });
+            return { resultgetNumberProfile };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getNumberProfile
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recupera todas as mensagens não lidas
+static async getAllUnreadMessages(sessionName) {
+    console.log("Obtendo todas as mensagens não lidas!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetAllUnreadMessages = await session.client.then(async client => {
+                return await client.getAllUnreadMessages();
+            });
+            return { resultgetAllUnreadMessages };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getAllUnreadMessages
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar todos os chats
+static async getAllChats(sessionName) {
+    console.log("Obtendo todos os chats!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetAllChats = await session.client.then(async client => {
+                return await client.getAllChats();
+            });
+            return { resultgetAllChats };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getAllChats
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar todos os grupos
+static async getAllGroups(sessionName) {
+    console.log("Obtendo todos os grupos!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetAllGroups = await session.client.then(async client => {
+                return await client.getAllGroups();
+            });
+            return { resultgetAllGroups };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getAllGroups
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar fic de perfil (como url)
+static async getProfilePicFromServer(sessionName) {
+    console.log("Obtendo a foto do perfil do servidor!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetProfilePicFromServer = await session.client.then(async client => {
+                return await client.getProfilePicFromServer(chatId + '@g.us');
+            });
+            return { resultgetProfilePicFromServer };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getProfilePicFromServer
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
+// Recuperar chat / conversa
+static async getChat(sessionName) {
+    console.log("Obtendo chats!");
+    var session = Sessions.getSession(sessionName);
+    if (session) {
+        if (session.state == "CONNECTED") {
+            var resultgetChat = await session.client.then(async client => {
+                return await client.getChat(chatId + '@g.us');
+            });
+            return { resultgetChat };
+            //return { result: "success" };
+        } else {
+            return { result: "error", message: session.state };
+        }
+    } else {
+        return { result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" };
+    }
+}//getChat
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
 }
