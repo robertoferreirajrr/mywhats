@@ -82,12 +82,12 @@ if (ssl === true) { //with ssl
 //
 //
 app.get("/", async (req, res) => {
-    res.render("pages/index");
+    res.render("pages/home");
 });
 //
 //
 app.get("/home", async (req, res) => {
-    res.render("pages/index");
+    res.render("pages/home");
 });
 //
 //
