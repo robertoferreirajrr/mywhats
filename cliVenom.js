@@ -4,6 +4,7 @@ const fs = require('fs');
 const mime = require('mime-types');
 const path = require('path');
 const venom = require('venom-bot');
+var helmet = require('helmet');
 const {
     json
 } = require('express');
@@ -18,7 +19,7 @@ const {
 module.exports = class Sessions {
     //
     static async start(sessionName) {
-        console.log("- Criando sessão "+ sessionName);
+        //console.log("- Criando sessão "+ sessionName);
         Sessions.sessions = Sessions.sessions || []; //start array
 
         var session = Sessions.getSession(sessionName);
@@ -111,9 +112,9 @@ module.exports = class Sessions {
                 // Registrar o QR no terminal
                 //console.log(asciiQR);
                 session.CodeasciiQR = asciiQR;
+                /*
                 // Para escrevê-lo em outro lugar em um arquivo
                 //exportQR(base64Qr, './public/images/marketing-qr.png');
-                /*
                 var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
                     response = {};
 

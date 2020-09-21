@@ -1,44 +1,25 @@
-     function servicoVenom() {
-                    $.ajax({
-                        url: './servicoVenon.php',
-                        dataType: 'json',
-                        beforeSend: function() {
-                            
-                        },
-                        success: function(response) {
-                            if (response.result == "success") {
-								$("#servicoVenom").html(response.message);
-								startVenon();
-                            } else {
-                            	$("#qrcodeVenon").html('<img src="../images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
-                                $("#servicoVenom").html(response.message);
-                                $("#startVenom").html("Off-Line");
-                            }
-                        }
-                    });
-    }
-//
     function startVenon() {
                     $.ajax({
-                        url: './startVenom.php',
+                        url: 'http://localhost:8081/sistem/start/Teste',
                         dataType: 'json',
                         beforeSend: function() {
                             
                         },
                         success: function(response) {
-                            if (response.result == "success" && response.message == "STARTING") {
+                            console.log(response);
+                            if (response.result == "info" && response.state == "STARTING") {
                             	$("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
 								$("#startVenom").html("Iniciando");
-                            } else if (response.result == "success" && response.message == "QRCODE") {
+                            } else if (response.result == "warning" && response.state == "QRCODE") {
                             	qrcodeVenon();
                                 $("#startVenom").html("Ler QR-Code");
-                            } else if (response.result == "success" && response.message == "CONNECTED") {
+                            } else if (response.result == "success" && response.state == "CONNECTED") {
                                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
                                 $("#startVenom").html("Conectado");
-                            } else if (response.result == "error" && response.message == "UNPAIRED" || response.message == "UNPAIRED_IDLE") {
+                            } else if (response.result == "error" && response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
 								$("#qrcodeVenon").html('<img src="../images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
                                 $("#startVenom").html("Não Conectado");
-                            } else if (response.result == "success" && response.message == "CLOSED") {
+                            } else if (response.result == "success" && response.state == "CLOSED") {
                             	$("#qrcodeVenon").html('<img src="../images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
                                 $("#startVenom").html("Saindo...");
                             } else {
@@ -50,18 +31,18 @@
 //
     function closeVenon() {
                     $.ajax({
-                        url: './closeVenom.php',
+                        url: 'http://localhost:8081/sistem/close/Teste',
                         dataType: 'json',
                         beforeSend: function() {
                             
                         },
                         success: function(response) {
-                            if (response.result == "success" && response.message == "CLOSED") {
+                            if (response.result == "success" && response.state == "CLOSED") {
 								$("#qrcodeVenon").html('<img src="../images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
                                 $("#startVenom").html("Saindo...");
                             } else {
                             	$("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
-                                $("#startVenom").html(response.message);
+                                $("#startVenom").html(response.state);
                             }
                         }
                     });
@@ -69,13 +50,13 @@
 //
     function qrcodeVenon() {
                     $.ajax({
-                        url: './QRCode.php',
+                        url: 'http://localhost:8081/sistem/QRCode/Teste/false',
                         dataType: 'json',
                         beforeSend: function() {
                             
                         },
                         success: function(response) {
-                            if (response.result == "success" && response.message == "QRCODE" || response.message == "UNPAIRED" || response.message == "UNPAIRED_IDLE") {
+                            if (response.result == "success" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
 								$("#qrcodeVenon").html('<img src="'+response.qrcode+'" class="img-fluid" width="120px" alt="QR-Code">');
                             } else {
                                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
@@ -95,15 +76,16 @@ $('document').ready(function() {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
-    /*servicoVenom();
-    
+    startVenon();
 	var auto_refresh_qrcode = setInterval(
 	function () {
-    servicoVenom();
-    //qrcodeVenon();
+    startVenon();
 	}, 10000); // refresh every 10000 milliseconds
-	*/
-	//
+	
+    //
+$('#starVenon').click(function (e) {
+startVenon();
+ });
 $('#restarVenon').click(function (e) {
 closeVenon();
 startVenon();

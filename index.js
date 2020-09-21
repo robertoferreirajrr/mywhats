@@ -1,14 +1,17 @@
 //
+// https://expressjs.com/pt-br/advanced/best-practice-security.html
 // Configuração dos módulos
 const fs = require('fs');
 const mime = require('mime-types');
 const http = require('http');
 const https = require('https');
 const express = require('express');
+var helmet = require('helmet');
 const bodyParser = require('body-parser')
 const expressLayouts = require('express-ejs-layouts')
 const handlebars = require('express-handlebars');
 const os = require('os');
+const internalIp = require('internal-ip');
 const path = require('path');
 const venom = require('venom-bot');
 const { json } = require('express');
@@ -20,20 +23,27 @@ const multer  = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
 const upload = multer({ })
 const app = express();
+const cors = require('cors');
+const { async } = require('rxjs');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
 const sistem = require("./routes/sistem");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT_WEB || 8081;
-const ssl_key = process.env.SSL_KEY_PATH || '/etc/letsencrypt/live/yourdomain.net/privkey.pem';
-const ssl_cert = process.env.SSL_CERT_PATH || '/etc/letsencrypt/live/yourdomain.net/cert.pem';
-const cors = require('cors');
-const { async } = require('rxjs');
+const port = process.env.PORT || 8081;
+const ssl_key  =  process.env.KEY || './sslcert/server.key';
+const ssl_cert =  process.env.CERT || './sslcert/server.crt';
 const Sessions = require("./cliVenom.js");
 require('dotenv').config();
 app.use(cors());
 app.use(express.json());
+//
+(async () => {
+    const IPv6 = await internalIp.v6();
+    //=> 'fe80::1'
+    const IPv4 = await internalIp.v4();
+    //=> '10.0.0.79'
+})();
 //
 // Configuração
     // Body Parser
@@ -65,8 +75,8 @@ app.set('view engine', 'handlebars');
 // Start the server web
 if (ssl === true) { //with ssl
     https.createServer({
-            key: fs.readFileSync(ssl_key),
-            cert: fs.readFileSync(ssl_cert)
+            key: fs.readFileSync(ssl_key, 'utf8'),
+            cert: fs.readFileSync(ssl_cert, 'utf8')
         },
         app).listen(port, hostname, () => {
         console.log('Web server executando em https://' + hostname + ':' + port + '/');

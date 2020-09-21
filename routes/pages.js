@@ -18,6 +18,10 @@ router.get("/sendTextMult", async (req, res) => {
     res.render("pages/sendTextMult");
 });
 //
+router.get("/sendTextGrupo", async (req, res) => {
+    res.render("pages/sendTextGrupo");
+});
+//
 //
 router.get("/sendImage", async (req, res) => {
     res.render("pages/sendImage");
@@ -25,6 +29,10 @@ router.get("/sendImage", async (req, res) => {
 //
 router.get("/sendImageMult", async (req, res) => {
     res.render("pages/sendImageMult");
+});
+//
+router.get("/sendFileImgGrupo", async (req, res) => {
+    res.render("pages/sendFileImgGrupo");
 });
 //
 //

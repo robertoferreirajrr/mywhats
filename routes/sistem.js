@@ -53,8 +53,9 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
             } else {
                 res.status(200).json({
                     result: "success",
-                    message: session.state,
-                    qrcode: session.qrcode
+                    state: session.state,
+                    qrcode: session.qrcode,
+                    message: "Sistema aguardando leitura do QR-Code"
                 });
             }
         } else {
