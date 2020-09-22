@@ -28,6 +28,9 @@ pm2 startup
 # Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
 ## Uso
+#### Acesso via web (Em desenvolvimento a integração/automatização)
+http://localhost:8081/
+
 #### Iniciar sessão whatsapp
 http://localhost:8081/sistem/start/nome_da_sessão
 
@@ -40,8 +43,10 @@ http://localhost:8081/sistem/QRCode/nome_da_sessão/true
 #### Fecha sessão whatsapp
 http://localhost:8081/sistem/crose/nome_da_sessão
 
-## Em desenvolvimento
+## Aviso
+Dockerfile incompleto
 
+## Em desenvolvimento
 Este projeto se encontra em desevolvimento.
 
 ## License
