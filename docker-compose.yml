@@ -5,7 +5,7 @@ services:
             context: .
             dockerfile: ./Dockerfile
         image: "node:latest"
-        container_name: venomnode-container
+        container_name: myzap-container
         restart: always
         ports:
             - "8081:8081"
