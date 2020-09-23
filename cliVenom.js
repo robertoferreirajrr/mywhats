@@ -34,7 +34,7 @@ module.exports = class Sessions {
             session.status = 'notLogged';
             session.client = Sessions.initSession(sessionName);
             Sessions.setup(sessionName);
-        } else if (["CONFLICT", "UNPAIRED", "UNLAUNCHED"].includes(session.state)) {
+        } else if (["CONFLICT", "UNPAIRED", "UNLAUNCHED", "UNPAIRED_IDLE"].includes(session.state)) {
             session.status = 'notLogged';
             console.log('- Status do sistema:', session.state);
             console.log('- Status da sessão:', session.status);
@@ -144,13 +144,13 @@ module.exports = class Sessions {
                 console.log('- Status da sessão:', statusSession);
                 //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
                 /*
-                if(statusSession === 'isLogged'){
+                if(statusSession == 'isLogged'){
                     session.state = "CONNECTED";
                 }else 
                 */
-                if(statusSession === 'qrReadSuccess'){
+                if(statusSession == 'qrReadSuccess'){
                     session.state = "CONNECTED";
-                }else if(statusSession === 'qrReadFail'){
+                }else if(statusSession == 'qrReadFail'){
                     session.state = "STARTING";
                     session.client = Sessions.initSession(sessionName);
                 }
@@ -290,10 +290,12 @@ static async sendText(sessionName, number, text) {
                 // Send basic text
                 await client.sendMessageToId(number + '@c.us', text).then((result)=>{
                     //console.log("Result: ", result); //return object success
-                    return { result: "success",state: session.state, message: "Sucesso ao enviar menssagem" };
+                    //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
+                    return { result };
                 }).catch((erro)=>{
                     //console.error("Error when sending: ", erro); //return object error
-                    return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                    //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                    return { erro };
                 });
             });
             return resultSendText;

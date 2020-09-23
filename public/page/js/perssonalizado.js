@@ -182,7 +182,7 @@ jQuery.validator.addMethod("filesize_max", function(value, element, param) {
                     var data = $("#sendText-form").serialize();
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost:8081/',
+                        url: 'http://localhost:8081/sitem/sendText/',
                         data: data,
                         dataType: 'json',
                         beforeSend: function() {

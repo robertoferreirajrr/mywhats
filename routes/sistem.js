@@ -72,16 +72,19 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
     //
 });
 //
-// ------------------------------------------------------------------------------------------------//
+//
+// ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/sendText/:SessionName/:number/:text", async (req, res, next) => {
+// router.get("/sendText/:SessionName/:number/:text", async (req, res, next) => {
+router.post("/sendText", async (req, res, next) => {
     var result = await Sessions.sendText(
-        req.params.SessionName,
-        req.params.number,
-        req.params.text
+        req.body.SessionName,
+        req.body.phonefull,
+        req.body.msg,
     );
-    res.json(result);
+    // res.json(result);
+    console.log(result);
 });//sendText
 //
 // ------------------------------------------------------------------------------------------------//

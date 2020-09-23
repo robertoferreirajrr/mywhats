@@ -91,6 +91,12 @@ if (ssl === true) { //with ssl
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
+function apenasNumeros(string) 
+{
+    var numsStr = string.replace(/[^0-9]/g,'');
+    return parseInt(numsStr);
+}
+//
 app.get("/", async (req, res) => {
     res.render("pages/home");
 });
@@ -100,16 +106,16 @@ app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 app.post("/", async (req, res, next) => {
-    var numero = req.body.numero;
-    var phonefull = req.body.fonefull;
+    var numero = apenasNumeros(req.body.numero);
+    var phonefull = apenasNumeros(req.body.phonefull);
     var msg = req.body.msg;
     var sendTexto = req.body.sendTexto;
     //
     var dados = {
-        numero: numero,
-        phonefull: phonefull,
-        msg: msg,
-        sendTexto: sendTexto
+        "numero": numero,
+        "phonefull": phonefull,
+        "msg": msg,
+        "sendTexto": sendTexto
       };
     console.log(dados);
 });
