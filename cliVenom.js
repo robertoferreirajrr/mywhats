@@ -29,16 +29,20 @@ module.exports = class Sessions {
             session = await Sessions.addSesssion(sessionName);
         } else if (["CLOSED"].includes(session.state)) {
             //restart session
-            console.log("State: CLOSED");
+            console.log("- State: CLOSED");
             session.state = "STARTING";
             session.status = 'notLogged';
             session.client = Sessions.initSession(sessionName);
             Sessions.setup(sessionName);
         } else if (["CONFLICT", "UNPAIRED", "UNLAUNCHED"].includes(session.state)) {
-            console.log("- client.useHere()");
+            session.status = 'notLogged';
+            console.log('- Status do sistema:', session.state);
+            console.log('- Status da sessão:', session.status);
+            console.log("- Client UseHere");
             session.client.then(client => {
                 client.useHere();
             });
+            session.client = Sessions.initSession(sessionName);
         } else {
             console.log('- Status do sistema:', session.state);
             console.log('- Status da sessão:', session.status);
@@ -140,7 +144,7 @@ module.exports = class Sessions {
                 console.log('- Status da sessão:', statusSession);
                 //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
                 if(statusSession === 'qrReadSuccess'){
-                    session.state = "PAIRING";
+                    session.state = "CONNECTED";
                 }else if(statusSession === 'qrReadFail'){
                     session.state = "STARTING";
                     session.client = Sessions.initSession(sessionName);
