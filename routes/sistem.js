@@ -1,7 +1,7 @@
 const express = require("express");
-const multer  = require('multer');
+const multer = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
-const upload = multer({ })
+const upload = multer({})
 const router = express.Router();
 const Sessions = require("../cliVenom.js");
 //
@@ -21,13 +21,29 @@ router.get("/start/:SessionName", async (req, res, next) => {
     //
     var session = await Sessions.start(req.params.SessionName);
     if (["CONNECTED"].includes(session.state)) {
-        res.status(200).json({ result: 'success', state: session.state, message: "Sistema iniciado" });
+        res.status(200).json({
+            result: 'success',
+            state: session.state,
+            message: "Sistema iniciado"
+        });
     } else if (["STARTING"].includes(session.state)) {
-        res.status(200).json({ result: 'info', state: session.state, message: "Sistema iniciando" });
+        res.status(200).json({
+            result: 'info',
+            state: session.state,
+            message: "Sistema iniciando"
+        });
     } else if (["QRCODE"].includes(session.state)) {
-        res.status(200).json({ result: 'warning', state: session.state, message: "Sistema aguardando leitura do QR-Code" });
+        res.status(200).json({
+            result: 'warning',
+            state: session.state,
+            message: "Sistema aguardando leitura do QR-Code"
+        });
     } else {
-        res.status(200).json({ result: 'error', message: session.state,  message: "Sistema Off-line" });
+        res.status(200).json({
+            result: 'error',
+            message: session.state,
+            message: "Sistema Off-line"
+        });
     }
     next();
     //
@@ -60,13 +76,25 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
             }
         } else {
             if (["CONNECTED"].includes(session.state)) {
-                res.status(200).json({ result: 'success', state: session.state, message: "Sistema iniciado" });
+                res.status(200).json({
+                    result: 'success',
+                    state: session.state,
+                    message: "Sistema iniciado"
+                });
             } else if (["STARTING"].includes(session.state)) {
-                res.status(200).json({ result: 'info', state: session.state, message: "Sistema iniciando" });
+                res.status(200).json({
+                    result: 'info',
+                    state: session.state,
+                    message: "Sistema iniciando"
+                });
             }
         }
     } else {
-        res.status(200).json({ result: 'error', state: "NOTFOUND",  message: "Sistema Off-line" });
+        res.status(200).json({
+            result: 'error',
+            state: "NOTFOUND",
+            message: "Sistema Off-line"
+        });
     }
     next();
     //
@@ -80,12 +108,12 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
 router.post("/sendText", async (req, res, next) => {
     var result = await Sessions.sendText(
         req.body.SessionName,
-        req.body.phonefull,
+        req.body.phonefull.replace(/\D/g, ""),
         req.body.msg,
     );
     // res.json(result);
     console.log(result);
-});//sendText
+}); //sendText
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -114,7 +142,7 @@ router.post("/sendImage", upload.single('file'), async (req, res, next) => {
         req.file.originalname
     );
     res.json(result);
-});//sendImage
+}); //sendImage
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -128,7 +156,7 @@ router.get("/sendFile", async (req, res, next) => {
         req.params.caption
     );
     res.json(result);
-});//sendFile
+}); //sendFile
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -136,7 +164,7 @@ router.get("/sendFile", async (req, res, next) => {
 router.get("/getBlockList", async (req, res, next) => {
     var result = await Sessions.getBlockList(req.params.SessionName);
     res.json(result);
-});//getBlockList
+}); //getBlockList
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -144,7 +172,7 @@ router.get("/getBlockList", async (req, res, next) => {
 router.get("/getAllContacts", async (req, res, next) => {
     var result = await Sessions.getAllContacts(req.params.SessionName);
     res.json(result);
-});//getAllContacts
+}); //getAllContacts
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -152,7 +180,7 @@ router.get("/getAllContacts", async (req, res, next) => {
 router.get("/loadAndGetAllMessagesInChat", async (req, res, next) => {
     var result = await Sessions.loadAndGetAllMessagesInChat(req.params.SessionName, req.params.chatId);
     res.json(result);
-});//loadAndGetAllMessagesInChat
+}); //loadAndGetAllMessagesInChat
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -160,7 +188,7 @@ router.get("/loadAndGetAllMessagesInChat", async (req, res, next) => {
 router.get("/getStatus", async (req, res, next) => {
     var result = await Sessions.getStatus(req.params.SessionName, req.params.contactId);
     res.json(result);
-});//getStatus
+}); //getStatus
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -168,7 +196,7 @@ router.get("/getStatus", async (req, res, next) => {
 router.get("/getNumberProfile", async (req, res, next) => {
     var result = await Sessions.getNumberProfile(req.params.SessionName, req.params.contactId);
     res.json(result);
-});//getNumberProfile
+}); //getNumberProfile
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -176,7 +204,7 @@ router.get("/getNumberProfile", async (req, res, next) => {
 router.get("/getAllUnreadMessages", async (req, res, next) => {
     var result = await Sessions.getAllUnreadMessages(req.params.SessionName);
     res.json(result);
-});//getAllUnreadMessages
+}); //getAllUnreadMessages
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -184,7 +212,7 @@ router.get("/getAllUnreadMessages", async (req, res, next) => {
 router.get("/getAllChats", async (req, res, next) => {
     var result = await Sessions.getAllChats(req.params.SessionName);
     res.json(result);
-});//getAllChats
+}); //getAllChats
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -192,7 +220,7 @@ router.get("/getAllChats", async (req, res, next) => {
 router.get("/getAllGroups", async (req, res, next) => {
     var result = await Sessions.getAllGroups(req.params.SessionName);
     res.json(result);
-});//getAllGroups
+}); //getAllGroups
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -200,7 +228,7 @@ router.get("/getAllGroups", async (req, res, next) => {
 router.get("/getProfilePicFromServer", async (req, res, next) => {
     var result = await Sessions.getProfilePicFromServer(req.params.SessionName, req.params.chatId);
     res.json(result);
-});//getProfilePicFromServer
+}); //getProfilePicFromServer
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -208,7 +236,7 @@ router.get("/getProfilePicFromServer", async (req, res, next) => {
 router.get("/getChat", async (req, res, next) => {
     var result = await Sessions.getChat(req.params.SessionName);
     res.json(result);
-});//getChat
+}); //getChat
 //
 // ------------------------------------------------------------------------------------------------//
 //
@@ -216,21 +244,21 @@ router.get("/getChat", async (req, res, next) => {
 router.get("/close", async (req, res, next) => {
     var result = await Sessions.closeSession(req.params.SessionName);
     res.json(result);
-});//close
+}); //close
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
 router.get('/delete', async (req, res) => {
-  try {
-    await Promise.all([unlink(req.params.path)]);
-    //res.end();
-    console.log('Arquivo apagado.');
-  } catch(e) {
-    console.error(e);
-    //res.status(500).send('Ocorreu um erro interno.');
-    console.log('Ocorreu um erro interno.');
-  }
+    try {
+        await Promise.all([unlink(req.params.path)]);
+        //res.end();
+        console.log('Arquivo apagado.');
+    } catch (e) {
+        console.error(e);
+        //res.status(500).send('Ocorreu um erro interno.');
+        console.log('Ocorreu um erro interno.');
+    }
 });
 //
 // ------------------------------------------------------------------------------------------------//
