@@ -99,6 +99,20 @@ app.get("/", async (req, res) => {
 app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
+app.post("/", async (req, res, next) => {
+    var numero = req.body.numero;
+    var phonefull = req.body.fonefull;
+    var msg = req.body.msg;
+    var sendTexto = req.body.sendTexto;
+    //
+    var dados = {
+        numero: numero,
+        phonefull: phonefull,
+        msg: msg,
+        sendTexto: sendTexto
+      };
+    console.log(dados);
+});
 //
 //
 app.post('/file_upload', upload.single('file'), (req, res, next) => {

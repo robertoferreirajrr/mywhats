@@ -143,6 +143,11 @@ module.exports = class Sessions {
             }, (statusSession) => {
                 console.log('- Status da sessão:', statusSession);
                 //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
+                /*
+                if(statusSession === 'isLogged'){
+                    session.state = "CONNECTED";
+                }else 
+                */
                 if(statusSession === 'qrReadSuccess'){
                     session.state = "CONNECTED";
                 }else if(statusSession === 'qrReadFail'){
