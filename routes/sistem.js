@@ -116,8 +116,8 @@ router.post("/sendText", async (req, res, next) => {
         apenasNumeros(req.body.phonefull),
         req.body.msg,
     );
-    // res.json(result);
     console.log(result);
+    res.json(result);
 }); //sendText
 //
 //
