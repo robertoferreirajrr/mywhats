@@ -1,11 +1,11 @@
 function startVenon() {
     $.ajax({
-        url: 'http://localhost:8081/sistem/start/Teste',
+        url: 'http://localhost:8081/sistem/start/BotClient',
         dataType: 'json',
-        beforeSend: function() {
-            
+        beforeSend: function () {
+
         },
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             if (response.result == "info" && response.state == "STARTING") {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
@@ -31,12 +31,12 @@ function startVenon() {
 //
 function closeVenon() {
     $.ajax({
-        url: 'http://localhost:8081/sistem/close/Teste',
+        url: 'http://localhost:8081/sistem/close/BotClient',
         dataType: 'json',
-        beforeSend: function() {
-            
+        beforeSend: function () {
+
         },
-        success: function(response) {
+        success: function (response) {
             if (response.result == "success" && response.state == "CLOSED") {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
                 $("#startVenom").html("Saindo...");
@@ -50,14 +50,14 @@ function closeVenon() {
 //
 function qrcodeVenon() {
     $.ajax({
-        url: 'http://localhost:8081/sistem/QRCode/Teste/false',
+        url: 'http://localhost:8081/sistem/QRCode/BotClient/false',
         dataType: 'json',
-        beforeSend: function() {
-            
+        beforeSend: function () {
+
         },
-        success: function(response) {
+        success: function (response) {
             if (response.result == "success" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
-                $("#qrcodeVenon").html('<img src="'+response.qrcode+'" class="img-fluid" width="120px" alt="QR-Code">');
+                $("#qrcodeVenon").html('<img src="' + response.qrcode + '" class="img-fluid" width="120px" alt="QR-Code">');
             } else {
                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
             }
@@ -65,35 +65,35 @@ function qrcodeVenon() {
     });
 }
 //
-$('document').ready(function() {
-//
-//---------------------------------------------------------------------------------------------------------------------------------------------------//
-// Onde estou
-var ResponseURL = window.location.href;
-var domain = ResponseURL.split('/');
-var dir_local = domain[domain.length - 2];
-//
-//---------------------------------------------------------------------------------------------------------------------------------------------------//
-//
-//
-startVenon();
-var auto_refresh_qrcode = setInterval(
-function () {
-startVenon();
-}, 10000); // refresh every 10000 milliseconds
+$('document').ready(function () {
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    // Onde estou
+    var ResponseURL = window.location.href;
+    var domain = ResponseURL.split('/');
+    var dir_local = domain[domain.length - 2];
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    //
+    startVenon();
+    var auto_refresh_qrcode = setInterval(
+        function () {
+            startVenon();
+        }, 10000); // refresh every 10000 milliseconds
 
-//
-$('#starVenon').click(function (e) {
-startVenon();
-});
-$('#restarVenon').click(function (e) {
-closeVenon();
-startVenon();
-});
-$('#closeVenon').click(function (e) {
-closeVenon();
-});
-//
-//---------------------------------------------------------------------------------------------------------------------------------------------------//
-//
+    //
+    $('#starVenon').click(function (e) {
+        startVenon();
+    });
+    $('#restarVenon').click(function (e) {
+        closeVenon();
+        startVenon();
+    });
+    $('#closeVenon').click(function (e) {
+        closeVenon();
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
 });

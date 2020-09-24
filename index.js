@@ -117,14 +117,14 @@ app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 app.post("/", async (req, res, next) => {
-    var numero = apenasNumeros(req.body.numero);
+    var SessionName = req.body.SessionName;
     var phonefull = apenasNumeros(req.body.phonefull);
     var msg = req.body.msg;
     var sendTexto = req.body.sendTexto;
     //
     var dados = {
-        "numero": numero.replace(/\D/g, ""),
-        "phonefull": phonefull.replace(/\D/g, ""),
+        "SessionName": SessionName,
+        "phonefull": phonefull,
         "msg": msg,
         "sendTexto": sendTexto
     };

@@ -53,6 +53,11 @@ router.get("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
+function apenasNumeros(string) {
+    var numsStr = string.replace(/[^0-9]/g, '');
+    return parseInt(numsStr);
+}
+//
 router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
     //
     var session = Sessions.getSession(req.params.SessionName);
@@ -108,12 +113,13 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
 router.post("/sendText", async (req, res, next) => {
     var result = await Sessions.sendText(
         req.body.SessionName,
-        req.body.phonefull.replace(/\D/g, ""),
+        apenasNumeros(req.body.phonefull),
         req.body.msg,
     );
     // res.json(result);
     console.log(result);
 }); //sendText
+//
 //
 // ------------------------------------------------------------------------------------------------//
 //
