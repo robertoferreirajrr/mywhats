@@ -117,6 +117,7 @@ app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 app.post("/", async (req, res, next) => {
+    //
     var SessionName = req.body.SessionName;
     var phonefull = apenasNumeros(req.body.phonefull);
     var msg = req.body.msg;

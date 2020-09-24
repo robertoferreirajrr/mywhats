@@ -157,7 +157,7 @@ module.exports = class Sessions {
             session.status = statusSession;
         }, {
             folderNameToken: "tokens", //folder name when saving tokens
-            mkdirFolderToken: '/tokens', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
+            mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
             headless: true, // Headless chrome
             devtools: false, // Open devtools by default
             useChrome: false, // If false will use Chromium instance
@@ -195,7 +195,7 @@ module.exports = class Sessions {
                 '--disable-accelerated-video-decode',
             ],
             disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
-            disableWelcome: false, // Will disable the welcoming message which appears in the beginning
+            disableWelcome: true, // Will disable the welcoming message which appears in the beginning
             updates: true, // Logs info updates automatically in terminal
             autoClose: false, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
         });
