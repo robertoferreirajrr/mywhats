@@ -1,6 +1,6 @@
 FROM node:latest
 
-RUN apk add --no-cache bash vim
+# RUN apk add --no-cache bash vim
 
 WORKDIR /usr/src/app
 
