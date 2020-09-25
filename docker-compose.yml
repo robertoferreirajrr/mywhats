@@ -11,3 +11,6 @@ services:
             - "8081:8081"
         volumes:
             - .:/usr/src/app
+        networks:
+            development-network:
+            driver: bridge

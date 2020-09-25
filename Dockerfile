@@ -1,15 +1,26 @@
-FROM node:latest
+# Use a imagem oficial como imagem principal.
+FROM node:14-alpine
+
+# define o mantenedor da imagem
+LABEL maintainer="AlanMartines"
 
 # RUN apk add --no-cache bash vim
 
+# Defina o diretório de trabalho.
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+# Copie o arquivo do seu host para o local atual.
+COPY package.json .
 
+# Execute o comando dentro do seu sistema de arquivos de imagem.
 RUN npm install
 
+# Copie o restante do código-fonte do seu aplicativo do host para o sistema de arquivos de imagem.
 COPY . .
 
 EXPOSE 8081
 
+# Execute o comando especificado dentro do contêiner.
 CMD [ "npm", "start" ]
+
+## docker build -t alanmartines/mywhats:1.0 .
