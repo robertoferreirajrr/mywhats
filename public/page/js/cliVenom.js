@@ -1,6 +1,6 @@
-function startVenon() {
+function startVenon(SessionName) {
     $.ajax({
-        url: 'http://localhost:8081/sistem/start/BotClient',
+        url: 'http://localhost:8081/sistem/start/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -29,9 +29,9 @@ function startVenon() {
     });
 }
 //
-function closeVenon() {
+function closeVenon(SessionName) {
     $.ajax({
-        url: 'http://localhost:8081/sistem/close/BotClient',
+        url: 'http://localhost:8081/sistem/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -50,7 +50,7 @@ function closeVenon() {
 //
 function qrcodeVenon() {
     $.ajax({
-        url: 'http://localhost:8081/sistem/QRCode/BotClient/false',
+        url: 'http://localhost:8081/sistem/QRCode/' + SessionName + '/false',
         dataType: 'json',
         beforeSend: function () {
 
@@ -76,22 +76,27 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
-    startVenon();
+    var SessionName = $("#SessionName").val();
+    if (SessionName != null || SessionName != '') { startVenon(SessionName); }
     var auto_refresh_qrcode = setInterval(
         function () {
-            startVenon();
-        }, 10000); // refresh every 10000 milliseconds
+            if (SessionName != null || SessionName != '') { startVenon(SessionName); }
+            console.log("Nome da sessão:", SessionName);
+        }, 5000); // refresh every 10000 milliseconds
 
     //
     $('#starVenon').click(function (e) {
-        startVenon();
+        var SessionName = $("#SessionName").val();
+        startVenon(SessionName);
     });
     $('#restarVenon').click(function (e) {
-        closeVenon();
-        startVenon();
+        var SessionName = $("#SessionName").val();
+        closeVenon(SessionName);
+        startVenon(SessionName);
     });
     $('#closeVenon').click(function (e) {
-        closeVenon();
+        var SessionName = $("#SessionName").val();
+        closeVenon(SessionName);
     });
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//

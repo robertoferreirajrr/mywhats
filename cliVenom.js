@@ -289,12 +289,11 @@ module.exports = class Sessions {
                     // Send basic text
                     await client.sendText(number + '@c.us', text).then((result) => {
                         //console.log("Result: ", result); //return object success
-                        //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
-                        return JSON.parse(result);
+                        return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
                     }).catch((erro) => {
-                        console.error("Error when sending: ", erro); //return object error
-                        //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
-                        return JSON.parse(erro);
+                        //console.error("Error when sending: ", erro); //return object error
+                        return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                        //return JSON.parse(erro);
                     });
                 });
                 return resultSendText;
