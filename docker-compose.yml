@@ -1,11 +1,11 @@
 version: "3"
 services:
-    venom-node:
+    mywhats-node:
         build:
             context: .
             dockerfile: ./Dockerfile
         image: "node:latest"
-        container_name: myzap-container
+        container_name: mywhats-container
         restart: always
         ports:
             - "8081:8081"
