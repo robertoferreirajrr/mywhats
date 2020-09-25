@@ -48,13 +48,6 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 //
-(async () => {
-    const IPv6 = await internalIp.v6();
-    //=> 'fe80::1'
-    const IPv4 = await internalIp.v4();
-    //=> '10.0.0.79'
-})();
-//
 // Configuração
 // Body Parser
 app.use(bodyParser.json());
