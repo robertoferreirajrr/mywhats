@@ -23,4 +23,9 @@ EXPOSE 8081
 # Execute o comando especificado dentro do contêiner.
 CMD [ "npm", "start" ]
 
-## docker build -t alanmartines/mywhats:1.0 .
+### LEIA-ME
+## Processando o arquivo Dockerfile
+# docker build -t alanmartines/mywhats:1.0 .
+
+## Criar um contêiner
+# docker container run --name mywhats -p 8081:8081 alanmartines/mywhats:1.0
