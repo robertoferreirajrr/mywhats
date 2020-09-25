@@ -29,3 +29,4 @@ CMD [ "npm", "start" ]
 
 ## Criar um contêiner
 # docker container run --name mywhats -p 8081:8081 alanmartines/mywhats:1.0
+# docker container run --publish 8081:8081 --detach --name mywhats alanmartines/mywhats:1.0
