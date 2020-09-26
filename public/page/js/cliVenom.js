@@ -11,7 +11,7 @@ function startVenon(SessionName) {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
                 $("#startVenom").html("Iniciando");
             } else if (response.result == "warning" && response.state == "QRCODE") {
-                qrcodeVenon();
+                qrcodeVenon(SessionName);
                 $("#startVenom").html("Ler QR-Code");
             } else if (response.result == "success" && response.state == "CONNECTED") {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
@@ -24,6 +24,25 @@ function startVenon(SessionName) {
                 $("#startVenom").html("Saindo...");
             } else {
 
+            }
+        }
+    });
+}
+//
+function statusVenon(SessionName) {
+    $.ajax({
+        url: 'http://localhost:8081/sistem/close/' + SessionName,
+        dataType: 'json',
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            if (response.result == "success" && response.state == "CLOSED") {
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
+                $("#statusVenon").html("Saindo...");
+            } else {
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
+                $("#statusVenon").html(response.state);
             }
         }
     });
@@ -48,7 +67,7 @@ function closeVenon(SessionName) {
     });
 }
 //
-function qrcodeVenon() {
+function qrcodeVenon(SessionName) {
     $.ajax({
         url: 'http://localhost:8081/sistem/QRCode/' + SessionName + '/false',
         dataType: 'json',
@@ -76,12 +95,19 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
+
     var SessionName = $("#SessionName").val();
-    if (SessionName != null || SessionName != '') { startVenon(SessionName); }
+    if (SessionName) {
+        console.log("Nome da sessão:", SessionName);
+        startVenon(SessionName);
+    }
     var auto_refresh_qrcode = setInterval(
         function () {
-            if (SessionName != null || SessionName != '') { startVenon(SessionName); }
-            console.log("Nome da sessão:", SessionName);
+            if (SessionName) {
+                console.log("Nome da sessão:", SessionName);
+                startVenon(SessionName);
+            }
+
         }, 5000); // refresh every 10000 milliseconds
 
     //
