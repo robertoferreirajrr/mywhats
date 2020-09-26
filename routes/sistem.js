@@ -116,7 +116,6 @@ router.post("/sendText", async (req, res, next) => {
         apenasNumeros(req.body.phonefull),
         req.body.msg,
     );
-    console.log(result);
     res.json(result);
 }); //sendText
 //
@@ -124,28 +123,13 @@ router.post("/sendText", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.post("/sendImage", upload.single('file'), async (req, res, next) => {
-    /*
-    res.status(200).json(
-        {
-            fieldname: req.file.fieldname,
-            originalname: req.file.originalname,
-            encoding: req.file.encoding,
-            mimetype: req.file.mimetype,
-            destination: req.file.destination,
-            filename: req.file.filename,
-            path: req.file.path,
-            size: req.file.size,
-            base64Data: req.file.buffer.toString('base64')
-          }
-    );
-*/
+router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     var result = await Sessions.sendImage(
         req.body.SessionName,
-        req.body.number,
-        req.file.buffer.toString('base64'),
-        req.file.originalname,
-        req.file.originalname
+        apenasNumeros(req.body.phonefullimg),
+        req.fileimg.buffer.toString('base64'),
+        req.fileimg.originalname,
+        req.body.msgimg
     );
     res.json(result);
 }); //sendImage

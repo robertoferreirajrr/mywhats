@@ -89,12 +89,12 @@ app.use("/sistem", sistem);
 // Start the server web
 if (ssl === true) { //with ssl
     https.createServer({
-            key: fs.readFileSync(ssl_key, 'utf8'),
-            cert: fs.readFileSync(ssl_cert, 'utf8')
-        },
+        key: fs.readFileSync(ssl_key, 'utf8'),
+        cert: fs.readFileSync(ssl_cert, 'utf8')
+    },
         app).listen(port, hostname, () => {
-        console.log("Sistema rodando na porta :" + port);
-    });
+            console.log("Sistema rodando na porta :" + port);
+        });
 } else { //http
     app.listen(port, hostname, () => {
         console.log("Sistema rodando na porta:" + port);
@@ -118,6 +118,7 @@ app.get("/", async (req, res) => {
 app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
+//
 app.post("/", async (req, res, next) => {
     //
     var SessionName = req.body.SessionName;
