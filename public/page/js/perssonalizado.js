@@ -287,23 +287,16 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var data = new FormData(document.getElementById("sendImage-form"));
-
-            data.append('numeroimg', $("#numeroimg").val());
-            data.append('phonefullimg', $("#phonefullimg").val());
-            data.append('fileimg', $('#fileimg').prop('files')[0]);
-            data.append('fileName', $("#fileName").val());
-            data.append('msgimg', $("#msgimg").val());
-
+            var form = $('#sendImage-form')[0];
+            var data = new FormData(form);
             $.ajax({
-                type: 'POST',
+                type: "POST",
+                enctype: 'multipart/form-data',
                 url: 'http://localhost:8081/sistem/sendImage',
-                //dataType: 'text',
-                dataType: 'json',
                 data: data,
-                cache: false,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
-                processData: false,
+                cache: false,
                 beforeSend: function () {
                     $("#sendImage").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
@@ -311,7 +304,7 @@ $('document').ready(function () {
                     console.log("Erro:" + response.erro);
                     console.log("Status:" + response.status);
                     if (response.erro == false && response.status == 'OK') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('success', {
                             title: false,
@@ -326,7 +319,7 @@ $('document').ready(function () {
                         });
                         //
                     } else if (response.erro == true && response.status == '404') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('error', {
                             title: false,
@@ -341,7 +334,7 @@ $('document').ready(function () {
                         });
                         //
                     } else {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('info', {
                             title: false,
@@ -356,6 +349,9 @@ $('document').ready(function () {
                         });
                         //
                     }
+                },
+                error: (e) => {
+                    console.log("Erro sendImagem");
                 }
 
             });

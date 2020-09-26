@@ -127,10 +127,11 @@ router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     var result = await Sessions.sendImage(
         req.body.SessionName,
         apenasNumeros(req.body.phonefullimg),
-        req.fileimg.buffer.toString('base64'),
-        req.fileimg.originalname,
+        req.file.buffer.toString('base64'),
+        req.file.originalname,
         req.body.msgimg
     );
+    console.log(result);
     res.json(result);
 }); //sendImage
 //

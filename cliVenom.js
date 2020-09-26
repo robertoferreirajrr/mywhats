@@ -317,20 +317,24 @@ module.exports = class Sessions {
     // ------------------------------------------------------------------------------------------------//
     //
     //
-    static async sendFile(sessionName, number, base64Data, fileName, caption) {
+    static async sendImage(sessionName, number, base64Data, fileName, caption) {
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
-                var resultSendFile = await session.client.then(async (client) => {
+                var resultsendImage = await session.client.then(async (client) => {
                     var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
                     var filePath = path.join(folderName, fileName);
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
-                    return await client.sendFile(number + '@c.us', filePath, fileName, caption);
-                }); //client.then(
-                return {
-                    result: "success"
-                };
+                    return await client.sendImage(number + '@c.us', filePath, fileName, caption).then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
+                });
+                return resultsendImage;
             } else {
                 return {
                     result: "error",
