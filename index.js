@@ -11,7 +11,7 @@ const bodyParser = require('body-parser')
 const expressLayouts = require('express-ejs-layouts')
 const handlebars = require('express-handlebars');
 const os = require('os');
-const internalIp = require('internal-ip');
+//const internalIp = require('internal-ip');
 const path = require('path');
 const venom = require('venom-bot');
 const {
@@ -48,12 +48,14 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 //
+/*
 (async () => {
     const IPv6 = await internalIp.v6();
     //=> 'fe80::1'
     const IPv4 = await internalIp.v4();
     //=> '10.0.0.79'
 })();
+*/
 //
 // Configuração
 // Body Parser
@@ -91,11 +93,11 @@ if (ssl === true) { //with ssl
             cert: fs.readFileSync(ssl_cert, 'utf8')
         },
         app).listen(port, hostname, () => {
-        console.log("Sistema rodando", IPv4, ":", port);
+        console.log("Sistema rodando na porta :" + port);
     });
 } else { //http
     app.listen(port, hostname, () => {
-        console.log("Sistema rodando", IPv4, ":", port);
+        console.log("Sistema rodando na porta:" + port);
     });
 } // End the server web
 //
