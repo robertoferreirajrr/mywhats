@@ -39,7 +39,7 @@ function statusVenon(SessionName) {
         success: function (response) {
             if (response.result == "success" && response.state == "CLOSED") {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
-                $("#statusVenon").html("Saindo...");
+                $("#statusVenon").html("notLogged");
             } else {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
                 $("#statusVenon").html(response.state);
