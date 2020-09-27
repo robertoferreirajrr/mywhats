@@ -23,25 +23,25 @@ pm2 start index.js
 
 pm2 startup
 
-# O servidor inciará na porta:8081
+# O servidor inciará na porta:8000
 
 # Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
 ## Uso
 #### Acesso via web (Em desenvolvimento a integração/automatização)
-http://localhost:8081/
+http://localhost:8000/
 
 #### Iniciar sessão whatsapp
-http://localhost:8081/sistem/start/nome_da_sessão
+http://localhost:8000/sistem/start/nome_da_sessão
 
 ####  Exibir QRCode no navegador
-http://localhost:8081/sistem/QRCode/nome_da_sessão/true
+http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna joson com (base64) do QRCode 
-http://localhost:8081/sistem/QRCode/nome_da_sessão/true
+http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
 #### Fecha sessão whatsapp
-http://localhost:8081/sistem/crose/nome_da_sessão
+http://localhost:8000/sistem/crose/nome_da_sessão
 
 ## Aviso
 Dockerfile incompleto

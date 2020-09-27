@@ -182,7 +182,7 @@ $('document').ready(function () {
             var data = $("#sendText-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8081/sistem/sendText',
+                url: '/sistem/sendText',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -292,7 +292,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:8081/sistem/sendImage',
+                url: '/sistem/sendImage',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,

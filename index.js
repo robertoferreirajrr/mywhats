@@ -40,7 +40,7 @@ const pages = require("./routes/pages");
 const sistem = require("./routes/sistem");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8000;
 const ssl_key = process.env.KEY || './sslcert/server.key';
 const ssl_cert = process.env.CERT || './sslcert/server.crt';
 const Sessions = require("./cliVenom.js");
@@ -89,12 +89,12 @@ app.use("/sistem", sistem);
 // Start the server web
 if (ssl === true) { //with ssl
     https.createServer({
-        key: fs.readFileSync(ssl_key, 'utf8'),
-        cert: fs.readFileSync(ssl_cert, 'utf8')
-    },
+            key: fs.readFileSync(ssl_key, 'utf8'),
+            cert: fs.readFileSync(ssl_cert, 'utf8')
+        },
         app).listen(port, hostname, () => {
-            console.log("Sistema rodando na porta :" + port);
-        });
+        console.log("Sistema rodando na porta :" + port);
+    });
 } else { //http
     app.listen(port, hostname, () => {
         console.log("Sistema rodando na porta:" + port);
