@@ -16,6 +16,9 @@ $ sudo bash nodesource_setup.sh
 # Instalar o pacote Node.js
 $ sudo apt install -y git nodejs yarn npm gcc g++ make
 
+# Remover pacotes que não são mais necessários
+$ sudo apt autoremove -y
+
 # Clone este repositório
 $ git clone git@github.com:AlanMartines/mywhats.git
 
@@ -46,7 +49,7 @@ http://localhost:8000/
 #### Iniciar sessão whatsapp
 http://localhost:8000/sistem/start/nome_da_sessão
 
-####  Exibir QRCode no navegador
+####  Exibir QR-Code no navegador
 http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna joson com (base64) do QRCode 
