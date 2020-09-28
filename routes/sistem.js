@@ -119,6 +119,17 @@ router.post("/sendText", async (req, res, next) => {
     res.json(result);
 }); //sendText
 //
+router.post("/sendTextMult", upload.single('sendTextMassaContato'), async (req, res, next) => {
+    var result = await Sessions.sendTextMult(
+        req.body.SessionName,
+        req.file.buffer.toString('base64'),
+        req.file.mimetype,
+        req.file.originalname,
+        req.body.msgtxtmass
+    );
+    res.json(result);
+}); //sendText
+//
 //
 // ------------------------------------------------------------------------------------------------//
 //
