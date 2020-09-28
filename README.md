@@ -5,22 +5,22 @@
 
 ```bash
 # Ir para seu diretório home
-cd ~
+$ cd ~
 
 # Recuperar o script de instalação para sua versão de preferência
-curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+$ curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
 
 # Execute o script 
-sudo bash nodesource_setup.sh
+$ sudo bash nodesource_setup.sh
 
 # Instalar o pacote Node.js
-sudo apt install -y git nodejs yarn npm gcc g++ make
+$ sudo apt install -y git nodejs yarn npm gcc g++ make
 
 # Clone este repositório
-$ git clone git@github.com:AlanMartines/myzap.git
+$ git clone git@github.com:AlanMartines/mywhats.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd myzap
+$ cd mywhats
 
 # Instale as dependências
 $ npm install
