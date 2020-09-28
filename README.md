@@ -4,6 +4,9 @@
 ## Rodando a aplicação
 
 ```bash
+# Instalar dependencias necessárias no sistema
+sudo apt install -y git nodejs yarn npm
+
 # Clone este repositório
 $ git clone git@github.com:AlanMartines/myzap.git
 
