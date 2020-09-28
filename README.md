@@ -3,8 +3,6 @@
 
 ## Rodando a aplicação
 
-# Instalar dependencias necessárias no sistema
-
 ```bash
 # Ir para seu diretório home
 cd ~
