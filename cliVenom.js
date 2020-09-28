@@ -317,18 +317,24 @@ module.exports = class Sessions {
                     console.log(filePath);
                     //
                     require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (line) {
-                        console.log(line);
-                        /*
+                        //console.log(line);
                         return await client.sendText(number + '@c.us', text).then((result) => {
                             //console.log("Result: ", result); //return object success
-                            //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
-                            return (result);
+                            return {
+                                result: "success",
+                                state: session.state,
+                                message: "Sucesso ao enviar menssagem"
+                            };
+                            //return (result);
                         }).catch((erro) => {
                             //console.error("Error when sending: ", erro); //return object error
-                            //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
-                            return (erro);
+                            return {
+                                result: 'error',
+                                state: session.state,
+                                message: "Erro ao enviar menssagem"
+                            };
+                            //return (erro);
                         });
-                        */
                     });
                     //
                 });
