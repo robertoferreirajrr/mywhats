@@ -3,9 +3,20 @@
 
 ## Rodando a aplicação
 
-```bash
 # Instalar dependencias necessárias no sistema
-sudo apt install -y git nodejs yarn npm
+
+```bash
+# Ir para seu diretório home
+cd ~
+
+# Recuperar o script de instalação para sua versão de preferência
+curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+
+# Execute o script 
+sudo bash nodesource_setup.sh
+
+# Instalar o pacote Node.js
+sudo apt install -y git nodejs yarn npm gcc g++ make
 
 # Clone este repositório
 $ git clone git@github.com:AlanMartines/myzap.git
