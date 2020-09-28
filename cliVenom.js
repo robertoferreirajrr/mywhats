@@ -306,7 +306,7 @@ module.exports = class Sessions {
         }
     } //sendText
     //
-    static async sendTextMult(sessionName, base64Data, type, fileName, caption) {
+    static async sendTextMult(sessionName, base64Data, type, fileName, text) {
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -315,27 +315,20 @@ module.exports = class Sessions {
                     var filePath = path.join(folderName, fileName);
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
-                    //
-                    require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (line) {
-                        //console.log(line);
+                    require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(async (number) => {
+                        //console.log(number);
+                        // Send basic text
                         return await client.sendText(number + '@c.us', text).then((result) => {
-                            //console.log("Result: ", result); //return object success
-                            return {
-                                result: "success",
-                                state: session.state,
-                                message: "Sucesso ao enviar menssagem"
-                            };
-                            //return (result);
+                            console.log("Result: ", result); //return object success
+
                         }).catch((erro) => {
-                            //console.error("Error when sending: ", erro); //return object error
-                            return {
-                                result: 'error',
-                                state: session.state,
-                                message: "Erro ao enviar menssagem"
-                            };
-                            //return (erro);
+                            console.error("Error when sending: ", erro); //return object error
+
                         });
                     });
+                    //
+                    console.log(jsonStr);
+                    return JSON.stringify(jsonStr);
                     //
                 });
                 return resultsendTextMult;
