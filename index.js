@@ -21,7 +21,6 @@ const port = process.env.PORT || 8000;
 const ssl_key = process.env.KEY || './sslcert/server.key';
 const ssl_cert = process.env.CERT || './sslcert/server.crt';
 const Sessions = require("./cliVenom.js");
-require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 //
