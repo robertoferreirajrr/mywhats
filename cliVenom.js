@@ -1,16 +1,8 @@
 //
 const os = require('os');
 const fs = require('fs');
-const mime = require('mime-types');
 const path = require('path');
 const venom = require('venom-bot');
-var helmet = require('helmet');
-const {
-    json
-} = require('express');
-const {
-    Session
-} = require('inspector');
 //
 //
 // ------------------------------------------------------------------------------------------------------- //
@@ -324,27 +316,22 @@ module.exports = class Sessions {
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
                     //
-                    await lineReader.open(filePath, async (reader) => {
-                        if (reader.hasNextLine()) {
-                            reader.nextLine(async (line) => {
-                                console.log(line);
-                                //
-                                /*
-                                return await client.sendText(number + '@c.us', text).then((result) => {
-                                    //console.log("Result: ", result); //return object success
-                                    //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
-                                    return (result);
-                                }).catch((erro) => {
-                                    //console.error("Error when sending: ", erro); //return object error
-                                    //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
-                                    return (erro);
-                                });
-                                */
-                                //
-                            });
-                        }
+                    require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (line) {
+                        console.log(line);
                     });
-
+                    //
+                    /*
+                    return await client.sendText(number + '@c.us', text).then((result) => {
+                        //console.log("Result: ", result); //return object success
+                        //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
+                        return (result);
+                    }).catch((erro) => {
+                        //console.error("Error when sending: ", erro); //return object error
+                        //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                        return (erro);
+                    });
+                    */
+                    //
                 });
                 return resultsendTextMult;
             } else {

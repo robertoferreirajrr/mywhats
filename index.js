@@ -2,39 +2,16 @@
 // https://expressjs.com/pt-br/advanced/best-practice-security.html
 // Configuração dos módulos
 const fs = require('fs');
-const mime = require('mime-types');
-const http = require('http');
 const https = require('https');
 const express = require('express');
-var helmet = require('helmet');
 const bodyParser = require('body-parser')
-const expressLayouts = require('express-ejs-layouts')
 const handlebars = require('express-handlebars');
-const os = require('os');
-//const internalIp = require('internal-ip');
 const path = require('path');
-const venom = require('venom-bot');
-const {
-    json
-} = require('express');
-const {
-    Session
-} = require('inspector');
-const {
-    promisify
-} = require('util');
-const {
-    exec
-} = require("child_process");
-const unlink = promisify(fs.unlink);
 const multer = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
 const upload = multer({})
 const app = express();
 const cors = require('cors');
-const {
-    async
-} = require('rxjs');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
 const sistem = require("./routes/sistem");
@@ -47,15 +24,6 @@ const Sessions = require("./cliVenom.js");
 require('dotenv').config();
 app.use(cors());
 app.use(express.json());
-//
-/*
-(async () => {
-    const IPv6 = await internalIp.v6();
-    //=> 'fe80::1'
-    const IPv4 = await internalIp.v4();
-    //=> '10.0.0.79'
-})();
-*/
 //
 // Configuração
 // Body Parser
