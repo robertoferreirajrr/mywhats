@@ -3,6 +3,9 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const venom = require('venom-bot');
+const {
+    async
+} = require('rxjs');
 //
 //
 // ------------------------------------------------------------------------------------------------------- //
@@ -306,37 +309,33 @@ module.exports = class Sessions {
         }
     } //sendText
     //
-    static async sendTextMult(sessionName, base64Data, type, fileName, text) {
+    static async sendTextMult(sessionName, base64Data, mimetype, originalname, msgtxtmass) {
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
-                var resultsendTextMult = await session.client.then(async (client) => {
-                    var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
-                    var filePath = path.join(folderName, fileName);
-                    fs.writeFileSync(filePath, base64Data, 'base64');
-                    console.log(filePath);
+                //
+                var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                var filePath = path.join(folderName, originalname);
+                fs.writeFileSync(filePath, base64Data, 'base64');
+                console.log(filePath);
+                //
+                var jsonStr = '{"sendResult":[]}';
+                var obj = JSON.parse(jsonStr);
+                //
+                var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
+                for (i in arrayNumbers) {
+                    console.log(arrayNumbers[i]);
                     //
-                    var jsonStr = '{"sendTextMult":[{"teamId":"1","status":"pending"},{"teamId":"2","status":"member"},{"teamId":"3","status":"member"}]}';
-                    var obj = JSON.parse(jsonStr);
-                    //
-                    fs.readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (number) {
-                        console.log(number);
-
-                        obj['sendTextMult'].push({
-                            "teamId": "4",
-                            "status": "pending"
-                        });
-
-                        /*
+                    var resultsendTextMult = await session.client.then(async (client) => {
                         // Send basic text
-                        return await client.sendText(number + '@c.us', text).then((result) => {
+                        return await client.sendText(arrayNumbers[i] + '@c.us', msgtxtmass).then((result) => {
                             //console.log(result); //return object success
-                            console.log({
+                            return {
                                 erro: false,
                                 status: 'OK',
                                 number: number,
                                 menssagem: 'Menssagem envida com sucesso'
-                            });
+                            };
                         }).catch((erro) => {
                             //console.error(erro); //return object error
                             return {
@@ -346,17 +345,22 @@ module.exports = class Sessions {
                                 menssagem: 'Erro ao enviar menssagem'
                             };
                         });
-                        */
+
                     });
-                    jsonStr = JSON.stringify(obj);
-                    console.log(JSON.parse(jsonStr));
-                    return JSON.parse(jsonStr);
-                });
-                return resultsendTextMult;
+                    //return resultsendTextMult;
+                    //
+                    obj['sendResult'].push(resultsendTextMult);
+                }
+                //
+                jsonStr = JSON.stringify(obj);
+                console.log(JSON.parse(jsonStr));
+                return JSON.parse(jsonStr);
+                //
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -391,8 +395,9 @@ module.exports = class Sessions {
                 return resultsendImage;
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -424,8 +429,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -455,8 +461,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -486,8 +493,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -517,8 +525,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -548,8 +557,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -579,8 +589,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -610,8 +621,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -641,8 +653,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -672,8 +685,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -703,8 +717,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {
@@ -734,8 +749,9 @@ module.exports = class Sessions {
                 //return { result: "success" };
             } else {
                 return {
-                    result: "error",
-                    message: session.state
+                    result: "info",
+                    message: session.state,
+                    message: "Sistema iniciando"
                 };
             }
         } else {

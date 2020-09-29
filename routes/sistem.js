@@ -1,3 +1,7 @@
+const os = require('os');
+const fs = require('fs');
+const lineByLine = require('n-readlines');
+const path = require('path');
 const express = require("express");
 const multer = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
@@ -57,6 +61,7 @@ function apenasNumeros(string) {
     var numsStr = string.replace(/[^0-9]/g, '');
     return parseInt(numsStr);
 }
+//
 //
 router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
     //
@@ -120,6 +125,7 @@ router.post("/sendText", async (req, res, next) => {
 }); //sendText
 //
 router.post("/sendTextMult", upload.single('sendTextMassaContato'), async (req, res, next) => {
+
     var result = await Sessions.sendTextMult(
         req.body.SessionName,
         req.file.buffer.toString('base64'),
@@ -127,6 +133,36 @@ router.post("/sendTextMult", upload.single('sendTextMassaContato'), async (req, 
         req.file.originalname,
         req.body.msgtxtmass
     );
+    /*
+    var folderName = fs.mkdtempSync(path.join(os.tmpdir(), req.body.SessionName + '-'));
+    var filePath = path.join(folderName, req.file.originalname);
+    fs.writeFileSync(filePath, req.file.buffer.toString('base64'), 'base64');
+    console.log(filePath);
+    //
+    var jsonStr = '{"sendResult":[]}';
+    var obj = JSON.parse(jsonStr);
+    /*
+    obj['sendTextMult'].push({
+        "teamId": "4",
+        "status": "pending"
+    });
+    
+    //
+    var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
+    for (i in arrayNumbers) {
+        console.log(arrayNumbers[i]);
+        var result = await Sessions.sendTextMult(
+            req.body.SessionName,
+            arrayNumbers[i],
+            req.body.msgtxtmass
+        );
+        obj['sendResult'].push(result);
+    }
+    //
+    jsonStr = JSON.stringify(obj);
+    console.log(JSON.parse(jsonStr));
+    //return JSON.parse(jsonStr);
+    */
     res.json(result);
 }); //sendText
 //
