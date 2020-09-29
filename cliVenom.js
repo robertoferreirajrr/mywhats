@@ -323,12 +323,13 @@ module.exports = class Sessions {
                 var obj = JSON.parse(jsonStr);
                 //
                 var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
-                for (i in arrayNumbers) {
+                for (var i in arrayNumbers) {
                     console.log(arrayNumbers[i]);
+                    var number = arrayNumbers[i];
                     //
                     var resultsendTextMult = await session.client.then(async (client) => {
                         // Send basic text
-                        return await client.sendText(arrayNumbers[i] + '@c.us', msgtxtmass).then((result) => {
+                        return await client.sendText(number + '@c.us', msgtxtmass).then((result) => {
                             //console.log(result); //return object success
                             return {
                                 erro: false,
@@ -359,7 +360,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -396,7 +397,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -430,7 +431,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -462,7 +463,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -494,7 +495,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -526,7 +527,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -558,7 +559,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -590,7 +591,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -622,7 +623,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -654,7 +655,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -686,7 +687,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -718,7 +719,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
@@ -750,7 +751,7 @@ module.exports = class Sessions {
             } else {
                 return {
                     result: "info",
-                    message: session.state,
+                    state: session.state,
                     message: "Sistema iniciando"
                 };
             }
