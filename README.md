@@ -53,7 +53,7 @@ http://localhost:8000/sistem/start/nome_da_sessão
 http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna joson com (base64) do QRCode 
-http://localhost:8000/sistem/QRCode/nome_da_sessão/true
+http://localhost:8000/sistem/QRCode/nome_da_sessão/false
 
 #### Fecha sessão whatsapp
 http://localhost:8000/sistem/crose/nome_da_sessão
