@@ -316,13 +316,13 @@ module.exports = class Sessions {
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
                     //
-                    var jsonStr = '{"theTeam":[{"teamId":"1","status":"pending"},{"teamId":"2","status":"member"},{"teamId":"3","status":"member"}]}';
+                    var jsonStr = '{"sendTextMult":[{"teamId":"1","status":"pending"},{"teamId":"2","status":"member"},{"teamId":"3","status":"member"}]}';
                     var obj = JSON.parse(jsonStr);
                     //
                     fs.readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (number) {
                         console.log(number);
 
-                        obj['theTeam'].push({
+                        obj['sendTextMult'].push({
                             "teamId": "4",
                             "status": "pending"
                         });
