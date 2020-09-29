@@ -315,17 +315,28 @@ module.exports = class Sessions {
                     var filePath = path.join(folderName, fileName);
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
-                    return require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(async (number) => {
+                    //
+                    var jsonStr = '{"theTeam":[{"teamId":"1","status":"pending"},{"teamId":"2","status":"member"},{"teamId":"3","status":"member"}]}';
+                    var obj = JSON.parse(jsonStr);
+                    //
+                    fs.readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function (number) {
                         console.log(number);
+
+                        obj['theTeam'].push({
+                            "teamId": "4",
+                            "status": "pending"
+                        });
+
+                        /*
                         // Send basic text
                         return await client.sendText(number + '@c.us', text).then((result) => {
                             //console.log(result); //return object success
-                            return {
+                            console.log({
                                 erro: false,
                                 status: 'OK',
                                 number: number,
                                 menssagem: 'Menssagem envida com sucesso'
-                            };
+                            });
                         }).catch((erro) => {
                             //console.error(erro); //return object error
                             return {
@@ -335,7 +346,11 @@ module.exports = class Sessions {
                                 menssagem: 'Erro ao enviar menssagem'
                             };
                         });
+                        */
                     });
+                    jsonStr = JSON.stringify(obj);
+                    console.log(JSON.parse(jsonStr));
+                    return JSON.parse(jsonStr);
                 });
                 return resultsendTextMult;
             } else {
