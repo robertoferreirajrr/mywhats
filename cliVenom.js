@@ -315,21 +315,27 @@ module.exports = class Sessions {
                     var filePath = path.join(folderName, fileName);
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
-                    require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(async (number) => {
-                        //console.log(number);
+                    return require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(async (number) => {
+                        console.log(number);
                         // Send basic text
                         return await client.sendText(number + '@c.us', text).then((result) => {
-                            console.log("Result: ", result); //return object success
-
+                            //console.log(result); //return object success
+                            return {
+                                erro: false,
+                                status: 'OK',
+                                number: number,
+                                menssagem: 'Menssagem envida com sucesso'
+                            };
                         }).catch((erro) => {
-                            console.error("Error when sending: ", erro); //return object error
-
+                            //console.error(erro); //return object error
+                            return {
+                                erro: true,
+                                status: '404',
+                                number: number,
+                                menssagem: 'Erro ao enviar menssagem'
+                            };
                         });
                     });
-                    //
-                    console.log(jsonStr);
-                    return JSON.stringify(jsonStr);
-                    //
                 });
                 return resultsendTextMult;
             } else {
