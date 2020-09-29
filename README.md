@@ -52,7 +52,7 @@ http://localhost:8000/sistem/start/nome_da_sessão
 ####  Exibir QR-Code no navegador
 http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
-####  Retorna joson com (base64) do QR-Code 
+####  Retorna json com (base64) do QR-Code 
 http://localhost:8000/sistem/QRCode/nome_da_sessão/false
 
 #### Fecha sessão whatsapp
