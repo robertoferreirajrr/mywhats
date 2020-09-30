@@ -444,6 +444,78 @@ module.exports = class Sessions {
         }
     } //sendImage
     //
+    static async sendImageMult(sessionName, base64DataContato, originalnameContato, base64DataImagem, originalnameImagem, msgimgmass) {
+        var session = Sessions.getSession(sessionName);
+        if (session) {
+            if (session.state == "CONNECTED") {
+                var resultsendImage = await session.client.then(async (client) => {
+                    //
+                    var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                    var filePathContato = path.join(folderName, originalnameContato);
+                    fs.writeFileSync(filePathContato, base64DataContato, 'base64');
+                    console.log(filePathContato);
+                    //
+                    //
+                    var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                    var filePathImagem = path.join(folderName, originalnameImagem);
+                    fs.writeFileSync(filePathImagem, base64DataImagem, 'base64');
+                    console.log(filePathImagem);
+                    //
+                    var jsonStr = '{"sendResult":[]}';
+                    var obj = JSON.parse(jsonStr);
+                    //
+                    var arrayNumbers = fs.readFileSync(filePathContato, 'utf-8').toString().split(/\r?\n/);
+                    for (var i in arrayNumbers) {
+                        //console.log(arrayNumbers[i]);
+                        var number = arrayNumbers[i];
+                        //
+                        var resultsendTextMult = await session.client.then(async (client) => {
+                            // Send basic text
+                            return await client.sendImage(number + '@c.us', filePathImagem, originalnameImagem, msgimgmass).then((result) => {
+                                //console.log(result); //return object success
+                                return {
+                                    erro: false,
+                                    status: 'OK',
+                                    number: number,
+                                    menssagem: 'Menssagem envida com sucesso'
+                                };
+                            }).catch((erro) => {
+                                //console.error(erro); //return object error
+                                return {
+                                    erro: true,
+                                    status: '404',
+                                    number: number,
+                                    menssagem: 'Erro ao enviar menssagem'
+                                };
+                            });
+
+                        });
+                        //return resultsendTextMult;
+                        //
+                        obj['sendResult'].push(resultsendTextMult);
+                    }
+                    //
+                    jsonStr = JSON.stringify(obj);
+                    //console.log(JSON.parse(jsonStr));
+                    return JSON.parse(jsonStr);
+                    //
+                });
+                return resultsendImage;
+            } else {
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
+            }
+        } else {
+            return {
+                result: "error",
+                message: "NOTFOUND"
+            };
+        }
+    } //sendImage
+    //
     static async sendImageGrup(sessionName, number, base64Data, fileName, caption) {
         var session = Sessions.getSession(sessionName);
         if (session) {

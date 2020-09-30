@@ -159,13 +159,24 @@ router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     res.json(result);
 }); //sendImage
 //
-router.post("/sendImageMult", upload.single('fileimg'), async (req, res, next) => {
-    var result = await Sessions.sendImage(
+var cpUpload = upload.fields([{
+    name: 'sendImageMassaContato',
+    maxCount: 1
+}, {
+    name: 'FileImageMassa',
+    maxCount: 1
+}]);
+router.post("/sendImageMult", cpUpload, async (req, res, next) => {
+    var result = await Sessions.sendImageMult(
         req.body.SessionName,
-        apenasNumeros(req.body.phonefullimg),
-        req.file.buffer.toString('base64'),
-        req.file.originalname,
-        req.body.msgimg
+        //
+        req.files['sendImageMassaContato'][0].buffer.toString('base64'),
+        req.files['sendImageMassaContato'][0].originalname,
+        //
+        req.files['FileImageMassa'][0].buffer.toString('base64'),
+        req.files['FileImageMassa'][0].originalname,
+        //
+        req.body.msgimgmass
     );
     console.log(result);
     res.json(result);

@@ -505,62 +505,71 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var data = new FormData(document.getElementById("sendFileImgMassa-form"));
-
-            data.append('sendImageMassaContato', $('#sendImageMassaContato').prop('files')[0]);
-            data.append('fileNamesendImageMassaContato', $("#fileNamesendImageMassaContato").val());
-            //
-            data.append('FileImageMassa', $('#FileImageMassa').prop('files')[0]);
-            data.append('FileNameImageMassa', $("#FileNameImageMassa").val());
-            //
-            data.append('msgimgmass', $("#msgimgmass").val());
-
+            var form = $('#sendFileImgMassa-form')[0];
+            var data = new FormData(form);
             $.ajax({
-                type: 'POST',
-                url: './sendFileImgMassa.php',
-                //dataType: 'text',
-                dataType: 'json',
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: '/sistem/sendImageMult',
                 data: data,
-                cache: false,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
-                processData: false,
+                cache: false,
                 beforeSend: function () {
                     $("#sendFileImgMassa").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
-                    if (response.codigo == "success") {
-                        $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify(response.alerta, {
-                            title: false,
-                            soundPath: '../packages/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: response.iconem,
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.mensagem
-                        });
-                        //$("#submittername").html('<pre>'+response.debug+'</pre>');
-                        //
-                    } else {
-                        $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify(response.alerta, {
-                            title: false,
-                            soundPath: '../packages/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: response.iconem,
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.mensagem
-                        });
-                        //
-                    }
+                    //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
+                    $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    var res_success = '';
+                    //
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        }
+                    });
+                    //
+                    $('#sendImageMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
+                },
+                error: (e) => {
+                    $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    //
+                    Lobibox.notify('info', {
+                        title: false,
+                        soundPath: '/lobibox/sounds/',
+                        soundExt: '.ogg',
+                        sound: true,
+                        iconSource: "fontAwesome",
+                        icon: 'fas fa-info-circle',
+                        size: 'mini',
+                        delay: 5000,
+                        msg: 'Erro interno, menssagem não enviada!'
+                    });
+
                 }
+
             });
         }
     });
@@ -676,6 +685,130 @@ $('document').ready(function () {
 
                 }
             });
+        }
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    $("#sendFileImgGrupo-form").validate({
+        rules: {
+            ImgGrupo: {
+                required: true
+            },
+            FileImageGrupo: {
+                required: true,
+                filesize_max: 10240000
+            },
+            msgimggrupo: {
+                required: true,
+                maxlength: 6700
+            }
+        },
+        messages: {
+            ImgGrupo: {
+                required: "Selecione um grupo!"
+            },
+            FileImageGrupo: {
+                required: "Selecione o arquivo!",
+                filesize_max: "O arquivo deve ser de no máximo 10 MB!"
+            },
+            msgimggrupo: {
+                required: "Informe sua menssagem!",
+                maxlength: "A mensagem deve conter no máximo 6.700 caracteres"
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element).closest('.form-group').find('.help-block').html(error.html());
+        },
+        highlight: function (element) {
+            $(element).closest('.form-control').removeClass('is-valid').addClass('is-invalid');
+            $(element).closest('.custom-select').removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest('.form-group').find('.help-block').html('');
+            $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
+            $(element).closest('.custom-select').removeClass('is-invalid').addClass('is-valid');
+        },
+        submitHandler: function () {
+            event.preventDefault();
+            var form = $('#sendFileImgGrupo-form')[0];
+            var data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: '/sistem/sendImageGrupo',
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                beforeSend: function () {
+                    $("#sendFileImgGrupo").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
+                },
+                success: function (response) {
+                    if (response.erro == false && response.status == 'OK') {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('success', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'far fa-check-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Menssagem enviada com sucesso!'
+                        });
+                        //
+                    } else if (response.erro == true && response.status == '404') {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('error', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-times-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro ao enviada menssagem!'
+                        });
+                        //
+                    } else {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('info', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-info-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro interno, menssagem não enviada!'
+                        });
+                        //
+                    }
+                }
+            });
+        },
+        error: (e) => {
+            $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+            //
+            Lobibox.notify('info', {
+                title: false,
+                soundPath: '/lobibox/sounds/',
+                soundExt: '.ogg',
+                sound: true,
+                iconSource: "fontAwesome",
+                icon: 'fas fa-info-circle',
+                size: 'mini',
+                delay: 5000,
+                msg: 'Erro interno, menssagem não enviada!'
+            });
+
         }
     });
     //
