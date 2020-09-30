@@ -407,57 +407,59 @@ $('document').ready(function () {
                     $("#sendTextMassa").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
-                    console.log("Erro:" + response.erro);
-                    console.log("Status:" + response.status);
-                    if (response.erro == false && response.status == 'OK') {
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('success', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'far fa-check-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: 'Menssagem enviada com sucesso!'
-                        });
-                        //
-                    } else if (response.erro == true && response.status == '404') {
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('error', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: 'Erro ao enviada menssagem!'
-                        });
-                        //
-                    } else {
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('info', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-info-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: 'Erro interno, menssagem não enviada!'
-                        });
-                        //
-                    }
+                    //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
+                    $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    var res_success = '';
+                    //
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response, function (key, value) {
+                        if (response.erro == false && response.status == 'OK') {
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.GFGUserName + '</td>';
+                            res_success += '<td>' + value.NoOfProblems + '</td>';
+                            res_success += '<td>' + value.TotalScore + '</td>';
+                            res_success += '<td>' + value.Articles + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            table_error += '<tr>';
+                            table_error += '<td>' + value.GFGUserName + '</td>';
+                            table_error += '<td>' + value.NoOfProblems + '</td>';
+                            table_error += '<td>' + value.TotalScore + '</td>';
+                            table_error += '<td>' + value.Articles + '</td>';
+                            table_error += '</tr>';
+                        }
+                    });
+                    //
+                    $('#sendTextMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
                 },
                 error: (e) => {
-                    console.log("Erro sendImagem");
+                    $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    //
+                    Lobibox.notify('info', {
+                        title: false,
+                        soundPath: '/lobibox/sounds/',
+                        soundExt: '.ogg',
+                        sound: true,
+                        iconSource: "fontAwesome",
+                        icon: 'fas fa-info-circle',
+                        size: 'mini',
+                        delay: 5000,
+                        msg: 'Erro interno, menssagem não enviada!'
+                    });
+
                 }
 
             });

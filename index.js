@@ -69,14 +69,6 @@ if (ssl === true) { //with ssl
 } // End the server web
 //
 //
-// ------------------------------------------------------------------------------------------------------- //
-//
-//
-function apenasNumeros(string) {
-    var numsStr = string.replace(/[^0-9]/g, '');
-    return parseInt(numsStr);
-}
-//
 app.get("/", async (req, res) => {
     res.render("pages/home");
 });
@@ -86,23 +78,8 @@ app.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 //
-app.post("/", async (req, res, next) => {
-    //
-    var SessionName = req.body.SessionName;
-    var phonefull = apenasNumeros(req.body.phonefull);
-    var msg = req.body.msg;
-    var sendTexto = req.body.sendTexto;
-    //
-    var dados = {
-        "SessionName": SessionName,
-        "phonefull": phonefull,
-        "msg": msg,
-        "sendTexto": sendTexto
-    };
-    console.log(dados);
-});
 //
-//
+/*
 app.post('/file_upload', upload.single('file'), (req, res, next) => {
     // encoded has the base64 of your file
     res.status(200).json({
@@ -117,10 +94,7 @@ app.post('/file_upload', upload.single('file'), (req, res, next) => {
         base64Data: req.file.buffer.toString('base64')
     });
 });
-//
-//
-// ------------------------------------------------------------------------------------------------//
-//
+*/
 //
 //
 process.stdin.resume(); //so the program will not close instantly
