@@ -40,7 +40,7 @@ sudo pm2 start index.js
 
 sudo pm2 save
 
-# O servidor inciará na porta:8000
+# O servidor iniciará na porta:8000
 
 # Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
