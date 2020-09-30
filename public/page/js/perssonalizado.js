@@ -722,62 +722,84 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var data = new FormData(document.getElementById("sendFileImgGrupo-form"));
-
-            data.append('ImgGrupo', $("#ImgGrupo").val());
-            //
-            data.append('FileImageGrupo', $('#FileImageGrupo').prop('files')[0]);
-            data.append('FileNameImageGrupo', $("#FileNameImageGrupo").val());
-            //
-            data.append('msgimggrupo', $("#msgimggrupo").val());
-
+            var form = $('#sendFileImgGrupo-form')[0];
+            var data = new FormData(form);
             $.ajax({
-                type: 'POST',
-                url: './sendFileImgGrupo.php',
-                //dataType: 'text',
-                dataType: 'json',
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: '/sistem/sendImageGrupo',
                 data: data,
-                cache: false,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
-                processData: false,
+                cache: false,
                 beforeSend: function () {
                     $("#sendFileImgGrupo").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
-                    if (response.codigo == "success") {
+                    if (response.erro == false && response.status == 'OK') {
                         $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
-                        Lobibox.notify(response.alerta, {
+                        Lobibox.notify('success', {
                             title: false,
-                            soundPath: '../packages/lobibox/sounds/',
+                            soundPath: '/lobibox/sounds/',
                             soundExt: '.ogg',
                             sound: true,
                             iconSource: "fontAwesome",
-                            icon: response.iconem,
+                            icon: 'far fa-check-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: response.mensagem
+                            msg: 'Menssagem enviada com sucesso!'
                         });
-                        //$("#submittername").html('<pre>'+response.debug+'</pre>');
+                        //
+                    } else if (response.erro == true && response.status == '404') {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('error', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-times-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro ao enviada menssagem!'
+                        });
                         //
                     } else {
                         $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
-                        Lobibox.notify(response.alerta, {
+                        Lobibox.notify('info', {
                             title: false,
-                            soundPath: '../packages/lobibox/sounds/',
+                            soundPath: '/lobibox/sounds/',
                             soundExt: '.ogg',
                             sound: true,
                             iconSource: "fontAwesome",
-                            icon: response.iconem,
+                            icon: 'fas fa-info-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: response.mensagem
+                            msg: 'Erro interno, menssagem não enviada!'
                         });
                         //
                     }
                 }
             });
+        },
+        error: (e) => {
+            $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+            //
+            Lobibox.notify('info', {
+                title: false,
+                soundPath: '/lobibox/sounds/',
+                soundExt: '.ogg',
+                sound: true,
+                iconSource: "fontAwesome",
+                icon: 'fas fa-info-circle',
+                size: 'mini',
+                delay: 5000,
+                msg: 'Erro interno, menssagem não enviada!'
+            });
+
         }
     });
     //

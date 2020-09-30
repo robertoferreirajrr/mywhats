@@ -102,17 +102,15 @@ $('document').ready(function () {
 
     var SessionName = $("#SessionName").val();
     if (SessionName) {
-        console.log("Nome da sessão:", SessionName);
         startVenon(SessionName);
     }
     var auto_refresh_qrcode = setInterval(
         function () {
             if (SessionName) {
-                console.log("Nome da sessão:", SessionName);
                 startVenon(SessionName);
             }
 
-        }, 5000); // refresh every 10000 milliseconds
+        }, 2000); // refresh every 1000 milliseconds
 
     //
     $('#starVenon').click(function (e) {

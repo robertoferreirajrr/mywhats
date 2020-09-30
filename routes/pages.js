@@ -31,8 +31,8 @@ router.get("/sendImageMult", async (req, res) => {
     res.render("pages/sendImageMult");
 });
 //
-router.get("/sendFileImgGrupo", async (req, res) => {
-    res.render("pages/sendFileImgGrupo");
+router.get("/sendImgGrupo", async (req, res) => {
+    res.render("pages/sendImgGrupo");
 });
 //
 //

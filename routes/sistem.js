@@ -159,6 +159,30 @@ router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     res.json(result);
 }); //sendImage
 //
+router.post("/sendImageMult", upload.single('fileimg'), async (req, res, next) => {
+    var result = await Sessions.sendImage(
+        req.body.SessionName,
+        apenasNumeros(req.body.phonefullimg),
+        req.file.buffer.toString('base64'),
+        req.file.originalname,
+        req.body.msgimg
+    );
+    console.log(result);
+    res.json(result);
+}); //sendImage
+//
+router.post("/sendImageGrupo", upload.single('FileImageGrupo'), async (req, res, next) => {
+    var result = await Sessions.sendImageGrup(
+        req.body.SessionName,
+        req.body.ImgGrupo,
+        req.file.buffer.toString('base64'),
+        req.file.originalname,
+        req.body.msgimg
+    );
+    console.log(result);
+    res.json(result);
+}); //sendImage
+//
 // ------------------------------------------------------------------------------------------------//
 //
 //
