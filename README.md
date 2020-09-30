@@ -20,7 +20,7 @@ $ sudo apt install -y git nodejs yarn npm gcc g++ make
 $ sudo apt autoremove -y
 
 # Clone este repositório
-$ git clone git@github.com:AlanMartines/mywhats.git
+$ git clone https://github.com/AlanMartines/mywhats.git
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd mywhats
