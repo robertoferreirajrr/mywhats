@@ -120,6 +120,7 @@ router.post("/sendText", async (req, res, next) => {
         apenasNumeros(req.body.phonefull),
         req.body.msg
     );
+    //console.log(result);
     res.json(result);
 }); //sendText
 //
@@ -131,6 +132,7 @@ router.post("/sendTextMult", upload.single('sendTextMassaContato'), async (req, 
         req.file.originalname,
         req.body.msgtxtmass
     );
+    //console.log(result);
     res.json(result);
 }); //sendText
 //
@@ -155,7 +157,7 @@ router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
         req.file.originalname,
         req.body.msgimg
     );
-    console.log(result);
+    //console.log(result);
     res.json(result);
 }); //sendImage
 //
@@ -178,7 +180,7 @@ router.post("/sendImageMult", cpUpload, async (req, res, next) => {
         //
         req.body.msgimgmass
     );
-    console.log(result);
+    //console.log(result);
     res.json(result);
 }); //sendImage
 //
@@ -190,7 +192,7 @@ router.post("/sendImageGrupo", upload.single('FileImageGrupo'), async (req, res,
         req.file.originalname,
         req.body.msgimg
     );
-    console.log(result);
+    //console.log(result);
     res.json(result);
 }); //sendImage
 //
