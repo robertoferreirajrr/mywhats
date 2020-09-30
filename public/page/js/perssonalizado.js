@@ -603,44 +603,77 @@ $('document').ready(function () {
             var data = $("#sendTextGrupo-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: './sendTextGrupo.php',
+                url: '/sistem/sendTextGrupo',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
                     $("#sendTextGrupo").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
-                    if (response.codigo == "success") {
+                    console.log("Erro:" + response.erro);
+                    console.log("Status:" + response.status);
+                    if (response.erro == false && response.status == 'OK') {
                         $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
-                        Lobibox.notify(response.alerta, {
+                        Lobibox.notify('success', {
                             title: false,
-                            soundPath: '../packages/lobibox/sounds/',
+                            soundPath: '/lobibox/sounds/',
                             soundExt: '.ogg',
                             sound: true,
                             iconSource: "fontAwesome",
-                            icon: response.iconem,
+                            icon: 'far fa-check-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: response.mensagem
+                            msg: 'Menssagem enviada com sucesso!'
+                        });
+                        //
+                    } else if (response.erro == true && response.status == '404') {
+                        $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('error', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-times-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro ao enviada menssagem!'
                         });
                         //
                     } else {
                         $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
-                        Lobibox.notify(response.alerta, {
+                        Lobibox.notify('info', {
                             title: false,
-                            soundPath: '../packages/lobibox/sounds/',
+                            soundPath: '/lobibox/sounds/',
                             soundExt: '.ogg',
                             sound: true,
                             iconSource: "fontAwesome",
-                            icon: response.iconem,
+                            icon: 'fas fa-info-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: response.mensagem
+                            msg: 'Erro interno, menssagem não enviada!'
                         });
                         //
                     }
+                },
+                error: (e) => {
+                    $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    //
+                    Lobibox.notify('info', {
+                        title: false,
+                        soundPath: '/lobibox/sounds/',
+                        soundExt: '.ogg',
+                        sound: true,
+                        iconSource: "fontAwesome",
+                        icon: 'fas fa-info-circle',
+                        size: 'mini',
+                        delay: 5000,
+                        msg: 'Erro interno, menssagem não enviada!'
+                    });
+
                 }
             });
         }

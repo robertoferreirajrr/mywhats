@@ -114,12 +114,11 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-// router.get("/sendText/:SessionName/:number/:text", async (req, res, next) => {
 router.post("/sendText", async (req, res, next) => {
     var result = await Sessions.sendText(
         req.body.SessionName,
         apenasNumeros(req.body.phonefull),
-        req.body.msg,
+        req.body.msg
     );
     res.json(result);
 }); //sendText
@@ -131,6 +130,15 @@ router.post("/sendTextMult", upload.single('sendTextMassaContato'), async (req, 
         req.file.mimetype,
         req.file.originalname,
         req.body.msgtxtmass
+    );
+    res.json(result);
+}); //sendText
+//
+router.post("/sendTextGrupo", async (req, res, next) => {
+    var result = await Sessions.sendTextGroup(
+        req.body.SessionName,
+        req.body.TextGrupo,
+        req.body.TextGrupoMsg
     );
     res.json(result);
 }); //sendText

@@ -276,7 +276,7 @@ module.exports = class Sessions {
     //
     //
     static async sendText(sessionName, number, text) {
-        console.log("Enviando texto!");
+        console.log("- Enviando menssagem!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -310,6 +310,7 @@ module.exports = class Sessions {
     } //sendText
     //
     static async sendTextMult(sessionName, base64Data, mimetype, originalname, msgtxtmass) {
+        console.log("- Enviando menssagem!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -371,6 +372,40 @@ module.exports = class Sessions {
             };
         }
     } //sendTextMult
+    //
+    static async sendTextGroup(sessionName, number, text) {
+        console.log("- Enviando menssagem!");
+        var session = Sessions.getSession(sessionName);
+        if (session) {
+            if (session.state == "CONNECTED") {
+                var resultSendText = await session.client.then(async client => {
+                    // Send basic text
+                    return await client.sendText(number + '@g.us', text).then((result) => {
+                        //console.log("Result: ", result); //return object success
+                        //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
+                        return (result);
+                    }).catch((erro) => {
+                        //console.error("Error when sending: ", erro); //return object error
+                        //return { result: 'error', state: session.state, message: "Erro ao enviar menssagem" };
+                        return (erro);
+                    });
+                });
+                return resultSendText;
+            } else {
+                return {
+                    result: 'info',
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
+            }
+        } else {
+            return {
+                result: 'error',
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
+            };
+        }
+    } //sendText
     //
     //
     // ------------------------------------------------------------------------------------------------//
