@@ -324,7 +324,7 @@ module.exports = class Sessions {
                 //
                 var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
                 for (var i in arrayNumbers) {
-                    console.log(arrayNumbers[i]);
+                    //console.log(arrayNumbers[i]);
                     var number = arrayNumbers[i];
                     //
                     var resultsendTextMult = await session.client.then(async (client) => {
@@ -354,7 +354,7 @@ module.exports = class Sessions {
                 }
                 //
                 jsonStr = JSON.stringify(obj);
-                console.log(JSON.parse(jsonStr));
+                //console.log(JSON.parse(jsonStr));
                 return JSON.parse(jsonStr);
                 //
             } else {
@@ -673,7 +673,7 @@ module.exports = class Sessions {
     //
     // Recuperar todos os grupos
     static async getAllGroups(sessionName) {
-        console.log("Obtendo todos os grupos!");
+        console.log("- Obtendo todos os grupos!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {

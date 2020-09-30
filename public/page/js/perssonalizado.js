@@ -412,15 +412,13 @@ $('document').ready(function () {
                     var res_success = '';
                     //
                     // ITERATING THROUGH OBJECTS 
-                    $.each(response, function (key, value) {
-                        if (response.erro == false && response.status == 'OK') {
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
                             res_success += '<tr>';
-                            res_success += '<td>' + value.GFGUserName + '</td>';
-                            res_success += '<td>' + value.NoOfProblems + '</td>';
-                            res_success += '<td>' + value.TotalScore + '</td>';
-                            res_success += '<td>' + value.Articles + '</td>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
                             res_success += '</tr>';
                         } else {
                             $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
@@ -428,12 +426,10 @@ $('document').ready(function () {
                             //
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
-                            table_error += '<tr>';
-                            table_error += '<td>' + value.GFGUserName + '</td>';
-                            table_error += '<td>' + value.NoOfProblems + '</td>';
-                            table_error += '<td>' + value.TotalScore + '</td>';
-                            table_error += '<td>' + value.Articles + '</td>';
-                            table_error += '</tr>';
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
                         }
                     });
                     //
@@ -795,9 +791,17 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     $("#BotaoGrupoText").on("click", function () {
+        //https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
+        let dropdown = $('#TextGrupo');
+        dropdown.empty();
+        dropdown.append('<option selected="true" disabled>-- Selecione um Grupo --</option>');
+        dropdown.prop('selectedIndex', 0);
+        var SessionName = $("#SessionName").val();
         $.ajax({
-            type: 'POST',
-            url: './getAllGroups.php',
+            type: 'GET',
+            url: '/sistem/getAllGroups/' + SessionName,
+            //data: data,
+            dataType: 'json',
             beforeSend: function () {
                 $("#BotaoGrupoText").html('<i class="fas fa-spinner fa-spin"></i> Carregando...');
             },
@@ -805,16 +809,25 @@ $('document').ready(function () {
                 //
                 $("#BotaoGrupoText").html('Carregar Grupos');
                 //
-                $("#TextGrupo").html(response);
-                //
+                $.each(response.resultgetAllGroups, function (key, value) {
+                    dropdown.append($('<option></option>').attr('value', value.contact.id.user).text(value.contact.name));
+                });
             }
         });
     });
     //
     $("#BotaoGrupoImg").on("click", function () {
+        //https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
+        let dropdown = $('#ImgGrupo');
+        dropdown.empty();
+        dropdown.append('<option selected="true" disabled>-- Selecione um Grupo --</option>');
+        dropdown.prop('selectedIndex', 0);
+        var SessionName = $("#SessionName").val();
         $.ajax({
-            type: 'POST',
-            url: './getAllGroups.php',
+            type: 'GET',
+            url: '/sistem/getAllGroups/' + SessionName,
+            //data: data,
+            dataType: 'json',
             beforeSend: function () {
                 $("#BotaoGrupoImg").html('<i class="fas fa-spinner fa-spin"></i> Carregando...');
             },
@@ -822,8 +835,9 @@ $('document').ready(function () {
                 //
                 $("#BotaoGrupoImg").html('Carregar Grupos');
                 //
-                $("#ImgGrupo").html(response);
-                //
+                $.each(response.resultgetAllGroups, function (key, value) {
+                    dropdown.append($('<option></option>').attr('value', value.contact.id.user).text(value.contact.name));
+                });
             }
         });
     });

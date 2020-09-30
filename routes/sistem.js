@@ -224,7 +224,7 @@ router.get("/getAllChats", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getAllGroups", async (req, res, next) => {
+router.get("/getAllGroups/:SessionName", async (req, res, next) => {
     var result = await Sessions.getAllGroups(req.params.SessionName);
     res.json(result);
 }); //getAllGroups
