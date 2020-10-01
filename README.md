@@ -1,5 +1,8 @@
 
-![Screenshot](screenshot.png)
+<p align="center">
+  <img src="screenshot.png" width="150" title="My Whats">
+  <img src="screenshot.png" width="150" alt="My Whats">
+</p>
 
 # My Whats
  Este projeto usa como base o [Venom-bot](https://github.com/orkestral/venom "Venom-bot"), um navegador virtual sem interface gráfica que abre o whatsapp web e executa todos os comandos via código possibilitando assim a automação de todas as funções, e um fork do projeto [myzap](https://github.com/billbarsch/myzap "myzap") do [@billbarsch](https://github.com/billbarsch "@billbarsch").
