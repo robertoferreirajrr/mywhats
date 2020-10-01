@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/AlanMartines/mywhats/blob/master/public/images/whatsapp-bot.png" width="150" alt="My Whats">
+  <img src="./public/images/whatsapp-bot.png" width="150" alt="My Whats">
 </p>
 
 # My Whats
