@@ -10,4 +10,16 @@ _Todas as mudanças notáveis ​​neste projeto serão documentadas neste arqu
     Primeira versão
 
     Leia-me de inicialização
+
+    Envia mensagem de texto para contato informado.
+
+    Envia mensagem de texto para lista de contatos (em txt).
+
+    Envia mensagem de texto para grupo informado.
+
+    Envia mensagem de imagem para contato informado.
+
+    Envia mensagem de imagem para lista de contatos (em txt).
+
+    Envia mensagem de imagem para grupo informado.
 ```
