@@ -10,6 +10,11 @@ router.get("/home", async (req, res) => {
 });
 //
 //
+router.get("/politica-de-cookies", async (req, res) => {
+    res.render("pages/politica-de-cookies");
+});
+//
+//
 router.get("/sendText", async (req, res) => {
     res.render("pages/sendText");
 });
