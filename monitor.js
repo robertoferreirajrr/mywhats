@@ -21,6 +21,13 @@ sistema.use(bodyParser.urlencoded({
 sistema.listen(port, hostname, () => {
     console.log("Monitor rodando na porta:" + port);
 });
+//
+//
+
+
+
+
+//
 // End the server sistema
 //
 process.stdin.resume(); //so the program will not close instantly
