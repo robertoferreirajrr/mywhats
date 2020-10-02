@@ -1,6 +1,6 @@
 function startVenon(SessionName) {
     $.ajax({
-        url: '/sistem/start/' + SessionName,
+        url: 'http://localhost:9000/sistem/start/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -35,7 +35,7 @@ function startVenon(SessionName) {
 //
 function statusVenon(SessionName) {
     $.ajax({
-        url: '/sistem/close/' + SessionName,
+        url: 'http://localhost:9000/sistem/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -54,7 +54,7 @@ function statusVenon(SessionName) {
 //
 function closeVenon(SessionName) {
     $.ajax({
-        url: '/sistem/close/' + SessionName,
+        url: 'http://localhost:9000/sistem/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -73,7 +73,7 @@ function closeVenon(SessionName) {
 //
 function qrcodeVenon(SessionName) {
     $.ajax({
-        url: '/sistem/QRCode/' + SessionName + '/false',
+        url: 'http://localhost:9000/sistem/QRCode/' + SessionName + '/false',
         dataType: 'json',
         beforeSend: function () {
 
@@ -99,7 +99,7 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
-    /*
+
     var SessionName = $("#SessionName").val();
     if (SessionName) {
         startVenon(SessionName);
@@ -111,7 +111,7 @@ $('document').ready(function () {
             }
 
         }, 2000); // refresh every 1000 milliseconds
-        */
+
     //
     $('#starVenon').click(function (e) {
         var SessionName = $("#SessionName").val();
