@@ -5,10 +5,8 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const sistema = express();
 const cors = require('cors');
-const sistem = require("./routes/sistem");
 const hostname = process.env.HOST || 'localhost';
 const port = process.env.PORT || 9090;
-const Sessions = require("./cliVenom.js");
 sistema.use(cors());
 sistema.use(express.json());
 //
@@ -18,9 +16,6 @@ sistema.use(bodyParser.json());
 sistema.use(bodyParser.urlencoded({
     extended: true
 }));
-//
-// Rotas
-sistema.use("/sistem", sistem);
 //
 //http
 sistema.listen(port, hostname, () => {
