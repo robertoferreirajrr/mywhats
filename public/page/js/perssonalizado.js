@@ -977,6 +977,102 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
+    $("#checkNumberStatusMassa-form").validate({
+        rules: {
+            checkNumberStatusMassaContato: {
+                required: true
+            }
+        },
+        messages: {
+            checkNumberStatusMassaContato: {
+                required: "Selecione o arquivo de contato!"
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element).closest('.form-group').find('.help-block').html(error.html());
+        },
+        highlight: function (element) {
+            $(element).closest('.form-control').removeClass('is-valid').addClass('is-invalid');
+            $(element).closest('.custom-select').removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest('.form-group').find('.help-block').html('');
+            $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
+            $(element).closest('.custom-select').removeClass('is-invalid').addClass('is-valid');
+        },
+        submitHandler: function () {
+            event.preventDefault();
+            var form = $('#sendTextMassa-form')[0];
+            var data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: 'http://localhost:9000/sistem/checkNumberStatusMult',
+                data: data,
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
+                beforeSend: function () {
+                    $("#checkNumberStatusMassa").html('<i class="fas fa-spinner fa-spin"></i> Validando...');
+                },
+                success: function (response) {
+                    //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
+                    $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
+                    var res_success = '';
+                    //
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        }
+                    });
+                    //
+                    $('#checkNumberStatusMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
+                },
+                error: (e) => {
+                    $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
+                    //
+                    Lobibox.notify('info', {
+                        title: false,
+                        soundPath: '/lobibox/sounds/',
+                        soundExt: '.ogg',
+                        sound: true,
+                        iconSource: "fontAwesome",
+                        icon: 'fas fa-info-circle',
+                        size: 'mini',
+                        delay: 5000,
+                        msg: 'Erro interno, menssagem não enviada!'
+                    });
+
+                }
+
+            });
+        }
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
     $("#fileimg").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings("#fileName-labe").addClass("selected").html(fileName);
@@ -1013,6 +1109,14 @@ $('document').ready(function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings("#FileImageGrupo-label").addClass("selected").html(fileName);
         $('#FileNameImageGrupo').val(fileName);
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    $("#checkNumberStatusMassaContato").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings("#checkNumberStatusMassaContato-label").addClass("selected").html(fileName);
+        $('#filecheckNumberStatusMassaContato').val(fileName);
     });
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
