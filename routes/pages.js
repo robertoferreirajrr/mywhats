@@ -16,28 +16,28 @@ router.get("/politica-de-cookies", async (req, res) => {
 //
 //
 router.get("/sendText", async (req, res) => {
-    res.render("pages/sendText");
+    res.render("sistem/sendText");
 });
 //
 router.get("/sendTextMult", async (req, res) => {
-    res.render("pages/sendTextMult");
+    res.render("sistem/sendTextMult");
 });
 //
 router.get("/sendTextGrupo", async (req, res) => {
-    res.render("pages/sendTextGrupo");
+    res.render("sistem/sendTextGrupo");
 });
 //
 //
 router.get("/sendImage", async (req, res) => {
-    res.render("pages/sendImage");
+    res.render("sistem/sendImage");
 });
 //
 router.get("/sendImageMult", async (req, res) => {
-    res.render("pages/sendImageMult");
+    res.render("sistem/sendImageMult");
 });
 //
 router.get("/sendImgGrupo", async (req, res) => {
-    res.render("pages/sendImgGrupo");
+    res.render("sistem/sendImgGrupo");
 });
 //
 //
