@@ -1009,6 +1009,58 @@ module.exports = class Sessions {
         }
     } //checkNumberStatus
     //
+    static async checkNumberStatusMult(sessionName, base64Data, mimetype, originalname) {
+        console.log("- Enviando menssagem!");
+        var session = Sessions.getSession(sessionName);
+        if (session) {
+            if (session.state == "CONNECTED") {
+                //
+                var folderName = fs.mkdtempSync(path.join(os.tmpdir(), session.name + '-'));
+                var filePath = path.join(folderName, originalname);
+                fs.writeFileSync(filePath, base64Data, 'base64');
+                console.log(filePath);
+                //
+                var jsonStr = '{"sendResult":[]}';
+                var obj = JSON.parse(jsonStr);
+                //
+                var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
+                for (var i in arrayNumbers) {
+                    //console.log(arrayNumbers[i]);
+                    var number = arrayNumbers[i];
+                    //
+                    var resultcheckNumberStatus = await session.client.then(async client => {
+                        return await client.checkNumberStatus(number + '@c.us').then((result) => {
+                            //console.log('Result: ', result); //return object success
+                            return result;
+                        }).catch((erro) => {
+                            //console.error('Error when sending: ', erro); //return object error
+                            return erro;
+                        });
+                    });
+                    //return resultcheckNumberStatus;
+                    //
+                    obj['sendResult'].push(resultcheckNumberStatus);
+                }
+                //
+                jsonStr = JSON.stringify(obj);
+                //console.log(JSON.parse(jsonStr));
+                return JSON.parse(jsonStr);
+                //
+            } else {
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
+            }
+        } else {
+            return {
+                result: "error",
+                message: "NOTFOUND"
+            };
+        }
+    } //sendTextMult
+    //
     // ------------------------------------------------------------------------------------------------//
     //
     //
