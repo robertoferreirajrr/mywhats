@@ -5,8 +5,7 @@ function createCookie(name, value, days) {
         var date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         var expires = "; expires=" + date.toGMTString();
-    }
-    else var expires = "";
+    } else var expires = "";
 
     document.cookie = name + "=" + value + expires + "; path=/";
 }
@@ -222,7 +221,7 @@ $('document').ready(function () {
             var data = $("#sendText-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: '/sistem/sendText',
+                url: 'http://localhost:9000/sistem/sendText',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -332,7 +331,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImage',
+                url: 'http://localhost:9000/sistem/sendImage',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -438,7 +437,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendTextMult',
+                url: 'http://localhost:9000/sistem/sendTextMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -550,7 +549,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImageMult',
+                url: 'http://localhost:9000/sistem/sendImageMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -652,7 +651,7 @@ $('document').ready(function () {
             var data = $("#sendTextGrupo-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: '/sistem/sendTextGrupo',
+                url: 'http://localhost:9000/sistem/sendTextGrupo',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -776,7 +775,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImageGrupo',
+                url: 'http://localhost:9000/sistem/sendImageGrupo',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -900,7 +899,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImageGrupo',
+                url: 'http://localhost:9000/sistem/sendImageGrupo',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -1027,7 +1026,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/sistem/getAllGroups/' + SessionName,
+            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1053,7 +1052,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/sistem/getAllGroups/' + SessionName,
+            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1073,7 +1072,9 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
-    if (!!$.cookie('mywhats_cookie')) { createCookie('mywhats_cookie', uuidv4(), 1); }
+    if (!!$.cookie('mywhats_cookie')) {
+        createCookie('mywhats_cookie', uuidv4(), 1);
+    }
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
