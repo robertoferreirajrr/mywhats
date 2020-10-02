@@ -38,7 +38,7 @@ $ node index.js
 
 $ node monitor.js
 
-$ node sistema.js
+$ node sistem.js
 
 # Manter os processos ativos a cada reinicialização do servidor
 sudo npm install pm2 -g
@@ -49,7 +49,7 @@ pm2 start index.js
 
 pm2 start monitor.js
 
-pm2 start sistema.js
+pm2 start sistem.js
 
 pm2 save
 
