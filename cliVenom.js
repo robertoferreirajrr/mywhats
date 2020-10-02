@@ -973,7 +973,7 @@ module.exports = class Sessions {
     //
     //
     // Verifique se o número existe
-    static async checkNumberStatus(sessionName) {
+    static async checkNumberStatus(sessionName, numero) {
         console.log("- Obtendo chats!");
         var session = Sessions.getSession(sessionName);
         if (session) {

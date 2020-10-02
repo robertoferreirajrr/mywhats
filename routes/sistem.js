@@ -278,6 +278,14 @@ router.get("/getChat", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
+router.post("/checkNumberStatus", async (req, res, next) => {
+    var result = await Sessions.checkNumberStatus(req.body.SessionName, req.body.numero);
+    res.json(result);
+}); //checkNumberStatus
+//
+// ------------------------------------------------------------------------------------------------//
+//
+//
 router.get("/close", async (req, res, next) => {
     var result = await Sessions.closeSession(req.params.SessionName);
     res.json(result);
