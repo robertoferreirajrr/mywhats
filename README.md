@@ -43,6 +43,10 @@ pm2 startup
 
 pm2 start index.js
 
+pm2 start monitor.js
+
+pm2 start sistem.js
+
 pm2 save
 
 # O servidor iniciará na porta:8000
