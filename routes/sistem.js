@@ -279,7 +279,7 @@ router.get("/getChat", async (req, res, next) => {
 //
 //
 router.post("/checkNumberStatus", async (req, res, next) => {
-    var result = await Sessions.checkNumberStatus(req.body.SessionName, req.body.numero);
+    var result = await Sessions.checkNumberStatus(req.body.SessionName, req.body.phonefull);
     res.json(result);
 }); //checkNumberStatus
 //
