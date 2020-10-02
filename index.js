@@ -11,6 +11,7 @@ const web = express();
 const cors = require('cors');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
+const monitor = require("./routes/monitor");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 8000;
@@ -42,6 +43,7 @@ web.use(express.static(path.join(__dirname, "public")));
 // Rotas
 web.use("/admin", admin);
 web.use("/pages", pages);
+web.use("/monitor", monitor);
 //
 //
 // Start the server web

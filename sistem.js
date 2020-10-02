@@ -23,17 +23,6 @@ sistema.use(bodyParser.urlencoded({
 sistema.use("/sistem", sistem);
 //
 //
-//
-sistema.get("/", async (req, res) => {
-    res.render("pages/home");
-});
-//
-//
-sistema.get("/home", async (req, res) => {
-    res.render("pages/home");
-});
-//
-//
 //http
 sistema.listen(port, hostname, () => {
     console.log("Sistema rodando na porta:" + port);

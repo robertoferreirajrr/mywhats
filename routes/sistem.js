@@ -294,19 +294,4 @@ router.get("/close", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get('/delete', async (req, res) => {
-    try {
-        await Promise.all([unlink(req.params.path)]);
-        //res.end();
-        console.log('Arquivo apagado.');
-    } catch (e) {
-        console.error(e);
-        //res.status(500).send('Ocorreu um erro interno.');
-        console.log('Ocorreu um erro interno.');
-    }
-});
-//
-// ------------------------------------------------------------------------------------------------//
-//
-//
 module.exports = router;
