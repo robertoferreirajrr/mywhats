@@ -31,6 +31,7 @@ $('document').ready(function () {
   //
   //---------------------------------------------------------------------------------------------------------------------------------------------------//
   //
+  /*
   $("#numeroimg").intlTelInput({
     // allowDropdown: false,
     // autoHideDialCode: false,
@@ -57,6 +58,7 @@ $('document').ready(function () {
   $("#numeroimg").on("keyup", function () {
     $("#phonefullimg").val('+' + $("#numeroimg").intlTelInput("getSelectedCountryData").dialCode + $("#numeroimg").val());
   });
+  */
   //
   //---------------------------------------------------------------------------------------------------------------------------------------------------//
   //

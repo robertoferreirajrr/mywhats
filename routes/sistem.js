@@ -137,7 +137,7 @@ router.post("/sendTextGrupo", async (req, res, next) => {
 router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     var result = await Sessions.sendImage(
         req.body.SessionName,
-        apenasNumeros(req.body.phonefullimg),
+        apenasNumeros(req.body.phonefull),
         req.file.buffer.toString('base64'),
         req.file.originalname,
         req.body.msgimg
