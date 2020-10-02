@@ -22,6 +22,18 @@ sistema.use(bodyParser.urlencoded({
 // Rotas
 sistema.use("/sistem", sistem);
 //
+//
+//
+sistema.get("/", async (req, res) => {
+    res.render("pages/home");
+});
+//
+//
+sistema.get("/home", async (req, res) => {
+    res.render("pages/home");
+});
+//
+//
 //http
 sistema.listen(port, hostname, () => {
     console.log("Sistema rodando na porta:" + port);
@@ -44,7 +56,7 @@ async function exitHandler(options, exitCode) {
     if (options.exit) {
         process.exit();
     }
-} //exitHandler 
+} //exitHandler
 //
 //do something when sistema is closing
 process.on('exit', exitHandler.bind(null, {
