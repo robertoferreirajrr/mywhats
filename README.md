@@ -37,13 +37,13 @@ $ npm install
 $ node index.js
 
 # Manter os processos ativos a cada reinicialização do servidor
-sudo npm install -g pm2
+sudo npm install pm2@latest -g
 
-sudo pm2 startup
+pm2 startup
 
-sudo pm2 start index.js
+pm2 start index.js
 
-sudo pm2 save
+pm2 save
 
 # O servidor iniciará na porta:8000
 
