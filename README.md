@@ -58,16 +58,16 @@ pm2 save
 http://localhost:8000/
 
 #### Iniciar sessão whatsapp
-http://localhost:8000/sistem/start/nome_da_sessão
+http://localhost:9000/sistem/start/nome_da_sessão
 
 ####  Exibir QR-Code no navegador
-http://localhost:8000/sistem/QRCode/nome_da_sessão/true
+http://localhost:9000/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna json com (base64) do QR-Code 
-http://localhost:8000/sistem/QRCode/nome_da_sessão/false
+http://localhost:9000/sistem/QRCode/nome_da_sessão/false
 
 #### Fecha sessão whatsapp
-http://localhost:8000/sistem/crose/nome_da_sessão
+http://localhost:9000/sistem/crose/nome_da_sessão
 
 ## Aviso
 Dockerfile incompleto
