@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "web": "./scripts/start.sh web",
+    "sistem": "./scripts/start.sh sistem",
+    "monitor": "./scripts/start.sh monitor",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

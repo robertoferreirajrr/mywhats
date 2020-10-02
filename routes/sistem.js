@@ -1,24 +1,9 @@
-const os = require('os');
-const fs = require('fs');
-const lineByLine = require('n-readlines');
-const path = require('path');
 const express = require("express");
 const multer = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
 const upload = multer({})
 const router = express.Router();
 const Sessions = require("../cliVenom.js");
-//
-//
-// ------------------------------------------------------------------------------------------------------- //
-//
-//
-router.get("/", async (req, res) => {
-    res.render("app/index");
-});
-//
-//
-// ------------------------------------------------------------------------------------------------------- //
 //
 //
 router.get("/start/:SessionName", async (req, res, next) => {

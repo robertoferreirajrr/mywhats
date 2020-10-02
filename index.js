@@ -7,50 +7,41 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const handlebars = require('express-handlebars');
 const path = require('path');
-const multer = require('multer');
-//const upload = multer({ dest: 'public/uploads/' });
-const upload = multer({})
-const app = express();
+const web = express();
 const cors = require('cors');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
-const sistem = require("./routes/sistem");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 8000;
 const ssl_key = process.env.KEY || './sslcert/server.key';
 const ssl_cert = process.env.CERT || './sslcert/server.crt';
-const Sessions = require("./cliVenom.js");
-app.use(cors());
-app.use(express.json());
+web.use(cors());
+web.use(express.json());
 //
 // Configuração
 // Body Parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+web.use(bodyParser.json());
+web.use(bodyParser.urlencoded({
     extended: true
 }));
 //
 // Handlebars
-app.engine('handlebars', handlebars({
+web.engine('handlebars', handlebars({
     extname: 'handlebars',
     defaultView: 'index',
     defaultLayout: 'index',
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/'
 }));
-app.set('view engine', 'handlebars');
+web.set('view engine', 'handlebars');
 //
 // Public
-app.use(express.static(path.join(__dirname, "public")));
+web.use(express.static(path.join(__dirname, "public")));
 //
 // Rotas
-app.use("/admin", admin);
-app.use("/pages", pages);
-app.use("/sistem", sistem);
-//
-//
-// ------------------------------------------------------------------------------------------------//
+web.use("/admin", admin);
+web.use("/pages", pages);
 //
 //
 // Start the server web
@@ -59,28 +50,28 @@ if (ssl === true) { //with ssl
             key: fs.readFileSync(ssl_key, 'utf8'),
             cert: fs.readFileSync(ssl_cert, 'utf8')
         },
-        app).listen(port, hostname, () => {
-        console.log("Sistema rodando na porta :" + port);
+        web).listen(port, hostname, () => {
+        console.log("Web rodando na porta :" + port);
     });
 } else { //http
-    app.listen(port, hostname, () => {
-        console.log("Sistema rodando na porta:" + port);
+    web.listen(port, hostname, () => {
+        console.log("Web rodando na porta:" + port);
     });
 } // End the server web
 //
 //
-app.get("/", async (req, res) => {
+web.get("/", async (req, res) => {
     res.render("pages/home");
 });
 //
 //
-app.get("/home", async (req, res) => {
+web.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 //
 //
 /*
-app.post('/file_upload', upload.single('file'), (req, res, next) => {
+web.post('/file_upload', upload.single('file'), (req, res, next) => {
     // encoded has the base64 of your file
     res.status(200).json({
         fieldname: req.file.fieldname,
@@ -100,22 +91,12 @@ app.post('/file_upload', upload.single('file'), (req, res, next) => {
 process.stdin.resume(); //so the program will not close instantly
 //
 async function exitHandler(options, exitCode) {
-    if (options.cleanup) {
-        console.log("- Cleanup");
-        await Sessions.getSessions().forEach(async session => {
-            await Sessions.closeSession(session.sessionName);
-        });
-    }
-    if (exitCode || exitCode === 0) {
-        console.log(exitCode);
-    }
-    //
     if (options.exit) {
         process.exit();
     }
 } //exitHandler 
 //
-//do something when app is closing
+//do something when web is closing
 process.on('exit', exitHandler.bind(null, {
     cleanup: true
 }));
