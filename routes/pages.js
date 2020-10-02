@@ -41,6 +41,15 @@ router.get("/sendImgGrupo", async (req, res) => {
 });
 //
 //
+router.get("/checkNumberStatus", async (req, res) => {
+    res.render("sistem/checkNumberStatus");
+});
+//
+router.get("/checkNumberStatusMult", async (req, res) => {
+    res.render("sistem/checkNumberStatusMult");
+});
+//
+//
 // ------------------------------------------------------------------------------------------------------- //
 //
 //

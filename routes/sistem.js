@@ -283,6 +283,18 @@ router.post("/checkNumberStatus", async (req, res, next) => {
     res.json(result);
 }); //checkNumberStatus
 //
+router.post("/checkNumberStatusMult", upload.single('checkNumberStatusMassaContato'), async (req, res, next) => {
+    var result = await Sessions.checkNumberStatusMult(
+        req.body.SessionName,
+        req.file.buffer.toString('base64'),
+        req.file.mimetype,
+        req.file.originalname
+    );
+    //console.log(result);
+    res.json(result);
+}); //sendText
+//
+//
 // ------------------------------------------------------------------------------------------------//
 //
 //
