@@ -553,7 +553,6 @@ module.exports = class Sessions {
     //
     //
     static async sendFile(sessionName, number, base64Data, fileName, caption) {
-        console.log("Enviando arquivo!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -562,7 +561,13 @@ module.exports = class Sessions {
                     var filePath = path.join(folderName, fileName);
                     fs.writeFileSync(filePath, base64Data, 'base64');
                     console.log(filePath);
-                    return await client.sendFile(number + '@c.us', filePath, fileName, caption);
+                    return await client.sendFile(number + '@c.us', filePath, fileName, caption).then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 }); //client.then(
                 return {
                     resultSendFile
@@ -589,12 +594,18 @@ module.exports = class Sessions {
     //
     // Chama sua lista de contatos bloqueados (retorna uma matriz)
     static async getBlockList(sessionName) {
-        console.log("Obtendo lista de bloqueados!");
+        console.log("- Obtendo lista de bloqueados!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetBlockList = await session.client.then(async client => {
-                    return await client.getBlockList();
+                    return await client.getBlockList().then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetBlockList
@@ -621,12 +632,18 @@ module.exports = class Sessions {
     //
     // Retrieve contacts
     static async getAllContacts(sessionName) {
-        console.log("Obtendo todos os contatos!");
+        console.log("- Obtendo todos os contatos!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetAllContacts = await session.client.then(async client => {
-                    return await client.getAllContacts();
+                    return await client.getAllContacts().then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetAllContacts
@@ -653,12 +670,18 @@ module.exports = class Sessions {
     //
     // Recupere todas as mensagens no chat
     static async loadAndGetAllMessagesInChat(sessionName) {
-        console.log("Carregando e obtendo todas as mensagens no chat!");
+        console.log("- Obtendo todas as mensagens no chat!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultloadAndGetAllMessagesInChat = await session.client.then(async client => {
-                    return await client.loadAndGetAllMessagesInChat(chatId + '@g.us');
+                    return await client.loadAndGetAllMessagesInChat(chatId + '@g.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultloadAndGetAllMessagesInChat
@@ -685,12 +708,18 @@ module.exports = class Sessions {
     //
     // Recuperar status de contato
     static async getStatus(sessionName) {
-        console.log("Obtendo status!");
+        console.log("- Obtendo status!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetStatus = await session.client.then(async client => {
-                    return await client.getStatus(contactId + '@c.us');
+                    return await client.getStatus(contactId + '@c.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetStatus
@@ -717,12 +746,18 @@ module.exports = class Sessions {
     //
     // Recuperar perfil de usuário
     static async getNumberProfile(sessionName) {
-        console.log("Obtendo o perfil do número!");
+        console.log("- Obtendo o perfil do número!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetNumberProfile = await session.client.then(async client => {
-                    return await client.getNumberProfile(contactId + '@c.us');
+                    return await client.getNumberProfile(contactId + '@c.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetNumberProfile
@@ -749,12 +784,18 @@ module.exports = class Sessions {
     //
     // Recupera todas as mensagens não lidas
     static async getAllUnreadMessages(sessionName) {
-        console.log("Obtendo todas as mensagens não lidas!");
+        console.log("- Obtendo todas as mensagens não lidas!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetAllUnreadMessages = await session.client.then(async client => {
-                    return await client.getAllUnreadMessages();
+                    return await client.getAllUnreadMessages().then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetAllUnreadMessages
@@ -781,12 +822,18 @@ module.exports = class Sessions {
     //
     // Recuperar todos os chats
     static async getAllChats(sessionName) {
-        console.log("Obtendo todos os chats!");
+        console.log("- Obtendo todos os chats!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetAllChats = await session.client.then(async client => {
-                    return await client.getAllChats();
+                    return await client.getAllChats().then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetAllChats
@@ -818,7 +865,13 @@ module.exports = class Sessions {
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetAllGroups = await session.client.then(async client => {
-                    return await client.getAllGroups();
+                    return await client.getAllGroups().then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetAllGroups
@@ -845,12 +898,18 @@ module.exports = class Sessions {
     //
     // Recuperar fic de perfil (como url)
     static async getProfilePicFromServer(sessionName) {
-        console.log("Obtendo a foto do perfil do servidor!");
+        console.log("- Obtendo a foto do perfil do servidor!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetProfilePicFromServer = await session.client.then(async client => {
-                    return await client.getProfilePicFromServer(chatId + '@g.us');
+                    return await client.getProfilePicFromServer(chatId + '@g.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetProfilePicFromServer
@@ -877,12 +936,18 @@ module.exports = class Sessions {
     //
     // Recuperar chat / conversa
     static async getChat(sessionName) {
-        console.log("Obtendo chats!");
+        console.log("- Obtendo chats!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
                 var resultgetChat = await session.client.then(async client => {
-                    return await client.getChat(chatId + '@g.us');
+                    return await client.getChat(chatId + '@g.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
                 });
                 return {
                     resultgetChat
@@ -903,6 +968,44 @@ module.exports = class Sessions {
             };
         }
     } //getChat
+    //
+    // ------------------------------------------------------------------------------------------------//
+    //
+    //
+    // Verifique se o número existe
+    static async checkNumberStatus(sessionName) {
+        console.log("- Obtendo chats!");
+        var session = Sessions.getSession(sessionName);
+        if (session) {
+            if (session.state == "CONNECTED") {
+                var resultcheckNumberStatus = await session.client.then(async client => {
+                    return await client.checkNumberStatus(numero + '@c.us').then((result) => {
+                        //console.log('Result: ', result); //return object success
+                        return result;
+                    }).catch((erro) => {
+                        //console.error('Error when sending: ', erro); //return object error
+                        return erro;
+                    });
+                });
+                return {
+                    resultcheckNumberStatus
+                };
+                //return { result: "success" };
+            } else {
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
+            }
+        } else {
+            return {
+                result: 'error',
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
+            };
+        }
+    } //checkNumberStatus
     //
     // ------------------------------------------------------------------------------------------------//
     //
