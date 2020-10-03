@@ -63,7 +63,7 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
                 res.end(imageBuffer);
             } else {
                 res.status(200).json({
-                    result: "success",
+                    result: "warning",
                     state: session.state,
                     qrcode: session.qrcode,
                     message: "Sistema aguardando leitura do QR-Code"
@@ -279,7 +279,10 @@ router.get("/getChat", async (req, res, next) => {
 //
 //
 router.post("/checkNumberStatus", async (req, res, next) => {
-    var result = await Sessions.checkNumberStatus(req.body.SessionName, req.body.phonefull);
+    var result = await Sessions.checkNumberStatus(
+        req.body.SessionName,
+        apenasNumeros(req.body.phonefull)
+    );
     res.json(result);
 }); //checkNumberStatus
 //

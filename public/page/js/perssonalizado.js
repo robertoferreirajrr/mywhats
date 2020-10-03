@@ -977,6 +977,98 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
+    $("#checkNumberStatus-form").validate({
+        rules: {
+            numero: {
+                required: true,
+                celular: true
+            }
+        },
+        messages: {
+            numero: {
+                required: "Informe um numero de telefone!",
+                celular: "Informe um celular válido!"
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element).closest('.form-group').find('.help-block').html(error.html());
+        },
+        highlight: function (element) {
+            $(element).closest('.form-control').removeClass('is-valid').addClass('is-invalid');
+            $(element).closest('.custom-select').removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest('.form-group').find('.help-block').html('');
+            $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
+            $(element).closest('.custom-select').removeClass('is-invalid').addClass('is-valid');
+        },
+        submitHandler: function () {
+            event.preventDefault();
+            var data = $("#checkNumberStatus-form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:9000/sistem/checkNumberStatus',
+                data: data,
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#checkNumberStatus").html('<i class="fas fa-spinner fa-spin"></i> Validando...');
+                },
+                success: function (response) {
+                    console.log("Erro:" + response.erro);
+                    console.log("Status:" + response.status);
+                    if (response.numberExists == true && response.status == '200') {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                        //
+                        Lobibox.notify('success', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'far fa-check-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Contato pode receber mensagem!'
+                        });
+                        //
+                    } else if (response.canReceiveMessage == false && response.status == '404') {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                        //
+                        Lobibox.notify('error', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-times-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Contato não pode receber mensagem!'
+                        });
+                        //
+                    } else {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                        //
+                        Lobibox.notify('info', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-info-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro interno, não foi possivel checar o contato!'
+                        });
+                        //
+                    }
+                }
+            });
+        }
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
     $("#checkNumberStatusMassa-form").validate({
         rules: {
             checkNumberStatusMassaContato: {
@@ -1002,7 +1094,7 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var form = $('#sendTextMassa-form')[0];
+            var form = $('#checkNumberStatusMassa-form')[0];
             var data = new FormData(form);
             $.ajax({
                 type: "POST",
@@ -1022,14 +1114,14 @@ $('document').ready(function () {
                     //
                     // ITERATING THROUGH OBJECTS 
                     $.each(response.sendResult, function (key, value) {
-                        if (value.erro == false && value.status == 'OK') {
+                        if (value.numberExists == true && value.status == '200') {
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
                             res_success += '<tr>';
                             res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '<td>Contato pode receber mensagem!</td>';
                             res_success += '</tr>';
-                        } else {
+                        } else if (value.canReceiveMessage == false && value.status == '404') {
                             $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
                             var table_error = '';
                             //
@@ -1037,7 +1129,7 @@ $('document').ready(function () {
                             // DATA FROM JSON OBJECT 
                             res_success += '<tr>';
                             res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '<td>Contato não pode receber mensagem</td>';
                             res_success += '</tr>';
                         }
                     });
@@ -1046,7 +1138,7 @@ $('document').ready(function () {
                     //INSERTING ROWS INTO TABLE  
                     $('#table_success').append(res_success);
                     //
-                    //INSERTING ROWS INTO TABLE  
+                    //INSERTING ROWS INTO TABLE
                     $('#table_error').append(table_error);
                     //
                 },
