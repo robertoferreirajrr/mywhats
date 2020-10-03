@@ -1114,22 +1114,12 @@ $('document').ready(function () {
                     //
                     // ITERATING THROUGH OBJECTS 
                     $.each(response.sendResult, function (key, value) {
-                        if (value.numberExists == true && value.status == '200') {
-                            //CONSTRUCTION OF ROWS HAVING 
-                            // DATA FROM JSON OBJECT 
+                        //CONSTRUCTION OF ROWS HAVING 
+                        // DATA FROM JSON OBJECT
+                        if (value.number != null || value.number != '' || typeof value.number != 'undefined') {
                             res_success += '<tr>';
                             res_success += '<td>' + value.number + '</td>';
                             res_success += '<td>Contato pode receber mensagem!</td>';
-                            res_success += '</tr>';
-                        } else if (value.canReceiveMessage == false && value.status == '404') {
-                            $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                            var table_error = '';
-                            //
-                            //CONSTRUCTION OF ROWS HAVING 
-                            // DATA FROM JSON OBJECT 
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>Contato não pode receber mensagem</td>';
                             res_success += '</tr>';
                         }
                     });
@@ -1137,9 +1127,6 @@ $('document').ready(function () {
                     $('#checkNumberStatusMassaModalCentralizado').modal('show');
                     //INSERTING ROWS INTO TABLE  
                     $('#table_success').append(res_success);
-                    //
-                    //INSERTING ROWS INTO TABLE
-                    $('#table_error').append(table_error);
                     //
                 },
                 error: (e) => {
