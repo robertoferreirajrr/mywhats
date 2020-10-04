@@ -49,9 +49,9 @@ pm2 start monitor.js
 
 pm2 start sistem.js
 
-pm2 save
-
 pm2 startup
+
+pm2 save
 
 sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ${USER} --hp /home/${USER}
 
