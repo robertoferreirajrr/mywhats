@@ -1547,12 +1547,13 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
-    if (!readCookie('mywhats_cookie')) {
+    var Cookie = readCookie('mywhats_cookie')
+    if (!Cookie) {
         createCookie('mywhats_cookie', uuidv4(), 1);
     }
     //
-    var createCookie = readCookie('mywhats_cookie');
-    $("#SessionName").val(createCookie);
+    var getCookie = readCookie('mywhats_cookie');
+    $("#SessionName").val(getCookie);
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //

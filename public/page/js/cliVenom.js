@@ -35,19 +35,13 @@ function startVenon(SessionName) {
 //
 function statusVenon(SessionName) {
     $.ajax({
-        url: 'http://localhost:9000/sistem/close/' + SessionName,
+        url: 'http://localhost:9000/sistem/statusVenon/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
         },
         success: function (response) {
-            if (response.result == "success" && response.state == "CLOSED") {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
-                $("#statusVenon").html("Off-line");
-            } else {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
-                $("#statusVenon").html(response.state);
-            }
+
         }
     });
 }
@@ -79,8 +73,9 @@ function qrcodeVenon(SessionName) {
 
         },
         success: function (response) {
-            if (response.result == "success" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
+            if (response.result == "warning" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
                 $("#qrcodeVenon").html('<img src="' + response.qrcode + '" class="img-fluid" width="120px" alt="QR-Code">');
+                $("#statusVenon").html("Off-line");
             } else {
                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
             }
@@ -99,7 +94,7 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
-    /*
+
     var SessionName = $("#SessionName").val();
     if (SessionName) {
         startVenon(SessionName);
@@ -111,7 +106,7 @@ $('document').ready(function () {
             }
 
         }, 2000); // refresh every 1000 milliseconds
-    */
+
     //
     $('#starVenon').click(function (e) {
         var SessionName = $("#SessionName").val();
