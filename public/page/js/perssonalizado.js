@@ -1548,7 +1548,7 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     if (!readCookie('mywhats_cookie')) {
-        createCookie('mywhats_cookie', uuidv4(), 10);
+        createCookie('mywhats_cookie', uuidv4(), 1);
     }
     //
     var createCookie = readCookie('mywhats_cookie');
