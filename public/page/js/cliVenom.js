@@ -99,7 +99,7 @@ $('document').ready(function () {
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
     //
-
+    /*
     var SessionName = $("#SessionName").val();
     if (SessionName) {
         startVenon(SessionName);
@@ -111,7 +111,7 @@ $('document').ready(function () {
             }
 
         }, 2000); // refresh every 1000 milliseconds
-
+    */
     //
     $('#starVenon').click(function (e) {
         var SessionName = $("#SessionName").val();

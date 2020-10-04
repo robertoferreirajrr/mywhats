@@ -281,7 +281,8 @@ module.exports = class Sessions {
         } else {
             return {
                 result: "error",
-                message: "NOTFOUND"
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
             };
         }
     } //closeSession
