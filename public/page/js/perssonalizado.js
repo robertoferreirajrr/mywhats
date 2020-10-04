@@ -560,33 +560,34 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                    var res_success = '';
+                    var table_success = '';
+                    var table_error = '';
                     //
                     // ITERATING THROUGH OBJECTS 
                     $.each(response.sendResult, function (key, value) {
                         if (value.erro == false && value.status == 'OK') {
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
-                            res_success += '</tr>';
+                            table_success += '<tr>';
+                            table_success += '<td>' + value.number + '</td>';
+                            table_success += '<td>' + value.menssagem + '</td>';
+                            table_success += '</tr>';
                         } else {
                             $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                            var table_error = '';
+
                             //
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
-                            res_success += '</tr>';
+                            table_error += '<tr>';
+                            table_error += '<td>' + value.number + '</td>';
+                            table_error += '<td>' + value.menssagem + '</td>';
+                            table_error += '</tr>';
                         }
                     });
                     //
                     $('#sendImageMassaModalCentralizado').modal('show');
                     //INSERTING ROWS INTO TABLE  
-                    $('#table_success').append(res_success);
+                    $('#table_success').append(table_success);
                     //
                     //INSERTING ROWS INTO TABLE  
                     $('#table_error').append(table_error);
@@ -1110,23 +1111,34 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
+                    var table_success = '';
                     var res_success = '';
                     //
                     // ITERATING THROUGH OBJECTS 
                     $.each(response.sendResult, function (key, value) {
                         //CONSTRUCTION OF ROWS HAVING 
                         // DATA FROM JSON OBJECT
-                        if (value.number != null || value.number != '' || typeof value.number != 'undefined') {
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>Contato pode receber mensagem!</td>';
-                            res_success += '</tr>';
+                        if (value.number) {
+                            if (value.status === 200 && value.canReceiveMessage === true) {
+                                table_success += '<tr>';
+                                table_success += '<td>' + value.number + '</td>';
+                                table_success += '<td>Contato pode receber mensagem!</td>';
+                                table_success += '</tr>';
+                            } else {
+                                table_error += '<tr>';
+                                table_error += '<td>' + value.number + '</td>';
+                                table_error += '<td>Contato não pode receber mensagem!</td>';
+                                table_error += '</tr>';
+                            }
                         }
                     });
                     //
                     $('#checkNumberStatusMassaModalCentralizado').modal('show');
-                    //INSERTING ROWS INTO TABLE  
-                    $('#table_success').append(res_success);
+                    //INSERTING ROWS INTO TABLE
+                    $('#table_success').append(table_success);
+                    //
+                    //INSERTING ROWS INTO TABLE
+                    $('#table_error').append(table_error);
                     //
                 },
                 error: (e) => {
