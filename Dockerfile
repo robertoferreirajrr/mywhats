@@ -1,7 +1,7 @@
 # Use a imagem oficial como imagem principal.
 FROM node:14-alpine
 
-UpdateRUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
+RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
 
 
 # Defina o diretório de trabalho.
