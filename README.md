@@ -38,16 +38,12 @@ $ node index.js
 
 $ node monitor.js
 
-$ node sistem.js
-
 # Manter os processos ativos a cada reinicialização do servidor
 sudo npm install pm2 -g
 
 pm2 start index.js
 
 pm2 start monitor.js
-
-pm2 start sistem.js
 
 pm2 startup
 
@@ -64,16 +60,16 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 http://localhost:8000/
 
 #### Iniciar sessão whatsapp
-http://localhost:9000/sistem/start/nome_da_sessão
+http://localhost:8000/sistem/start/nome_da_sessão
 
 ####  Exibir QR-Code no navegador
-http://localhost:9000/sistem/QRCode/nome_da_sessão/true
+http://localhost:8000/sistem/QRCode/nome_da_sessão/true
 
 ####  Retorna json com (base64) do QR-Code 
-http://localhost:9000/sistem/QRCode/nome_da_sessão/false
+http://localhost:8000/sistem/QRCode/nome_da_sessão/false
 
 #### Fecha sessão whatsapp
-http://localhost:9000/sistem/crose/nome_da_sessão
+http://localhost:8000/sistem/crose/nome_da_sessão
 
 ## Aviso
 Dockerfile incompleto

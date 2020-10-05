@@ -13,12 +13,13 @@ const cors = require('cors');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
 const monitor = require("./routes/monitor");
-const venom = require("./routes/venom");
+const sistem = require("./routes/sistem");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 8000;
 const ssl_key = process.env.KEY || './sslcert/server.key';
 const ssl_cert = process.env.CERT || './sslcert/server.crt';
+const Sessions = require("./cliVenom.js");
 web.use(cors());
 web.use(express.json());
 //
@@ -47,7 +48,7 @@ web.use(express.static(path.join(__dirname, "public")));
 web.use("/admin", admin);
 web.use("/pages", pages);
 web.use("/monitor", monitor);
-web.use("/venom", venom);
+web.use("/sistem", sistem);
 //
 //
 // Start the server web
@@ -97,12 +98,22 @@ web.post('/file_upload', upload.single('file'), (req, res, next) => {
 process.stdin.resume(); //so the program will not close instantly
 //
 async function exitHandler(options, exitCode) {
+    if (options.cleanup) {
+        console.log("- Cleanup");
+        await Sessions.getSessions().forEach(async session => {
+            await Sessions.closeSession(session.sessionName);
+        });
+    }
+    if (exitCode || exitCode === 0) {
+        console.log(exitCode);
+    }
+    //
     if (options.exit) {
         process.exit();
     }
-} //exitHandler 
+} //exitHandler
 //
-//do something when web is closing
+//do something when sistema is closing
 process.on('exit', exitHandler.bind(null, {
     cleanup: true
 }));
