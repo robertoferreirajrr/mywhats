@@ -1,4 +1,3 @@
-//
 // Cookies
 function createCookie(name, value, days) {
     if (days) {
@@ -331,7 +330,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/pages/sendImage',
+                url: '/sistem/sendImage',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -708,7 +707,7 @@ $('document').ready(function () {
                     }
                 },
                 error: (e) => {
-                    $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                     //
                     Lobibox.notify('info', {
                         title: false,
@@ -958,7 +957,7 @@ $('document').ready(function () {
             });
         },
         error: (e) => {
-            $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+            $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
             //
             Lobibox.notify('info', {
                 title: false,
@@ -972,6 +971,96 @@ $('document').ready(function () {
                 msg: 'Erro interno, menssagem não enviada!'
             });
 
+        }
+    });
+    //
+    //---------------------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    $("#checkNumberStatus-form").validate({
+        rules: {
+            numero: {
+                required: true,
+                celular: true
+            }
+        },
+        messages: {
+            numero: {
+                required: "Informe um numero de telefone!",
+                celular: "Informe um celular válido!"
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element).closest('.form-group').find('.help-block').html(error.html());
+        },
+        highlight: function (element) {
+            $(element).closest('.form-control').removeClass('is-valid').addClass('is-invalid');
+            $(element).closest('.custom-select').removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest('.form-group').find('.help-block').html('');
+            $(element).closest('.form-control').removeClass('is-invalid').addClass('is-valid');
+            $(element).closest('.custom-select').removeClass('is-invalid').addClass('is-valid');
+        },
+        submitHandler: function () {
+            event.preventDefault();
+            var data = $("#checkNumberStatus-form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/sistem/checkNumberStatus',
+                data: data,
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#checkNumberStatus").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
+                },
+                success: function (response) {
+                    if (response.canReceiveMessage === true && response.status === 200) {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('success', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'far fa-check-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'O número pode receber mensagem!'
+                        });
+                        //
+                    } else if (response.canReceiveMessage === false) {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('error', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-times-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'O número não pode receber mensagem!'
+                        });
+                        //
+                    } else {
+                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Enviar');
+                        //
+                        Lobibox.notify('info', {
+                            title: false,
+                            soundPath: '/lobibox/sounds/',
+                            soundExt: '.ogg',
+                            sound: true,
+                            iconSource: "fontAwesome",
+                            icon: 'fas fa-info-circle',
+                            size: 'mini',
+                            delay: 5000,
+                            msg: 'Erro interno, contato não verificado!'
+                        });
+                        //
+                    }
+                }
+            });
         }
     });
     //
@@ -1002,7 +1091,7 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var form = $('#sendTextMassa-form')[0];
+            var form = $('#checkNumberStatusMassa-form')[0];
             var data = new FormData(form);
             $.ajax({
                 type: "POST",
@@ -1018,33 +1107,34 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                    var res_success = '';
+                    var table_error = '';
+                    var table_error = '';
                     //
                     // ITERATING THROUGH OBJECTS 
                     $.each(response.sendResult, function (key, value) {
-                        if (value.erro == false && value.status == 'OK') {
+                        if (value.canReceiveMessage === true && value.status === 200) {
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
-                            res_success += '</tr>';
+                            table_success += '<tr>';
+                            table_success += '<td>' + value.number + '</td>';
+                            table_success += '<td>O número pode receber mensagem</td>';
+                            table_success += '</tr>';
                         } else {
                             $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                            var table_error = '';
+
                             //
                             //CONSTRUCTION OF ROWS HAVING 
                             // DATA FROM JSON OBJECT 
-                            res_success += '<tr>';
-                            res_success += '<td>' + value.number + '</td>';
-                            res_success += '<td>' + value.menssagem + '</td>';
-                            res_success += '</tr>';
+                            table_error += '<tr>';
+                            table_error += '<td>' + value.number + '</td>';
+                            table_error += '<td>O número não pode receber mensagem</td>';
+                            table_error += '</tr>';
                         }
                     });
                     //
                     $('#checkNumberStatusMassaModalCentralizado').modal('show');
                     //INSERTING ROWS INTO TABLE  
-                    $('#table_success').append(res_success);
+                    $('#table_success').append(table_success);
                     //
                     //INSERTING ROWS INTO TABLE  
                     $('#table_error').append(table_error);
@@ -1130,7 +1220,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/pages/getAllGroups/' + SessionName,
+            url: '/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1156,7 +1246,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/pages/getAllGroups/' + SessionName,
+            url: '/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
