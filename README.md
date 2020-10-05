@@ -41,9 +41,9 @@ sudo npm install pm2 -g
 
 pm2 start index.js
 
-pm2 startup
-
 pm2 save
+
+pm2 startup
 
 sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ${USER} --hp /home/${USER}
 
