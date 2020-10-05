@@ -36,14 +36,10 @@ $ npm install
 # Execute a aplicação 
 $ node index.js
 
-$ node monitor.js
-
 # Manter os processos ativos a cada reinicialização do servidor
 sudo npm install pm2 -g
 
 pm2 start index.js
-
-pm2 start monitor.js
 
 pm2 startup
 
