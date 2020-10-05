@@ -1,6 +1,6 @@
 function startVenon(SessionName) {
     $.ajax({
-        url: '/pages/start/' + SessionName,
+        url: '/venom/start/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -35,7 +35,7 @@ function startVenon(SessionName) {
 //
 function statusVenon(SessionName) {
     $.ajax({
-        url: '/pages/close/' + SessionName,
+        url: '/venom/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -54,7 +54,7 @@ function statusVenon(SessionName) {
 //
 function closeVenon(SessionName) {
     $.ajax({
-        url: '/pages/close/' + SessionName,
+        url: '/venom/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -73,13 +73,13 @@ function closeVenon(SessionName) {
 //
 function qrcodeVenon(SessionName) {
     $.ajax({
-        url: '/pages/QRCode/' + SessionName + '/false',
+        url: '/venom/QRCode/' + SessionName + '/false',
         dataType: 'json',
         beforeSend: function () {
 
         },
         success: function (response) {
-            if (response.result == "success" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
+            if (response.result == "warning" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
                 $("#qrcodeVenon").html('<img src="' + response.qrcode + '" class="img-fluid" width="120px" alt="QR-Code">');
             } else {
                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');

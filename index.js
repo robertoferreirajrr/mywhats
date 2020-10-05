@@ -13,6 +13,7 @@ const cors = require('cors');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
 const monitor = require("./routes/monitor");
+const venom = require("./routes/venom");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 8000;
@@ -46,6 +47,7 @@ web.use(express.static(path.join(__dirname, "public")));
 web.use("/admin", admin);
 web.use("/pages", pages);
 web.use("/monitor", monitor);
+web.use("/venom", venom);
 //
 //
 // Start the server web

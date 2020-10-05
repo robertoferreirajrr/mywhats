@@ -14,46 +14,6 @@ router.get("/politica-de-cookies", async (req, res) => {
     res.render("pages/politica-de-cookies");
 });
 //
-//
-router.get("/start/:SessionName", async (req, res, next) => {
-    request.get("http://localhost:9000/sistem/start/" + req.params.SessionName, {
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-            res.json(body);
-        } else {
-            res.json(error);
-        }
-    });
-});
-//
-router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
-    request.get("http://localhost:9000/sistem/QRCode/" + req.params.SessionName + "/" + req.params.View, {
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-            res.json(body);
-        } else {
-            res.json(error);
-        }
-    });
-});
-//
-router.get("/close/:SessionName", async (req, res) => {
-    request.get("http://localhost:9000/sistem/close/" + req.params.SessionName, {
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-            res.json(body);
-        } else {
-            res.json(error);
-        }
-    });
-});
-//
 router.get("/sendText", async (req, res) => {
     res.render("sistem/sendText");
 });

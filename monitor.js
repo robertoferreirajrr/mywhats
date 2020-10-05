@@ -3,6 +3,7 @@
 // Configuração dos módulos
 const express = require('express');
 const request = require('request');
+const fetch = require("node-fetch");
 const bodyParser = require('body-parser')
 const monitor = express();
 const cors = require('cors');
@@ -27,16 +28,21 @@ monitor.listen(port, hostname, () => {
 });
 //
 monitor.get("/", async (req, res, next) => {
-    request.get("http://localhost:9000/sistem/start/BotClient", {
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-            res.json(body);
-        } else {
-            res.json(error);
-        }
+
+    const response = await fetch('http://localhost:9000/sistem/sendText', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            SessionName: "22d278e8-a192-45b7-ad43-70bb0e101ccd",
+            number: '556796787854',
+            text: "Hello\nWorld"
+        })
     });
+    console.log(response);
+    res.send(response);
 });
 //
 //
