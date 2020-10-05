@@ -4,6 +4,7 @@
 const fs = require('fs');
 const https = require('https');
 const express = require('express');
+const request = require('request');
 const bodyParser = require('body-parser')
 const handlebars = require('express-handlebars');
 const path = require('path');
@@ -21,11 +22,7 @@ web.use(cors());
 web.use(express.json());
 //
 // Configuração
-web.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+
 // Body Parser
 web.use(bodyParser.json());
 web.use(bodyParser.urlencoded({

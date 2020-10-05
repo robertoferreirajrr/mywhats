@@ -34,7 +34,6 @@ router.get("/start/:SessionName", async (req, res, next) => {
             message: "Sistema Off-line"
         });
     }
-    next();
     //
 });
 //
@@ -91,7 +90,6 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
             message: "Sistema Off-line"
         });
     }
-    next();
     //
 });
 //
@@ -301,7 +299,7 @@ router.post("/checkNumberStatusMult", upload.single('checkNumberStatusMassaConta
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/close", async (req, res, next) => {
+router.get("/close/:SessionName", async (req, res, next) => {
     var result = await Sessions.closeSession(req.params.SessionName);
     res.json(result);
 }); //close

@@ -221,7 +221,7 @@ $('document').ready(function () {
             var data = $("#sendText-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:9000/sistem/sendText',
+                url: '/sistem/sendText',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -389,7 +389,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:9000/sistem/sendImage',
+                url: '/sistem/sendImage',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -552,7 +552,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:9000/sistem/sendTextMult',
+                url: '/sistem/sendTextMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -710,7 +710,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:9000/sistem/sendImageMult',
+                url: '/sistem/sendImageMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -859,7 +859,7 @@ $('document').ready(function () {
             var data = $("#sendTextGrupo-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:9000/sistem/sendTextGrupo',
+                url: '/sistem/sendTextGrupo',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -1028,7 +1028,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:9000/sistem/sendImageGrupo',
+                url: '/sistem/sendImageGrupo',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -1181,7 +1181,7 @@ $('document').ready(function () {
             var data = $("#checkNumberStatus-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:9000/sistem/checkNumberStatus',
+                url: '/sistem/checkNumberStatus',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -1332,7 +1332,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: 'http://localhost:9000/sistem/checkNumberStatusMult',
+                url: '/sistem/checkNumberStatusMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -1501,7 +1501,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
+            url: '/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1527,7 +1527,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
+            url: '/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
