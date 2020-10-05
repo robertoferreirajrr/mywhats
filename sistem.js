@@ -2,6 +2,7 @@
 // https://expressjs.com/pt-br/advanced/best-practice-security.html
 // Configuração dos módulos
 const express = require('express');
+const request = require('request');
 const bodyParser = require('body-parser')
 const sistema = express();
 const cors = require('cors');
