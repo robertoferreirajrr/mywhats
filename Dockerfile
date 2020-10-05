@@ -1,9 +1,10 @@
 # Use a imagem oficial como imagem principal.
 #FROM node:latest
+#FROM node:current
 FROM ubuntu:18.04
 #FROM node:20.04
 
-RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
+RUN mkdir -p /usr/src/app
 
 RUN apt-get update && apt-get install -y \
     && cd ~ \
