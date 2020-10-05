@@ -1,13 +1,13 @@
 version: '3.7'
 services:
-    mywhats-node:
+    nodejs-mywhats:
         build:
             context: .
             dockerfile: ./Dockerfile
-        image: "node:latest"
-        container_name: mywhats-container
+        image: "node:14"
+        container_name: nodejs-mywhats
         restart: always
         ports:
-            - "8081:8081"
+            - "8000:8000"
         volumes:
             - .:/usr/src/app

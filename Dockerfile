@@ -1,5 +1,5 @@
 # Use a imagem oficial como imagem principal.
-FROM node:14-alpine
+FROM node:14
 
 RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
 
@@ -27,8 +27,11 @@ CMD [ "npm", "start" ]
 
 ### LEIA-ME
 ## Processando o arquivo Dockerfile
-# docker build -t iddockerhub/mywhats:1.0 .
+# docker build -t alanmartines/nodejs-mywhats:1.0 .
 
 ## Criar um contêiner
-# docker container run --name mywhats -p 8000:8000 iddockerhub/mywhats:1.0
-# docker container run --publish 8000:8000 --detach --name mywhats iddockerhub/mywhats:1.0
+# docker container run --name mywhats -p 8000:8000 -d alanmartines/nodejs-mywhats:1.0
+
+## Acessar bash do container
+# docker exec -it <container id> /bin/sh
+# docker exec -it <container id> /bin/bash
