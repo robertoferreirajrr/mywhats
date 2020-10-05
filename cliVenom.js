@@ -509,8 +509,9 @@ module.exports = class Sessions {
             }
         } else {
             return {
-                result: "error",
-                message: "NOTFOUND"
+                result: 'error',
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
             };
         }
     } //sendImage
@@ -595,8 +596,9 @@ module.exports = class Sessions {
             }
         } else {
             return {
-                result: "error",
-                message: "NOTFOUND"
+                result: 'error',
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
             };
         }
     } //sendImage
@@ -642,8 +644,9 @@ module.exports = class Sessions {
             }
         } else {
             return {
-                result: "error",
-                message: "NOTFOUND"
+                result: 'error',
+                state: "NOTFOUND",
+                message: "Sistema Off-line"
             };
         }
     } //sendImageGrup
