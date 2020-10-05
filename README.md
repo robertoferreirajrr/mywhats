@@ -43,21 +43,19 @@ $ node sistem.js
 # Manter os processos ativos a cada reinicialização do servidor
 sudo npm install pm2 -g
 
+pm2 startup
+
 pm2 start index.js
 
 pm2 start monitor.js
 
 pm2 start sistem.js
 
-pm2 startup
-
 pm2 save
-
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ${USER} --hp /home/${USER}
 
 # O servidor iniciará na porta:8000
 
-# Pronto, escaneie o código QR-Code do Whatsapp e aproveite!
+# Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
 ## Uso
 #### Acesso via web (Em desenvolvimento a integração/automatização)

@@ -22,8 +22,4 @@ _Todas as mudanças notáveis ​​neste projeto serão documentadas neste arqu
     Envia mensagem de imagem para lista de contatos (em txt).
 
     Envia mensagem de imagem para grupo informado.
-
-    Checar simples contato.
-
-    Checar multiplos contato (em txt).
 ```

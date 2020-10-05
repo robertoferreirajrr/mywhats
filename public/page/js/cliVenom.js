@@ -1,6 +1,6 @@
 function startVenon(SessionName) {
     $.ajax({
-        url: '/pages/start/' + SessionName,
+        url: 'http://localhost:9000/sistem/start/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -35,20 +35,26 @@ function startVenon(SessionName) {
 //
 function statusVenon(SessionName) {
     $.ajax({
-        url: '/pages/statusVenon/' + SessionName,
+        url: 'http://localhost:9000/sistem/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
         },
         success: function (response) {
-
+            if (response.result == "success" && response.state == "CLOSED") {
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
+                $("#statusVenon").html("Off-line");
+            } else {
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
+                $("#statusVenon").html(response.state);
+            }
         }
     });
 }
 //
 function closeVenon(SessionName) {
     $.ajax({
-        url: '/pages/close/' + SessionName,
+        url: 'http://localhost:9000/sistem/close/' + SessionName,
         dataType: 'json',
         beforeSend: function () {
 
@@ -67,15 +73,14 @@ function closeVenon(SessionName) {
 //
 function qrcodeVenon(SessionName) {
     $.ajax({
-        url: '/pages/QRCode/' + SessionName + '/false',
+        url: 'http://localhost:9000/sistem/QRCode/' + SessionName + '/false',
         dataType: 'json',
         beforeSend: function () {
 
         },
         success: function (response) {
-            if (response.result == "warning" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
+            if (response.result == "success" && response.state == "QRCODE" || response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
                 $("#qrcodeVenon").html('<img src="' + response.qrcode + '" class="img-fluid" width="120px" alt="QR-Code">');
-                $("#statusVenon").html("Off-line");
             } else {
                 $("#qrcodeVenon").html('<img src="../images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
             }

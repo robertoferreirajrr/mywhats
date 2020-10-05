@@ -258,31 +258,16 @@ module.exports = class Sessions {
                     message: "Sistema fechado"
                 };
             } else { //close
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "success",
+                    state: session.state,
+                    message: "Sistema fechado"
+                };
             }
         } else {
             return {
                 result: "error",
-                state: "NOTFOUND",
-                message: "Sistema Off-line"
+                message: "NOTFOUND"
             };
         }
     } //closeSession
@@ -309,25 +294,11 @@ module.exports = class Sessions {
                 });
                 return resultSendText;
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: 'info',
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -388,25 +359,11 @@ module.exports = class Sessions {
                 return JSON.parse(jsonStr);
                 //
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -435,25 +392,11 @@ module.exports = class Sessions {
                 });
                 return resultSendText;
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: 'info',
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -487,31 +430,16 @@ module.exports = class Sessions {
                 });
                 return resultsendImage;
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
-                result: 'error',
-                state: "NOTFOUND",
-                message: "Sistema Off-line"
+                result: "error",
+                message: "NOTFOUND"
             };
         }
     } //sendImage
@@ -574,31 +502,16 @@ module.exports = class Sessions {
                 });
                 return resultsendImage;
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
-                result: 'error',
-                state: "NOTFOUND",
-                message: "Sistema Off-line"
+                result: "error",
+                message: "NOTFOUND"
             };
         }
     } //sendImage
@@ -622,31 +535,16 @@ module.exports = class Sessions {
                 });
                 return resultsendImage;
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
-                result: 'error',
-                state: "NOTFOUND",
-                message: "Sistema Off-line"
+                result: "error",
+                message: "NOTFOUND"
             };
         }
     } //sendImageGrup
@@ -676,19 +574,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -722,25 +612,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -774,25 +650,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -826,25 +688,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -878,25 +726,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -930,25 +764,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -982,25 +802,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -1034,25 +840,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -1086,25 +878,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -1138,25 +916,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -1190,25 +954,11 @@ module.exports = class Sessions {
                 };
                 //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
@@ -1225,6 +975,8 @@ module.exports = class Sessions {
     // Verifique se o número existe
     static async checkNumberStatus(sessionName, numero) {
         console.log("- Verifique se o número existe!");
+        console.log(sessionName);
+        console.log(numero);
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -1237,33 +989,20 @@ module.exports = class Sessions {
                         return erro;
                     });
                 });
-                var checkNumberStatus = resultcheckNumberStatus;
-                checkNumberStatus['number'] = numero;
-                return checkNumberStatus;
+                return {
+                    resultcheckNumberStatus
+                };
+                //return { result: "success" };
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
-                result: "error",
+                result: 'error',
                 state: "NOTFOUND",
                 message: "Sistema Off-line"
             };
@@ -1287,10 +1026,10 @@ module.exports = class Sessions {
                 var arrayNumbers = fs.readFileSync(filePath, 'utf-8').toString().split(/\r?\n/);
                 for (var i in arrayNumbers) {
                     //console.log(arrayNumbers[i]);
-                    var numero = arrayNumbers[i];
+                    var number = arrayNumbers[i];
                     //
                     var resultcheckNumberStatus = await session.client.then(async client => {
-                        return await client.checkNumberStatus(numero + '@c.us').then((result) => {
+                        return await client.checkNumberStatus(number + '@c.us').then((result) => {
                             //console.log('Result: ', result); //return object success
                             return result;
                         }).catch((erro) => {
@@ -1298,12 +1037,9 @@ module.exports = class Sessions {
                             return erro;
                         });
                     });
+                    //return resultcheckNumberStatus;
                     //
-                    var checkNumberStatus = resultcheckNumberStatus;
-                    checkNumberStatus['number'] = numero;
-                    //return checkNumberStatus;
-
-                    obj['sendResult'].push(checkNumberStatus);
+                    obj['sendResult'].push(resultcheckNumberStatus);
                 }
                 //
                 jsonStr = JSON.stringify(obj);
@@ -1311,31 +1047,16 @@ module.exports = class Sessions {
                 return JSON.parse(jsonStr);
                 //
             } else {
-                if (session.state == "STARTING") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema iniciando"
-                    };
-                } else if (session.state == "QRCODE") {
-                    return {
-                        result: "warning",
-                        state: session.state,
-                        message: "Sistema aguardando leitura do QR-Code"
-                    };
-                } else if (session.state == "CLOSED") {
-                    return {
-                        result: "info",
-                        state: session.state,
-                        message: "Sistema encerrado"
-                    };
-                }
+                return {
+                    result: "info",
+                    state: session.state,
+                    message: "Sistema iniciando"
+                };
             }
         } else {
             return {
                 result: "error",
-                state: "NOTFOUND",
-                message: "Sistema Off-line"
+                message: "NOTFOUND"
             };
         }
     } //sendTextMult

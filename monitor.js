@@ -2,43 +2,31 @@
 // https://expressjs.com/pt-br/advanced/best-practice-security.html
 // Configuração dos módulos
 const express = require('express');
-const request = require('request');
 const bodyParser = require('body-parser')
-const monitor = express();
+const sistema = express();
 const cors = require('cors');
-const {
-    async
-} = require('rxjs');
 const hostname = process.env.HOST || 'localhost';
 const port = process.env.PORT || 9090;
-monitor.use(cors());
-monitor.use(express.json());
+sistema.use(cors());
+sistema.use(express.json());
 //
 // Configuração
 // Body Parser
-monitor.use(bodyParser.json());
-monitor.use(bodyParser.urlencoded({
+sistema.use(bodyParser.json());
+sistema.use(bodyParser.urlencoded({
     extended: true
 }));
 //
 //http
-monitor.listen(port, hostname, () => {
+sistema.listen(port, hostname, () => {
     console.log("Monitor rodando na porta:" + port);
 });
 //
-monitor.get("/", async (req, res, next) => {
-    request.get("http://localhost:9000/sistem/start/BotClient", {
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-            res.json(body);
-        } else {
-            res.json(error);
-        }
-    });
-});
 //
+
+
+
+
 //
 // End the server sistema
 //

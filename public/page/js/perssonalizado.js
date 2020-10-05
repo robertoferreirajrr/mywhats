@@ -221,13 +221,15 @@ $('document').ready(function () {
             var data = $("#sendText-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: '/sistem/sendText',
+                url: 'http://localhost:9000/sistem/sendText',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
                     $("#sendTexto").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
+                    console.log("Erro:" + response.erro);
+                    console.log("Status:" + response.status);
                     if (response.erro == false && response.status == 'OK') {
                         $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
@@ -258,51 +260,6 @@ $('document').ready(function () {
                             msg: 'Erro ao enviada menssagem!'
                         });
                         //
-                    } else if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
                     } else {
                         $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
@@ -319,21 +276,6 @@ $('document').ready(function () {
                         });
                         //
                     }
-                },
-                error: (e) => {
-                    $("#sendText").html('<i class="fas fa-paper-plane"></i> Enviar');
-                    //
-                    Lobibox.notify('info', {
-                        title: false,
-                        soundPath: '/lobibox/sounds/',
-                        soundExt: '.ogg',
-                        sound: true,
-                        iconSource: "fontAwesome",
-                        icon: 'fas fa-info-circle',
-                        size: 'mini',
-                        delay: 5000,
-                        msg: 'Erro interno, menssagem não enviada!'
-                    });
                 }
             });
         }
@@ -389,7 +331,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImage',
+                url: 'http://localhost:9000/sistem/sendImage',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -430,51 +372,6 @@ $('document').ready(function () {
                             msg: 'Erro ao enviada menssagem!'
                         });
                         //
-                    } else if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
                     } else {
                         $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
@@ -493,19 +390,7 @@ $('document').ready(function () {
                     }
                 },
                 error: (e) => {
-                    $("#sendImage").html('<i class="fas fa-paper-plane"></i> Enviar');
-                    //
-                    Lobibox.notify('info', {
-                        title: false,
-                        soundPath: '/lobibox/sounds/',
-                        soundExt: '.ogg',
-                        sound: true,
-                        iconSource: "fontAwesome",
-                        icon: 'fas fa-info-circle',
-                        size: 'mini',
-                        delay: 5000,
-                        msg: 'Erro interno, menssagem não enviada!'
-                    });
+                    console.log("Erro sendImagem");
                 }
 
             });
@@ -552,7 +437,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendTextMult',
+                url: 'http://localhost:9000/sistem/sendTextMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -563,84 +448,37 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                    var table_success = '';
-                    var table_error = '';
+                    var res_success = '';
                     //
-                    if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else {
-                        //
-                        // ITERATING THROUGH OBJECTS 
-                        $.each(response.sendResult, function (key, value) {
-                            if (value.erro == false && value.status == 'OK') {
-                                //CONSTRUCTION OF ROWS HAVING 
-                                // DATA FROM JSON OBJECT 
-                                table_success += '<tr>';
-                                table_success += '<td>' + value.number + '</td>';
-                                table_success += '<td>' + value.menssagem + '</td>';
-                                table_success += '</tr>';
-                            } else {
-                                //CONSTRUCTION OF ROWS HAVING 
-                                // DATA FROM JSON OBJECT 
-                                table_error += '<tr>';
-                                table_error += '<td>' + value.number + '</td>';
-                                table_error += '<td>' + value.menssagem + '</td>';
-                                table_error += '</tr>';
-                            }
-                        });
-                        $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        $('#sendTextMassaModalCentralizado').modal('show');
-                        //INSERTING ROWS INTO TABLE  
-                        $('#table_success').append(table_success);
-                        //
-                        //INSERTING ROWS INTO TABLE  
-                        $('#table_error').append(table_error);
-                        //
-                    }
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        }
+                    });
+                    //
+                    $('#sendTextMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
                 },
                 error: (e) => {
                     $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
@@ -656,6 +494,7 @@ $('document').ready(function () {
                         delay: 5000,
                         msg: 'Erro interno, menssagem não enviada!'
                     });
+
                 }
 
             });
@@ -710,7 +549,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImageMult',
+                url: 'http://localhost:9000/sistem/sendImageMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -721,84 +560,37 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                    var table_success = '';
-                    var table_error = '';
+                    var res_success = '';
                     //
-                    if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else {
-                        // ITERATING THROUGH OBJECTS 
-                        $.each(response.sendResult, function (key, value) {
-                            if (value.erro == false && value.status == 'OK') {
-                                //CONSTRUCTION OF ROWS HAVING 
-                                // DATA FROM JSON OBJECT 
-                                table_success += '<tr>';
-                                table_success += '<td>' + value.number + '</td>';
-                                table_success += '<td>' + value.menssagem + '</td>';
-                                table_success += '</tr>';
-                            } else {
-                                //
-                                //CONSTRUCTION OF ROWS HAVING 
-                                // DATA FROM JSON OBJECT 
-                                table_error += '<tr>';
-                                table_error += '<td>' + value.number + '</td>';
-                                table_error += '<td>' + value.menssagem + '</td>';
-                                table_error += '</tr>';
-                            }
-                        });
-                        $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        $('#sendImageMassaModalCentralizado').modal('show');
-                        //INSERTING ROWS INTO TABLE  
-                        $('#table_success').append(table_success);
-                        //
-                        //INSERTING ROWS INTO TABLE  
-                        $('#table_error').append(table_error);
-                        //
-                    }
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        }
+                    });
+                    //
+                    $('#sendImageMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
                 },
                 error: (e) => {
                     $("#sendFileImgMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
@@ -859,7 +651,7 @@ $('document').ready(function () {
             var data = $("#sendTextGrupo-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: '/sistem/sendTextGrupo',
+                url: 'http://localhost:9000/sistem/sendTextGrupo',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
@@ -898,51 +690,6 @@ $('document').ready(function () {
                             msg: 'Erro ao enviada menssagem!'
                         });
                         //
-                    } else if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
                     } else {
                         $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
@@ -961,7 +708,7 @@ $('document').ready(function () {
                     }
                 },
                 error: (e) => {
-                    $("#sendTextGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
+                    $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
                     //
                     Lobibox.notify('info', {
                         title: false,
@@ -1028,7 +775,7 @@ $('document').ready(function () {
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/sendImageGrupo',
+                url: 'http://localhost:9000/sistem/sendImageGrupo',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -1065,51 +812,6 @@ $('document').ready(function () {
                             size: 'mini',
                             delay: 5000,
                             msg: 'Erro ao enviada menssagem!'
-                        });
-                        //
-                    } else if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
                         });
                         //
                     } else {
@@ -1151,17 +853,31 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
-    $("#checkNumberStatus-form").validate({
+    $("#sendFileImgGrupo-form").validate({
         rules: {
-            numero: {
+            ImgGrupo: {
+                required: true
+            },
+            FileImageGrupo: {
                 required: true,
-                celular: true
+                filesize_max: 10240000
+            },
+            msgimggrupo: {
+                required: true,
+                maxlength: 6700
             }
         },
         messages: {
-            numero: {
-                required: "Informe um numero de telefone!",
-                celular: "Informe um celular válido!"
+            ImgGrupo: {
+                required: "Selecione um grupo!"
+            },
+            FileImageGrupo: {
+                required: "Selecione o arquivo!",
+                filesize_max: "O arquivo deve ser de no máximo 10 MB!"
+            },
+            msgimggrupo: {
+                required: "Informe sua menssagem!",
+                maxlength: "A mensagem deve conter no máximo 6.700 caracteres"
             }
         },
         errorPlacement: function (error, element) {
@@ -1178,18 +894,22 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var data = $("#checkNumberStatus-form").serialize();
+            var form = $('#sendFileImgGrupo-form')[0];
+            var data = new FormData(form);
             $.ajax({
-                type: 'POST',
-                url: '/sistem/checkNumberStatus',
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: 'http://localhost:9000/sistem/sendImageGrupo',
                 data: data,
-                dataType: 'json',
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
                 beforeSend: function () {
-                    $("#checkNumberStatus").html('<i class="fas fa-spinner fa-spin"></i> Validando...');
+                    $("#sendFileImgGrupo").html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
                 },
                 success: function (response) {
-                    if (response.numberExists == true && response.status == '200') {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                    if (response.erro == false && response.status == 'OK') {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('success', {
                             title: false,
@@ -1200,11 +920,11 @@ $('document').ready(function () {
                             icon: 'far fa-check-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: 'Contato pode receber mensagem!'
+                            msg: 'Menssagem enviada com sucesso!'
                         });
                         //
-                    } else if (response.canReceiveMessage == false && response.status == '404') {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                    } else if (response.erro == true && response.status == '404') {
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('error', {
                             title: false,
@@ -1215,56 +935,11 @@ $('document').ready(function () {
                             icon: 'fas fa-times-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: 'Contato não pode receber mensagem!'
-                        });
-                        //
-                    } else if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
+                            msg: 'Erro ao enviada menssagem!'
                         });
                         //
                     } else {
-                        $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
+                        $("#sendFileImgGrupo").html('<i class="fas fa-paper-plane"></i> Enviar');
                         //
                         Lobibox.notify('info', {
                             title: false,
@@ -1275,28 +950,28 @@ $('document').ready(function () {
                             icon: 'fas fa-info-circle',
                             size: 'mini',
                             delay: 5000,
-                            msg: 'Erro interno, não foi possivel checar o contato!'
+                            msg: 'Erro interno, menssagem não enviada!'
                         });
                         //
                     }
-                },
-                error: (e) => {
-                    $("#checkNumberStatus").html('<i class="fas fa-paper-plane"></i> Validar');
-                    //
-                    Lobibox.notify('info', {
-                        title: false,
-                        soundPath: '/lobibox/sounds/',
-                        soundExt: '.ogg',
-                        sound: true,
-                        iconSource: "fontAwesome",
-                        icon: 'fas fa-info-circle',
-                        size: 'mini',
-                        delay: 5000,
-                        msg: 'Erro interno, menssagem não enviada!'
-                    });
-
                 }
             });
+        },
+        error: (e) => {
+            $("#sendTextMassa").html('<i class="fas fa-paper-plane"></i> Enviar');
+            //
+            Lobibox.notify('info', {
+                title: false,
+                soundPath: '/lobibox/sounds/',
+                soundExt: '.ogg',
+                sound: true,
+                iconSource: "fontAwesome",
+                icon: 'fas fa-info-circle',
+                size: 'mini',
+                delay: 5000,
+                msg: 'Erro interno, menssagem não enviada!'
+            });
+
         }
     });
     //
@@ -1327,12 +1002,12 @@ $('document').ready(function () {
         },
         submitHandler: function () {
             event.preventDefault();
-            var form = $('#checkNumberStatusMassa-form')[0];
+            var form = $('#sendTextMassa-form')[0];
             var data = new FormData(form);
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
-                url: '/sistem/checkNumberStatusMult',
+                url: 'http://localhost:9000/sistem/checkNumberStatusMult',
                 data: data,
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
@@ -1343,83 +1018,37 @@ $('document').ready(function () {
                 success: function (response) {
                     //https://www.geeksforgeeks.org/how-to-fetch-data-from-json-file-and-display-in-html-table-using-jquery/
                     $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                    var table_success = '';
-                    var table_error = '';
+                    var res_success = '';
                     //
-                    if (response.result == 'error' && response.state == 'NOTFOUND') {
-                        $("#sendTexto").html('<i class="fas fa-paper-plane"></i> Enviar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'info' && response.state == 'STARTING') {
-                        $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else if (response.result == 'warning' && response.state == 'QRCODE') {
-                        $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        Lobibox.notify('warning', {
-                            title: false,
-                            soundPath: '/lobibox/sounds/',
-                            soundExt: '.ogg',
-                            sound: true,
-                            iconSource: "fontAwesome",
-                            icon: 'fas fa-times-circle',
-                            size: 'mini',
-                            delay: 5000,
-                            msg: response.message
-                        });
-                        //
-                    } else {
-                        // ITERATING THROUGH OBJECTS 
-                        $.each(response.sendResult, function (key, value) {
+                    // ITERATING THROUGH OBJECTS 
+                    $.each(response.sendResult, function (key, value) {
+                        if (value.erro == false && value.status == 'OK') {
                             //CONSTRUCTION OF ROWS HAVING 
-                            // DATA FROM JSON OBJECT
-                            if (value.number) {
-                                if (value.status === 200 && value.canReceiveMessage === true) {
-                                    table_success += '<tr>';
-                                    table_success += '<td>' + value.number + '</td>';
-                                    table_success += '<td>Contato pode receber mensagem!</td>';
-                                    table_success += '</tr>';
-                                } else {
-                                    table_error += '<tr>';
-                                    table_error += '<td>' + value.number + '</td>';
-                                    table_error += '<td>Contato não pode receber mensagem!</td>';
-                                    table_error += '</tr>';
-                                }
-                            }
-                        });
-                        $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
-                        //
-                        $('#checkNumberStatusMassaModalCentralizado').modal('show');
-                        //INSERTING ROWS INTO TABLE
-                        $('#table_success').append(table_success);
-                        //
-                        //INSERTING ROWS INTO TABLE
-                        $('#table_error').append(table_error);
-                        //
-                    }
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        } else {
+                            $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
+                            var table_error = '';
+                            //
+                            //CONSTRUCTION OF ROWS HAVING 
+                            // DATA FROM JSON OBJECT 
+                            res_success += '<tr>';
+                            res_success += '<td>' + value.number + '</td>';
+                            res_success += '<td>' + value.menssagem + '</td>';
+                            res_success += '</tr>';
+                        }
+                    });
+                    //
+                    $('#checkNumberStatusMassaModalCentralizado').modal('show');
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_success').append(res_success);
+                    //
+                    //INSERTING ROWS INTO TABLE  
+                    $('#table_error').append(table_error);
+                    //
                 },
                 error: (e) => {
                     $("#checkNumberStatusMassa").html('<i class="fas fa-paper-plane"></i> Validar');
@@ -1501,7 +1130,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/sistem/getAllGroups/' + SessionName,
+            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1527,7 +1156,7 @@ $('document').ready(function () {
         var SessionName = $("#SessionName").val();
         $.ajax({
             type: 'GET',
-            url: '/sistem/getAllGroups/' + SessionName,
+            url: 'http://localhost:9000/sistem/getAllGroups/' + SessionName,
             //data: data,
             dataType: 'json',
             beforeSend: function () {
@@ -1547,13 +1176,9 @@ $('document').ready(function () {
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
-    var Cookie = readCookie('mywhats_cookie')
-    if (!Cookie) {
+    if (!!$.cookie('mywhats_cookie')) {
         createCookie('mywhats_cookie', uuidv4(), 1);
     }
-    //
-    var getCookie = readCookie('mywhats_cookie');
-    $("#SessionName").val(getCookie);
     //
     //---------------------------------------------------------------------------------------------------------------------------------------------------//
     //
