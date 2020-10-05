@@ -2,7 +2,7 @@
 #FROM node:latest
 #FROM node:current
 #FROM ubuntu:18.04
-#FROM ubuntu:20.04
+FROM ubuntu:20.04
 
 RUN mkdir -p /usr/src/app
 
