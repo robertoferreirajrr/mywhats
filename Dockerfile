@@ -1,6 +1,7 @@
 # Use a imagem oficial como imagem principal.
 #FROM node:latest
-FROM node:20.04
+FROM ubuntu:18.04
+#FROM node:20.04
 
 RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
 
