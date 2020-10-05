@@ -30,10 +30,6 @@ RUN npm install
 # Copie o restante do código-fonte do seu aplicativo do host para o sistema de arquivos de imagem.
 COPY . .
 
-COPY --chown=node:node . .
-
-USER node
-
 EXPOSE 8000
 
 # Execute o comando especificado dentro do contêiner.
@@ -49,3 +45,6 @@ CMD [ "npm", "start" ]
 ## Acessar bash do container
 # docker exec -it <container id> /bin/sh
 # docker exec -it <container id> /bin/bash
+
+## Removendo todos os containers e imagens de uma só vez
+# docker rm $(docker ps -qa)
