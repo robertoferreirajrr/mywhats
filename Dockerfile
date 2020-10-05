@@ -1,8 +1,21 @@
 # Use a imagem oficial como imagem principal.
-FROM node:14
+#FROM node:latest
+FROM node:20.04
 
 RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
 
+RUN apt-get update && apt-get install -y \
+    && cd ~ \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y \
+    curl \
+    git \
+    yarn \
+    npm \
+    gcc \
+    g++ \
+    make \
+    nodejs
 
 # Defina o diretório de trabalho.
 WORKDIR /usr/src/app
