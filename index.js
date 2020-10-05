@@ -22,6 +22,7 @@ web.use(cors());
 web.use(express.json());
 //
 // Configuração
+
 // Body Parser
 web.use(bodyParser.json());
 web.use(bodyParser.urlencoded({

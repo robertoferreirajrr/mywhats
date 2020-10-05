@@ -10,7 +10,6 @@ router.get("/home", async (req, res) => {
     res.render("pages/home");
 });
 //
-//
 router.get("/politica-de-cookies", async (req, res) => {
     res.render("pages/politica-de-cookies");
 });

@@ -1,5 +1,4 @@
 const express = require("express");
-const request = require('request');
 const router = express.Router();
 //
 //
@@ -17,7 +16,7 @@ router.get("/", async (req, res) => {
 router.get("/posts", async (req, res, next) => {
     res.send("Pagina de POST");
     next();
-});
+}); 
 //
 //
 // ------------------------------------------------------------------------------------------------------- //
