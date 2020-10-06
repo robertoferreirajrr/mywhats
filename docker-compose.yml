@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: ./Dockerfile
-        image: "node:14"
+        image: "node:14-slim"
         container_name: nodejs-mywhats
         restart: always
         ports:

@@ -1,12 +1,12 @@
 # Use a imagem oficial como imagem principal.
-#FROM node:latest
+FROM node:14-slim
 #FROM node:current
 #FROM ubuntu:18.04
-FROM ubuntu:20.04
+#FROM ubuntu:20.04
 
 RUN mkdir -p /usr/src/app
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     gconf-service \
     libasound2 \
     libatk1.0-0 \
@@ -47,9 +47,9 @@ RUN apt update && apt install -y \
     build-essential \
     apt-transport-https \
     libgbm-dev \
-    && apt install curl -y \
+    && apt-get install curl -y \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt install -y \
+    && apt-get install -y \
     git \
     nodejs \
     yarn \
@@ -75,7 +75,7 @@ EXPOSE 8000
 # Execute o comando especificado dentro do contêiner.
 CMD [ "npm", "start" ]
 
-### LEIA-ME
+### LEIA-ME ###
 ## Processando o arquivo Dockerfile
 # docker build -t alanmartines/nodejs-mywhats:1.0 .
 
@@ -88,3 +88,10 @@ CMD [ "npm", "start" ]
 
 ## Removendo todos os containers e imagens de uma só vez
 # docker rm $(docker ps -qa)
+
+## Removendo todas as imagens de uma só vez
+# docker rmi $(docker images -aq)
+
+## Removendo imagens
+# docker rmi <REPOSITORY>
+# docker rmi <IMAGE ID>

@@ -14,6 +14,7 @@ function startVenon(SessionName) {
             } else if (response.result == "warning" && response.state == "QRCODE") {
                 qrcodeVenon(SessionName);
                 $("#startVenom").html("Ler QR-Code");
+                $("#statusVenon").html("Off-line");
             } else if (response.result == "success" && response.state == "CONNECTED") {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
                 $("#startVenom").html("Conectado");
