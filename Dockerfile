@@ -72,6 +72,7 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
+# EXPOSE 80 443
 
 # Execute o comando especificado dentro do contêiner.
 CMD [ "npm", "start" ]
