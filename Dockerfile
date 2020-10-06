@@ -6,6 +6,7 @@ FROM node:14-slim
 
 RUN mkdir -p /usr/src/app
 
+# apt-get install --no-install-recommends --no-install-suggests -y \
 RUN apt-get update && apt-get install -y \
     gconf-service \
     libasound2 \
