@@ -97,3 +97,7 @@ CMD [ "npm", "start" ]
 ## Removendo imagens
 # docker rmi <REPOSITORY>
 # docker rmi <IMAGE ID>
+
+## Como obter o endereço IP de um contêiner Docker do host
+# https://stack.desenvolvedor.expert/appendix/docker/rede.html
+# docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <IMAGE ID>
