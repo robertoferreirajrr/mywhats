@@ -71,11 +71,27 @@ http://localhost:8000/sistem/QRCode/nome_da_sessão/false
 #### Fecha sessão whatsapp
 http://localhost:8000/sistem/crose/nome_da_sessão
 
-## Aviso
-Dockerfile incompleto
+
+## Dockerfile
+```bash
+# Ir para seu diretório home
+$ cd ~
+
+# Clone este repositório
+$ git clone https://github.com/AlanMartines/mywhats.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd mywhats
+
+# Processando o arquivo Dockerfile
+$ docker build -t alanmartines/nodejs-mywhats:1.0 .
+
+# Criar um contêiner
+$ docker container run --name mywhats -p 8000:8000 -d alanmartines/nodejs-mywhats:1.0
+```
 
 ## Em desenvolvimento
-Este projeto se encontra em desevolvimento.
+Este projeto se encontra em desenvolvimento, então pode conter erros.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
