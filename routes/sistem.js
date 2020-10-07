@@ -5,6 +5,16 @@ const upload = multer({})
 const router = express.Router();
 const Sessions = require("../sessions.js");
 //
+function apenasNumeros(str) {
+    str = str.toString();
+    return str.replace(/\D+/g, "");
+}
+//
+function soNumeros(string) {
+    var numsStr = string.replace(/\D+/g, "");
+    return parseInt(numsStr);
+}
+//
 //
 router.post("/start/:SessionName", async (req, res, next) => {
     //
@@ -36,20 +46,6 @@ router.post("/start/:SessionName", async (req, res, next) => {
     }
     //
 });
-//
-//
-// ------------------------------------------------------------------------------------------------------- //
-//
-//
-function apenasNumeros(str) {
-    str = str.toString();
-    return str.replace(/\D+/g, "");
-}
-//
-function soNumeros(string) {
-    var numsStr = string.replace(/\D+/g, "");
-    return parseInt(numsStr);
-}
 //
 //
 // ------------------------------------------------------------------------------------------------------- //
