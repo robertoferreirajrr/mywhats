@@ -3,26 +3,26 @@
 // Configuração dos módulos
 const express = require('express');
 const bodyParser = require('body-parser')
-const sistem = express();
+const sis = express();
 const cors = require('cors');
 const hostname = process.env.HOST || 'localhost';
 const port = process.env.PORT || 9000;
 const sistem = require("./routes/sistem");
 const Sessions = require("./sessions.js");
-sistem.use(cors());
-sistem.use(express.json());
+sis.use(cors());
+sis.use(express.json());
 //
 // Configuração
 // Body Parser
-sistem.use(bodyParser.json());
-sistem.use(bodyParser.urlencoded({
+sis.use(bodyParser.json());
+sis.use(bodyParser.urlencoded({
     extended: true
 }));
 //
 sistem.use("/sistem", sistem);
 //
 //http
-sistem.listen(port, hostname, () => {
+sis.listen(port, hostname, () => {
     console.log("Sistema rodando em : http://" + hostname + ":" + port);
 });
 // End the server sistema
