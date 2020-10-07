@@ -41,10 +41,18 @@ router.get("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
+function soNumero(str) {
+    str = str.toString();
+    return str.replace(/\D+/g, "");
+}
+//
 function apenasNumeros(string) {
-    var numsStr = string.replace(/[^0-9]/g, '');
+    var numsStr = string.replace(/\D+/g, "");
     return parseInt(numsStr);
 }
+//
+//
+// ------------------------------------------------------------------------------------------------------- //
 //
 //
 router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
