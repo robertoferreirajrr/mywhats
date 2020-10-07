@@ -1,5 +1,8 @@
 const express = require("express");
 const fetch = require('node-fetch');
+const multer = require('multer');
+//const upload = multer({ dest: 'public/uploads/' });
+const upload = multer({})
 const router = express.Router();
 //
 //
@@ -129,6 +132,13 @@ router.post("/sendTextGrupo", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
+var cpUpload = upload.fields([{
+    name: 'sendImageMassaContato',
+    maxCount: 1
+}, {
+    name: 'FileImageMassa',
+    maxCount: 1
+}]);
 router.post("/sendImage", upload.single('fileimg'), async (req, res, next) => {
     //
 

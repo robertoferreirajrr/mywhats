@@ -16,7 +16,7 @@ function soNumeros(string) {
 }
 //
 //
-router.post("/start/:SessionName", async (req, res, next) => {
+router.get("/start/:SessionName", async (req, res, next) => {
     //
     var session = await Sessions.start(req.params.SessionName);
     if (["CONNECTED"].includes(session.state)) {
@@ -51,7 +51,7 @@ router.post("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.post("/QRCode/:SessionName/:View", async (req, res, next) => {
+router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
     //
     var session = Sessions.getSession(req.params.SessionName);
     if (session != false) {
