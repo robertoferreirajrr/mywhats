@@ -109,12 +109,6 @@ router.post("/sendText", async (req, res, next) => {
             phonefull: "",
             msg: "Hello World"
         })
-    }).then(res => {
-        console.log(res.ok);
-        console.log(res.status);
-        console.log(res.statusText);
-        console.log(res.headers.raw());
-        console.log(res.headers.get('content-type'));
     });
     const content = await response.json();
     console.log(content);
