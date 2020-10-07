@@ -12,6 +12,7 @@ const cors = require('cors');
 const admin = require("./routes/admin");
 const pages = require("./routes/pages");
 const monitor = require("./routes/monitor");
+const sistem = require("./routes/sistem");
 const api = require("./routes/api");
 const ssl = process.env.HTTPS || false;
 const hostname = process.env.HOST || '0.0.0.0';
@@ -47,18 +48,19 @@ web.use(express.static(path.join(__dirname, "public")));
 web.use("/admin", admin);
 web.use("/pages", pages);
 web.use("/monitor", monitor);
+web.use("/sistem", sistem);
 web.use("/api", api);
 //
 //
 // Start the server web
 if (ssl === true) { //with ssl
     https.createServer({
-            key: fs.readFileSync(ssl_key, 'utf8'),
-            cert: fs.readFileSync(ssl_cert, 'utf8')
-        },
+        key: fs.readFileSync(ssl_key, 'utf8'),
+        cert: fs.readFileSync(ssl_cert, 'utf8')
+    },
         web).listen(port, hostname, () => {
-        console.log("Web rodando na porta :" + port);
-    });
+            console.log("Web rodando na porta :" + port);
+        });
 } else { //http
     web.listen(port, hostname, () => {
         console.log("Web rodando na porta:" + port);
