@@ -7,7 +7,7 @@ const router = express.Router();
 //
 //
 //
-sistem.get("/sendText", async (req, res, next) => {
+router.get("/sendText", async (req, res, next) => {
     const response = await fetch("http://localhost:9000/sistem/sendText", {
         method: 'POST',
         headers: {
