@@ -48,7 +48,7 @@ web.use(express.static(path.join(__dirname, "public")));
 web.use("/admin", admin);
 web.use("/pages", pages);
 web.use("/monitor", monitor);
-web.use("/sistem", sistem);
+//web.use("/sistem", sistem);
 web.use("/api", api);
 //
 //

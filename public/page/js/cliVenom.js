@@ -1,7 +1,7 @@
 function startVenon(SessionName) {
     $.ajax({
         method: "POST",
-        url: '/sistem/start',
+        url: '/api/Start',
         data: { SessionName: SessionName },
         dataType: 'json',
         beforeSend: function () {
@@ -22,24 +22,30 @@ function startVenon(SessionName) {
                 $("#startVenom").html("Conectado");
                 $("#statusVenon").html("On-line");
             } else if (response.result == "error" && response.state == "UNPAIRED" || response.state == "UNPAIRED_IDLE") {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
-                $("#startVenom").html("Não Conectado");
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Erro">');
+                $("#startVenom").html("Desonectado");
                 $("#statusVenon").html("Off-line");
             } else if (response.result == "success" && response.state == "CLOSED") {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Erro">');
                 $("#startVenom").html("Saindo...");
                 $("#statusVenon").html("Off-line");
             } else {
-
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Erro">');
+                $("#startVenom").html("Desonectado");
+                $("#statusVenon").html("Off-line");
             }
         }
+    }).fail(function (jqXHR, textStatus, msg) {
+        $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
+        $("#startVenom").html("Desonectado");
+        $("#statusVenon").html("Off-line");
     });
 }
 //
 function statusVenon(SessionName) {
     $.ajax({
         method: "POST",
-        url: '/sistem/status/',
+        url: '/api/Status',
         data: {
             SessionName: SessionName
         },
@@ -49,7 +55,7 @@ function statusVenon(SessionName) {
         },
         success: function (response) {
             if (response.result == "success" && response.state == "CLOSED") {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Sucesso">');
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Erro">');
                 $("#statusVenon").html("Off-line");
             } else {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="120px" alt="Sucesso">');
@@ -62,7 +68,7 @@ function statusVenon(SessionName) {
 function closeVenon(SessionName) {
     $.ajax({
         method: "POST",
-        url: '/sistem/close/',
+        url: '/api/Close/',
         data: {
             SessionName: SessionName
         },
@@ -72,20 +78,24 @@ function closeVenon(SessionName) {
         },
         success: function (response) {
             if (response.result == "success" && response.state == "CLOSED") {
-                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Sucesso">');
+                $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="150px" alt="Erro">');
                 $("#startVenom").html("Saindo...");
             } else {
                 $("#qrcodeVenon").html('<img src="/images/whatsapp-logo.png" class="img-fluid" width="150px" alt="Sucesso">');
                 $("#startVenom").html(response.state);
             }
         }
+    }).fail(function (jqXHR, textStatus, msg) {
+        $("#qrcodeVenon").html('<img src="/images/whatsapp-logo-off.png" class="img-fluid" width="120px" alt="Erro">');
+        $("#startVenom").html("Desonectado");
+        $("#statusVenon").html("Off-line");
     });
 }
 //
 function qrcodeVenon(SessionName) {
     $.ajax({
         method: "POST",
-        url: '/sistem/QRCode/',
+        url: '/api/QRCode/',
         data: {
             SessionName: SessionName,
             View: false

@@ -22,9 +22,9 @@ function soNumeros(string) {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/start/:SessionName", async (req, res, next) => {
+router.post("/Start", async (req, res, next) => {
     //
-    const response = await fetch("http://localhost:9000/sistem/sendText", {
+    const response = await fetch("http://localhost:9000/sistem/Start", {
         method: 'POST',
         //body: form,
         headers: {
@@ -32,9 +32,7 @@ router.get("/start/:SessionName", async (req, res, next) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            SessionName: "629b2aba-0e9f-493b-b4cd-95a0d9dc8990",
-            phonefull: "",
-            msg: "Hello World"
+            SessionName: req.body.SessionName
         })
     });
     const content = await response.json();
@@ -48,9 +46,9 @@ router.get("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
+router.post("/QRCode", async (req, res, next) => {
     //
-    const response = await fetch("http://localhost:9000/sistem/sendText", {
+    const response = await fetch("http://localhost:9000/sistem/QRCode", {
         method: 'POST',
         //body: form,
         headers: {
@@ -58,13 +56,11 @@ router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            SessionName: "629b2aba-0e9f-493b-b4cd-95a0d9dc8990",
-            phonefull: "",
-            msg: "Hello World"
+            SessionName: req.body.SessionName,
+            View: req.body.View
         })
     });
     const content = await response.json();
-    console.log(content);
     res.json(content);
     next();
     //
@@ -83,13 +79,12 @@ router.post("/sendText", async (req, res, next) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            SessionName: "629b2aba-0e9f-493b-b4cd-95a0d9dc8990",
-            phonefull: "",
-            msg: "Hello World"
+            SessionName: req.body.SessionName,
+            phonefull: apenasNumeros(req.body.phonefull),
+            msg: req.body.msg
         })
     });
     const content = await response.json();
-    console.log(content);
     res.json(content);
     next();
 });

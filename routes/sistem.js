@@ -16,7 +16,7 @@ function soNumeros(string) {
 }
 //
 //
-router.post("/start", async (req, res, next) => {
+router.post("/Start", async (req, res, next) => {
     //
     var session = await Sessions.start(req.body.SessionName);
     if (["CONNECTED"].includes(session.state)) {
@@ -104,7 +104,7 @@ router.post("/QRCode", async (req, res, next) => {
 router.post("/sendText", async (req, res, next) => {
     var result = await Sessions.sendText(
         req.body.SessionName,
-        apenasNumeros(req.body.phonefull),
+        req.body.phonefull,
         req.body.msg
     );
     //console.log(result);
