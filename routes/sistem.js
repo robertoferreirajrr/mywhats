@@ -6,7 +6,7 @@ const router = express.Router();
 const Sessions = require("../sessions.js");
 //
 function apenasNumeros(str) {
-    str = str.toString();
+    str = typeof str.toString();
     return str.replace(/\D+/g, "");
 }
 //

@@ -1,4 +1,5 @@
 const express = require("express");
+const request = require('request');
 const fetch = require('node-fetch');
 const multer = require('multer');
 //const upload = multer({ dest: 'public/uploads/' });
@@ -95,9 +96,10 @@ router.post("/QRCode/:SessionName/:View", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/sendText", async (req, res, next) => {
+router.post("/sendText", async (req, res, next) => {
     const response = await fetch("http://localhost:9000/sistem/sendText", {
         method: 'POST',
+        //body: form,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -107,6 +109,12 @@ router.get("/sendText", async (req, res, next) => {
             phonefull: "",
             msg: "Hello World"
         })
+    }).then(res => {
+        console.log(res.ok);
+        console.log(res.status);
+        console.log(res.statusText);
+        console.log(res.headers.raw());
+        console.log(res.headers.get('content-type'));
     });
     const content = await response.json();
     console.log(content);
