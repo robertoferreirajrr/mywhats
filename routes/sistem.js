@@ -16,9 +16,9 @@ function soNumeros(string) {
 }
 //
 //
-router.get("/start/:SessionName", async (req, res, next) => {
+router.post("/start", async (req, res, next) => {
     //
-    var session = await Sessions.start(req.params.SessionName);
+    var session = await Sessions.start(req.body.SessionName);
     if (["CONNECTED"].includes(session.state)) {
         res.status(200).json({
             result: 'success',
@@ -51,12 +51,12 @@ router.get("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
+router.post("/QRCode", async (req, res, next) => {
     //
-    var session = Sessions.getSession(req.params.SessionName);
+    var session = Sessions.getSession(req.body.SessionName);
     if (session != false) {
         if (session.status != 'isLogged') {
-            if (req.params.View == 'True' || req.params.View == 'true') {
+            if (req.body.View == 'True' || req.body.View == 'true') {
                 session.qrcode = session.qrcode.replace('data:image/png;base64,', '');
                 const imageBuffer = Buffer.from(session.qrcode, 'base64');
                 res.writeHead(200, {
