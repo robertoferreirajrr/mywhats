@@ -6,7 +6,7 @@ const router = express.Router();
 const Sessions = require("../sessions.js");
 //
 //
-router.get("/start/:SessionName", async (req, res, next) => {
+router.post("/start/:SessionName", async (req, res, next) => {
     //
     var session = await Sessions.start(req.params.SessionName);
     if (["CONNECTED"].includes(session.state)) {
@@ -41,12 +41,12 @@ router.get("/start/:SessionName", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-function soNumero(str) {
+function apenasNumeros(str) {
     str = str.toString();
     return str.replace(/\D+/g, "");
 }
 //
-function apenasNumeros(string) {
+function soNumeros(string) {
     var numsStr = string.replace(/\D+/g, "");
     return parseInt(numsStr);
 }
@@ -55,7 +55,7 @@ function apenasNumeros(string) {
 // ------------------------------------------------------------------------------------------------------- //
 //
 //
-router.get("/QRCode/:SessionName/:View", async (req, res, next) => {
+router.post("/QRCode/:SessionName/:View", async (req, res, next) => {
     //
     var session = Sessions.getSession(req.params.SessionName);
     if (session != false) {
