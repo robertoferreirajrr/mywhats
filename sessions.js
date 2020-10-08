@@ -291,7 +291,7 @@ module.exports = class Sessions {
     //
     //
     static async sendText(sessionName, number, text) {
-        console.log("- Enviando menssagem!");
+        console.log("- Enviando menssagem de texto!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -339,7 +339,7 @@ module.exports = class Sessions {
     } //sendText
     //
     static async sendTextMult(sessionName, base64Data, mimetype, originalname, msgtxtmass) {
-        console.log("- Enviando menssagem!");
+        console.log("- Enviando menssagem texto lista de conatos!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -357,31 +357,33 @@ module.exports = class Sessions {
                     //console.log(arrayNumbers[i]);
                     var number = arrayNumbers[i];
                     //
-                    var resultsendTextMult = await session.client.then(async (client) => {
-                        // Send basic text
-                        console.log(number);
-                        return await client.sendText(number + '@c.us', msgtxtmass).then((result) => {
-                            //console.log(result); //return object success
-                            return {
-                                erro: false,
-                                status: 'OK',
-                                number: number,
-                                menssagem: 'Menssagem envida com sucesso'
-                            };
-                        }).catch((erro) => {
-                            //console.error(erro); //return object error
-                            return {
-                                erro: true,
-                                status: '404',
-                                number: number,
-                                menssagem: 'Erro ao enviar menssagem'
-                            };
-                        });
+                    if (number != null || number != '') {
+                        //
+                        var resultsendTextMult = await session.client.then(async (client) => {
+                            // Send basic text
+                            return await client.sendText(number + '@c.us', msgtxtmass).then((result) => {
+                                //console.log(result); //return object success
+                                return {
+                                    erro: false,
+                                    status: 'OK',
+                                    number: number,
+                                    menssagem: 'Menssagem envida com sucesso'
+                                };
+                            }).catch((erro) => {
+                                //console.error(erro); //return object error
+                                return {
+                                    erro: true,
+                                    status: '404',
+                                    number: number,
+                                    menssagem: 'Erro ao enviar menssagem'
+                                };
+                            });
 
-                    });
-                    //return resultsendTextMult;
-                    //
-                    obj['sendResult'].push(resultsendTextMult);
+                        });
+                        //return resultsendTextMult;
+                        //
+                        obj['sendResult'].push(resultsendTextMult);
+                    }
                 }
                 //
                 jsonStr = JSON.stringify(obj);
@@ -418,7 +420,7 @@ module.exports = class Sessions {
     } //sendTextMult
     //
     static async sendTextGroup(sessionName, number, text) {
-        console.log("- Enviando menssagem!");
+        console.log("- Enviando menssagem de pexto para grupo!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -470,6 +472,7 @@ module.exports = class Sessions {
     //
     //
     static async sendImage(sessionName, number, base64Data, fileName, caption) {
+        console.log("- Enviando imagem!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -518,6 +521,7 @@ module.exports = class Sessions {
     } //sendImage
     //
     static async sendImageMult(sessionName, base64DataContato, originalnameContato, base64DataImagem, originalnameImagem, msgimgmass) {
+        console.log("- Enviando imagem lista de contatos!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -542,30 +546,33 @@ module.exports = class Sessions {
                         //console.log(arrayNumbers[i]);
                         var number = arrayNumbers[i];
                         //
-                        var resultsendTextMult = await session.client.then(async (client) => {
-                            // Send basic text
-                            return await client.sendImage(number + '@c.us', filePathImagem, originalnameImagem, msgimgmass).then((result) => {
-                                //console.log(result); //return object success
-                                return {
-                                    erro: false,
-                                    status: 'OK',
-                                    number: number,
-                                    menssagem: 'Menssagem envida com sucesso'
-                                };
-                            }).catch((erro) => {
-                                //console.error(erro); //return object error
-                                return {
-                                    erro: true,
-                                    status: '404',
-                                    number: number,
-                                    menssagem: 'Erro ao enviar menssagem'
-                                };
-                            });
+                        if (number != null || number != '') {
+                            //
+                            var resultsendTextMult = await session.client.then(async (client) => {
+                                // Send basic text
+                                return await client.sendImage(number + '@c.us', filePathImagem, originalnameImagem, msgimgmass).then((result) => {
+                                    //console.log(result); //return object success
+                                    return {
+                                        erro: false,
+                                        status: 'OK',
+                                        number: number,
+                                        menssagem: 'Menssagem envida com sucesso'
+                                    };
+                                }).catch((erro) => {
+                                    //console.error(erro); //return object error
+                                    return {
+                                        erro: true,
+                                        status: '404',
+                                        number: number,
+                                        menssagem: 'Erro ao enviar menssagem'
+                                    };
+                                });
 
-                        });
-                        //return resultsendTextMult;
-                        //
-                        obj['sendResult'].push(resultsendTextMult);
+                            });
+                            //return resultsendTextMult;
+                            //
+                            obj['sendResult'].push(resultsendTextMult);
+                        }
                     }
                     //
                     jsonStr = JSON.stringify(obj);
@@ -605,6 +612,7 @@ module.exports = class Sessions {
     } //sendImage
     //
     static async sendImageGrup(sessionName, number, base64Data, fileName, caption) {
+        console.log("- Enviando imagem para grupo!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -656,6 +664,7 @@ module.exports = class Sessions {
     //
     //
     static async sendFile(sessionName, number, base64Data, fileName, caption) {
+        console.log("- Enviando documento!");
         var session = Sessions.getSession(sessionName);
         if (session) {
             if (session.state == "CONNECTED") {
@@ -718,9 +727,7 @@ module.exports = class Sessions {
                         return erro;
                     });
                 });
-                return {
-                    resultgetBlockList
-                };
+                return resultgetBlockList;
                 //return { result: "success" };
             } else {
                 if (session.state == "STARTING") {
@@ -1290,21 +1297,24 @@ module.exports = class Sessions {
                     //console.log(arrayNumbers[i]);
                     var numero = arrayNumbers[i];
                     //
-                    var resultcheckNumberStatus = await session.client.then(async client => {
-                        return await client.checkNumberStatus(numero + '@c.us').then((result) => {
-                            //console.log('Result: ', result); //return object success
-                            return result;
-                        }).catch((erro) => {
-                            //console.error('Error when sending: ', erro); //return object error
-                            return erro;
+                    if (numero != null || numero != '') {
+                        //
+                        var resultcheckNumberStatus = await session.client.then(async client => {
+                            return await client.checkNumberStatus(numero + '@c.us').then((result) => {
+                                //console.log('Result: ', result); //return object success
+                                return result;
+                            }).catch((erro) => {
+                                //console.error('Error when sending: ', erro); //return object error
+                                return erro;
+                            });
                         });
-                    });
-                    //
-                    var checkNumberStatus = resultcheckNumberStatus;
-                    checkNumberStatus['number'] = numero;
-                    //return checkNumberStatus;
+                        //
+                        var checkNumberStatus = resultcheckNumberStatus;
+                        checkNumberStatus['number'] = numero;
+                        //return checkNumberStatus;
 
-                    obj['sendResult'].push(checkNumberStatus);
+                        obj['sendResult'].push(checkNumberStatus);
+                    }
                 }
                 //
                 jsonStr = JSON.stringify(obj);

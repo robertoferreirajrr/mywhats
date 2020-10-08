@@ -48,6 +48,8 @@ web.use(express.static(path.join(__dirname, "public")));
 web.use("/admin", admin);
 web.use("/pages", pages);
 web.use("/sistem", sistem);
+web.use("/monitor", monitor);
+//web.use("/api", api);
 //
 // Start the server web
 if (ssl === true) { //with ssl

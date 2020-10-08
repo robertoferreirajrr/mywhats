@@ -200,8 +200,8 @@ router.get("/sendFile", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getBlockList", async (req, res, next) => {
-    var result = await Sessions.getBlockList(req.params.SessionName);
+router.post("/getBlockList", async (req, res, next) => {
+    var result = await Sessions.getBlockList(req.body.SessionName);
     res.json(result);
 }); //getBlockList
 //
@@ -283,7 +283,7 @@ router.get("/getChat", async (req, res, next) => {
 router.post("/checkNumberStatus", async (req, res, next) => {
     var result = await Sessions.checkNumberStatus(
         req.body.SessionName,
-        apenasNumeros(req.body.phonefull)
+        soNumeros(req.body.phonefull)
     );
     res.json(result);
 }); //checkNumberStatus
