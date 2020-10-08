@@ -1,6 +1,5 @@
 //
 // https://expressjs.com/pt-br/advanced/best-practice-security.html
-// Teste: 630076ce4b5f8ff33569f56d54097dfdbb2ceb2a
 // Configuração dos módulos
 //
 const express = require('express');
