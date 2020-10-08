@@ -208,8 +208,8 @@ router.post("/getBlockList", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getAllContacts", async (req, res, next) => {
-    var result = await Sessions.getAllContacts(req.params.SessionName);
+router.post("/getAllContacts", async (req, res, next) => {
+    var result = await Sessions.getAllContacts(req.body.SessionName);
     res.json(result);
 }); //getAllContacts
 //
