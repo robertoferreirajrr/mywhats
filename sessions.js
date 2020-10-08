@@ -359,6 +359,7 @@ module.exports = class Sessions {
                     //
                     var resultsendTextMult = await session.client.then(async (client) => {
                         // Send basic text
+                        console.log(number);
                         return await client.sendText(number + '@c.us', msgtxtmass).then((result) => {
                             //console.log(result); //return object success
                             return {
