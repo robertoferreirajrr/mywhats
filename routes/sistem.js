@@ -188,11 +188,11 @@ router.post("/sendImageGrupo", upload.single('FileImageGrupo'), async (req, res,
 //
 router.get("/sendFile", async (req, res, next) => {
     var result = await Sessions.sendFile(
-        req.params.SessionName,
-        req.params.number,
-        req.params.base64Data,
-        req.params.fileName,
-        req.params.caption
+        req.body.SessionName,
+        req.body.number,
+        req.body.base64Data,
+        req.body.fileName,
+        req.body.caption
     );
     res.json(result);
 }); //sendFile
@@ -216,64 +216,64 @@ router.post("/getAllContacts", async (req, res, next) => {
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/loadAndGetAllMessagesInChat", async (req, res, next) => {
-    var result = await Sessions.loadAndGetAllMessagesInChat(req.params.SessionName, req.params.chatId);
+router.post("/loadAndGetAllMessagesInChat", async (req, res, next) => {
+    var result = await Sessions.loadAndGetAllMessagesInChat(req.body.SessionName, req.body.phonefull);
     res.json(result);
 }); //loadAndGetAllMessagesInChat
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getStatus", async (req, res, next) => {
-    var result = await Sessions.getStatus(req.params.SessionName, req.params.contactId);
+router.post("/getStatus", async (req, res, next) => {
+    var result = await Sessions.getStatus(req.body.SessionName, req.body.phonefull);
     res.json(result);
 }); //getStatus
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getNumberProfile", async (req, res, next) => {
-    var result = await Sessions.getNumberProfile(req.params.SessionName, req.params.contactId);
+router.post("/getNumberProfile", async (req, res, next) => {
+    var result = await Sessions.getNumberProfile(req.body.SessionName, req.body.phonefull);
     res.json(result);
 }); //getNumberProfile
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getAllUnreadMessages", async (req, res, next) => {
-    var result = await Sessions.getAllUnreadMessages(req.params.SessionName);
+router.post("/getAllUnreadMessages", async (req, res, next) => {
+    var result = await Sessions.getAllUnreadMessages(req.body.SessionName);
     res.json(result);
 }); //getAllUnreadMessages
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getAllChats", async (req, res, next) => {
-    var result = await Sessions.getAllChats(req.params.SessionName);
+router.post("/getAllChats", async (req, res, next) => {
+    var result = await Sessions.getAllChats(req.body.SessionName);
     res.json(result);
 }); //getAllChats
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getAllGroups/:SessionName", async (req, res, next) => {
-    var result = await Sessions.getAllGroups(req.params.SessionName);
+router.post("/getAllGroups/:SessionName", async (req, res, next) => {
+    var result = await Sessions.getAllGroups(req.body.SessionName);
     res.json(result);
 }); //getAllGroups
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getProfilePicFromServer", async (req, res, next) => {
-    var result = await Sessions.getProfilePicFromServer(req.params.SessionName, req.params.chatId);
+router.post("/getProfilePicFromServer", async (req, res, next) => {
+    var result = await Sessions.getProfilePicFromServer(req.body.SessionName, req.body.phonefull);
     res.json(result);
 }); //getProfilePicFromServer
 //
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/getChat", async (req, res, next) => {
-    var result = await Sessions.getChat(req.params.SessionName);
+router.post("/getChat", async (req, res, next) => {
+    var result = await Sessions.getChat(req.body.SessionName);
     res.json(result);
 }); //getChat
 //
@@ -303,8 +303,8 @@ router.post("/checkNumberStatusMult", upload.single('checkNumberStatusMassaConta
 // ------------------------------------------------------------------------------------------------//
 //
 //
-router.get("/close/:SessionName", async (req, res, next) => {
-    var result = await Sessions.closeSession(req.params.SessionName);
+router.post("/Close", async (req, res, next) => {
+    var result = await Sessions.closeSession(req.body.SessionName);
     res.json(result);
 }); //close
 //
