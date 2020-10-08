@@ -8,7 +8,7 @@ const sis = express();
 const cors = require('cors');
 const hostname = process.env.HOST || 'localhost';
 const port = process.env.PORT || 9000;
-const sistem = require("./routes/sistem");
+const api = require("./routes/api");
 const Sessions = require("./sessions.js");
 sis.use(cors());
 sis.use(express.json());
@@ -20,10 +20,10 @@ sis.use(bodyParser.urlencoded({
     extended: true
 }));
 //
-sis.use("/sistem", sistem);
+sis.use("/api", api);
 //
 //http
-sis.listen(port, hostname, () => {
+sis.listen(port, () => {
     console.log("Sistema rodando em : http://" + hostname + ":" + port);
 });
 // End the server sistema

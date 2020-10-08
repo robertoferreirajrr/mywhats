@@ -47,20 +47,17 @@ web.use(express.static(path.join(__dirname, "public")));
 // Rotas
 web.use("/admin", admin);
 web.use("/pages", pages);
-web.use("/monitor", monitor);
-//web.use("/sistem", sistem);
-web.use("/api", api);
-//
+web.use("/sistem", sistem);
 //
 // Start the server web
 if (ssl === true) { //with ssl
     https.createServer({
-        key: fs.readFileSync(ssl_key, 'utf8'),
-        cert: fs.readFileSync(ssl_cert, 'utf8')
-    },
+            key: fs.readFileSync(ssl_key, 'utf8'),
+            cert: fs.readFileSync(ssl_cert, 'utf8')
+        },
         web).listen(port, hostname, () => {
-            console.log("Web rodando na porta :" + port);
-        });
+        console.log("Web rodando na porta :" + port);
+    });
 } else { //http
     web.listen(port, hostname, () => {
         console.log("Web rodando na porta:" + port);

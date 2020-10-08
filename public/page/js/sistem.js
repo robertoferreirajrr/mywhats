@@ -221,7 +221,7 @@ $('document').ready(function () {
             var data = $("#sendText-form").serialize();
             $.ajax({
                 type: 'POST',
-                url: '/api/sendText',
+                url: '/sistem/sendText',
                 data: data,
                 dataType: 'json',
                 beforeSend: function () {
