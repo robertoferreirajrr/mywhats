@@ -158,6 +158,7 @@ module.exports = class Sessions {
             useChrome: false, // If false will use Chromium instance
             debug: false, // Opens a debug session
             logQR: false, // Logs QR automatically in terminal
+            browserWS: '', // If u want to use browserWSEndpoint
             //browserArgs: [''], // Parameters to be added into the chrome browser instance
             browserArgs: [
                 '--log-level=3',
