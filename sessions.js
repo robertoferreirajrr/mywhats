@@ -298,7 +298,7 @@ module.exports = class Sessions {
             if (session.state == "CONNECTED") {
                 var resultSendText = await session.client.then(async client => {
                     // Send basic text
-                    return await client.sendText(number + '@c.us', text).then((result) => {
+                    return await client.sendText(number.replace(/[-+()\s]/g, '') + '@c.us', text).then((result) => {
                         //console.log("Result: ", result); //return object success
                         //return { result: "success", state: session.state, message: "Sucesso ao enviar menssagem" };
                         return (result);

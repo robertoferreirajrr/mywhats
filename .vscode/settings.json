@@ -1,7 +1,7 @@
 {
     "material-icon-theme.folders.theme": "specific", // Tipo dos iconens dos arquivos
     "material-icon-theme.folders.color": "#ef5350", // Cor dos icone das pastas
-    "window.zoomLevel": -2, // Zomm screem vs-code
+    "window.zoomLevel": 0, // Zomm screem vs-code
     "workbench.editor.showTabs": true,
     "workbench.editor.enablePreview": false,
     "editor.formatOnSave": true, // Formata o código sempre que salvamos
