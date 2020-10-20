@@ -222,7 +222,7 @@ module.exports = class Sessions {
             client.onMessage((message) => {
                 if (message.body === 'Oi' && message.isGroupMsg === false) {
                     client
-                        .sendText(message.from, '🕷 Welcome Venom Bot 🕸')
+                        .sendText(message.from, '🕷 Welcome Venom Bot! 🕸')
                         .then((result) => {
                             console.log('Result', result); //return object success
                         })
